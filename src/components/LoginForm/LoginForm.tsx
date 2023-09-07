@@ -8,7 +8,7 @@ const LoginForm: FC = () => {
         <div className="form">
             <div className="form__content">
                 <h1 className="form__title">User Login</h1>
-                <form action="" className="form__form-box form-box">
+                <form action="src/components/LoginForm/LoginForm" className="form__form-box form-box">
                     <div className="form-box__input-box input-box">
                         <label className="input-box__icon" htmlFor="username">
                             <img src="/img/icon-user.svg" alt="user"/>
@@ -36,7 +36,7 @@ const LoginForm: FC = () => {
                     </div>
                 </form>
                 <p className="form__subtitle">
-                    <a href="" className="form__link">Registration</a>
+                    <a href="src/components/LoginForm/LoginForm" className="form__link">Registration</a>
                 </p>
             </div>
 

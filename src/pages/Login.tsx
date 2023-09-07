@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import LoginForm from "../components/LoginForm";
+import LoginForm from "../components/LoginForm/LoginForm";
 
 const Login: FC = () => {
 
