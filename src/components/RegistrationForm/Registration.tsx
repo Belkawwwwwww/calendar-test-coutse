@@ -1,7 +1,13 @@
 import React, {FC} from 'react';
 import styles from "../LoginForm/LoginForm.module.sass";
+import {Link, useNavigate} from "react-router-dom";
+import {RouteNames} from "../../router";
+
 
 const Registration: FC = () => {
+
+    const router = useNavigate()
+
     return (
         <div className={styles.form}>
             <div className={styles.content}>
@@ -44,9 +50,14 @@ const Registration: FC = () => {
                         <button type="submit">Register</button>
                     </div>
                 </form>
-                <p className={styles.subtitle}>
-                    <a href="src/components/LoginForm/LoginForm" className={styles.link}>Login</a>
-                </p>
+                <div className={styles.subtitle}>
+                    <Link
+                        className={styles.link}
+                        to={'/login'}
+                    >
+                        Log In
+                    </Link>
+                </div>
             </div>
 
         </div>

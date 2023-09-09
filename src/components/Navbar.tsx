@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {NavLink} from "react-router-dom";
-import {RouteNames} from "../routes";
+import {RouteNames} from "../router";
 
 const Navbar: FC = () => {
     return (

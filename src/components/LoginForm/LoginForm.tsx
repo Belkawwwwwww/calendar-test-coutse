@@ -1,7 +1,11 @@
-import React, {FC, useState} from 'react';
+import React, {FC} from 'react';
 import styles from "./LoginForm.module.sass"
+import {Link, useNavigate} from "react-router-dom";
+import {RouteNames} from "../../router";
 
 const LoginForm: FC = () => {
+
+    const router = useNavigate()
 
 
     return (
@@ -33,12 +37,24 @@ const LoginForm: FC = () => {
                         />
                     </div>
                     <div className={styles.btnBox}>
-                        <button type="submit">Sign In</button>
+                        <button
+
+                            type="submit"
+                        >
+                            Sign In
+                        </button>
                     </div>
                 </form>
-                <p className={styles.subtitle}>
-                    <a href="src/components/LoginForm/LoginForm" className={styles.link}>Registration</a>
-                </p>
+                <div className={styles.subtitle}>
+                    <Link
+                        className={styles.link}
+                        to={'/register'}
+                    >
+                        Registration
+                    </Link>
+                </div>
+
+
             </div>
 
         </div>
