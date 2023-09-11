@@ -41,8 +41,8 @@ const Registration: FC = () => {
                         </label>
                         <input
                             type="password"
-                            name="password"
-                            id="password"
+                            name="passwordConfirm"
+                            id="passwordConfirm"
                             placeholder="Confirm Password"
                         />
                     </div>

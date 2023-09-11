@@ -3,7 +3,6 @@ import Login from "../pages/Login";
 import ChoiceBoard from "../pages/ChoiceBoard";
 import Board from "../pages/Board";
 import Registration from "../components/RegistrationForm/Registration";
-import Home from "../pages/Home";
 
 
 export interface IRoute {
