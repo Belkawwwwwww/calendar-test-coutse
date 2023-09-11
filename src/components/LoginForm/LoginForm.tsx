@@ -1,11 +1,17 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import styles from "./LoginForm.module.sass"
 import {Link, useNavigate} from "react-router-dom";
 import {RouteNames} from "../../router";
 
 const LoginForm: FC = () => {
 
-    const router = useNavigate()
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [usernameDirty, setUsernameDirty] = useState(false)
+    const [passwordDirty, setPasswordDirty]= useState(false)
+    const [usernameError, setUsernameError] = useState('Не может быть пустым')
+    const [passwordError, setPasswordError] = useState('Не может быть пустым')
+
 
 
     return (
@@ -18,10 +24,10 @@ const LoginForm: FC = () => {
                         <label className={styles.icon} htmlFor="username">
                             <img src="/img/icon-user.svg" alt="user"/>
                         </label>
+                        {(usernameDirty && usernameError) && <div style={{color: 'red'}}>{usernameError}</div>}
                         <input
                             type="text"
                             name="username"
-                            id="username"
                             placeholder="Username"
                         />
                     </div>
@@ -29,10 +35,10 @@ const LoginForm: FC = () => {
                         <label htmlFor="password" className={styles.icon}>
                             <img src="/img/icon-password.svg" alt="password"/>
                         </label>
+                        {(passwordDirty && passwordError) && <div style={{color: 'red'}}>{passwordError}</div>}
                         <input
                             type="password"
                             name="password"
-                            id="password"
                             placeholder="Password"
                         />
                     </div>
