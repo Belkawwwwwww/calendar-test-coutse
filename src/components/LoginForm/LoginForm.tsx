@@ -1,12 +1,10 @@
 import React, {FC, useState} from 'react';
 import styles from "./LoginForm.module.sass"
-import {Link, useNavigate} from "react-router-dom";
-import {RouteNames} from "../../router";
-import {rules} from "../../utils/rules";
-import {useDispatch} from "react-redux";
-import login from "../../pages/Login";
+import {Link} from "react-router-dom";
 import {useAppSelector} from "../../hooks/redux";
 import {useActions} from "../../hooks/useActions";
+
+
 const LoginForm: FC = () => {
 
     const {login} = useActions()
@@ -14,7 +12,8 @@ const LoginForm: FC = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    const submit = () => {
+    const submit = (e: any) => {
+        e.preventDefault();
         login(username, password)
     }
 
@@ -27,10 +26,11 @@ const LoginForm: FC = () => {
                     className={styles.btnBox}
                     onSubmit={submit}
                 >
+
+                    <h1 className={styles.title}>User Login</h1>
                     {error && <div style={{color: 'red'}}>
                         {error}
                     </div>}
-                    <h1 className={styles.title}>User Login</h1>
                     <div className={styles.inputBox}>
                         <label className={styles.icon} htmlFor="username">
                             <img src="/img/icon-user.svg" alt="user"/>

@@ -11,7 +11,6 @@ export const AuthActionCreators = {
     login: (username: string, password: string) => async (dispatch: AppDispatch) => {
         try {
             dispatch(AuthActionCreators.setIsLoading(true))
-            setTimeout(async () => {
                 const response = await axios.get<IUser[]>('./users.json')
                 const mockUsers = response.data.find(user => user.username === username && user.password === password)
                 if (mockUsers) {
@@ -23,7 +22,7 @@ export const AuthActionCreators = {
                     dispatch(AuthActionCreators.setError('Некорректный логин или пароль'))
                 }
                 dispatch(AuthActionCreators.setIsLoading(false))
-            }, 1000)
+
         } catch (e) {
             dispatch(AuthActionCreators.setError('Произошла ошибка при логине'))
         }
