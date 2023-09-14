@@ -1,5 +1,11 @@
 import {IUser} from "../../../models/IUser";
-import {AuthActionsEnum, SetAuthAction, SetErrorAction, SetIsLoadingAction, SetUserAction} from "./type";
+import {
+    AuthActionsEnum,
+    SetAuthAction,
+    SetErrorAction,
+    SetIsLoadingAction,
+    SetUserAction
+} from "./type";
 import {AppDispatch} from "../../index";
 import axios from "axios";
 
@@ -32,5 +38,25 @@ export const AuthActionCreators = {
         localStorage.removeItem('username')
         dispatch(AuthActionCreators.setUser({} as IUser))
         dispatch(AuthActionCreators.setIsAuth(false))
+    },
+    register: (username: string, password: string, passwordConfirm: string) => async (dispatch: AppDispatch) => {
+        try {
+            dispatch(AuthActionCreators.setIsLoading(true));
+            const response = await axios.get<IUser[]>('./users.json');
+            const mockUsers = response.data.find(user => user.username === username)
+            if (mockUsers){
+                dispatch(AuthActionCreators.setError('Такой логин уже существует'))
+
+            } else if (password !== passwordConfirm){
+                dispatch(AuthActionCreators.setError('Пароли совпадают'))
+
+            } else {
+                localStorage.setItem('auth', 'true');
+                dispatch(AuthActionCreators.setIsAuth(true))
+            }
+            dispatch(AuthActionCreators.setIsLoading(false))
+        } catch (e) {
+            dispatch(AuthActionCreators.setError('Произошла ошибка при регистрации'))
+        }
     }
 }

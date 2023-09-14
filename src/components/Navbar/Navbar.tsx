@@ -1,5 +1,4 @@
 import React, {FC} from 'react';
-import {NavLink, useNavigate} from "react-router-dom";
 import {RouteNames} from "../../router";
 import styles from "./Navbar.module.sass"
 import {useAppSelector} from "../../hooks/redux";
@@ -7,11 +6,8 @@ import {useActions} from "../../hooks/useActions";
 
 const Navbar: FC = () => {
 
-    const router = useNavigate()
-    const auth = false;
     const {isAuth} = useAppSelector(state => state.auth)
     const {logout} = useActions()
-
 
     return (
         <>
@@ -28,6 +24,7 @@ const Navbar: FC = () => {
                             <a href="/choice">Choice</a>
                             <a href="/board">Board</a>
                             <button
+                                type="button"
                                 onClick={logout}
                             >
                                 выйти
