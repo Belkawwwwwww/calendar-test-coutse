@@ -48,7 +48,7 @@ export const AuthActionCreators = {
                 dispatch(AuthActionCreators.setError('Такой логин уже существует'))
 
             } else if (password !== passwordConfirm){
-                dispatch(AuthActionCreators.setError('Пароли совпадают'))
+                dispatch(AuthActionCreators.setError('Пароли не совпадают'))
 
             } else {
                 localStorage.setItem('auth', 'true');
