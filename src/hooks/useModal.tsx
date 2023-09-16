@@ -6,6 +6,7 @@ export default function useModal() {
     const toggle = () => {
         setIsOpen(!isOpen);
     };
+
     return {
         isOpen,
         toggle
