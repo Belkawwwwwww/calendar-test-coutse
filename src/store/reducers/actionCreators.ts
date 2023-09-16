@@ -1,13 +1,16 @@
-import {AppDispatch} from "../index";
 import {IUser} from "../../models/IUser";
 import axios from "axios";
-import {userSlice} from "./UserSlice";
+import {createAsyncThunk} from "@reduxjs/toolkit";
 
-export const fetchUsers = () => async (dispatch: AppDispatch) => {
-    try {
-        const response = await axios.get<IUser[]>('https://github.com/typicode/json-server')
-
-    } catch (e) {
-        
+export const fetchUsers = createAsyncThunk(
+    'user/fetchAll',
+    async (_, thunkApi) => {
+        try {
+            const response = await axios.get<IUser[]>('https://github.com/typicode/json-server')
+            return response.data;
+        } catch (e) {
+            return thunkApi.rejectWithValue("Не удалось загрузить пользователей")
+        }
     }
-}
+)
+

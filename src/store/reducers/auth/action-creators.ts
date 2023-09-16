@@ -6,7 +6,7 @@ import {
     SetIsLoadingAction,
     SetUserAction
 } from "./type";
-import {AppDispatch} from "../../index";
+import {AppDispatch} from "../../strore";
 import axios from "axios";
 
 export const AuthActionCreators = {
