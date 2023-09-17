@@ -8,7 +8,7 @@ const Registration: FC = () => {
 
     const {register} = useActions();
     const {error} = useAppSelector(state => state.auth)
-    const [username, setUsername]= useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirm, setPasswordConfirm] = useState('')
 

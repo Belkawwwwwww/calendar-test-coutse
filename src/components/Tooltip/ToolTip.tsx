@@ -1,12 +1,12 @@
 import React, {FC, ReactElement} from 'react';
-import styles from'./ToolTip.module.sass'
+import styles from './ToolTip.module.sass'
 
 type PropsType = {
     children: ReactElement;
     text: string
 }
 
-const ToolTip: FC <PropsType> = ({children, text}) => {
+const ToolTip: FC<PropsType> = ({children, text}) => {
     return (
         <div className={styles.container}>
             {children}

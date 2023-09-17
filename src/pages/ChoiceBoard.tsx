@@ -3,7 +3,7 @@ import React, {FC} from 'react';
 const ChoiceBoard: FC = () => {
     return (
         <div>
-           CHOICE BOARD
+            CHOICE BOARD
         </div>
     );
 };
