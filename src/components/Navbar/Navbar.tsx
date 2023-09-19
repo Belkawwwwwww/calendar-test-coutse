@@ -1,11 +1,9 @@
 import React, {FC} from 'react';
 import {RouteNames} from "../../router";
 import styles from "./Navbar.module.sass"
-import {useAppSelector} from "../../hooks/redux";
-import {useActions} from "../../hooks/useActions";
+import {useActions, useAppSelector} from "../../hooks/redux";
 import useModal from "../../hooks/useModal";
 import Modal from "../ModalPopup/Modal";
-
 
 const Navbar: FC = () => {
 

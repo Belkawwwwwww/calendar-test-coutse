@@ -3,6 +3,7 @@ import Login from "../pages/Login";
 import ChoiceBoard from "../pages/ChoiceBoard";
 import Board from "../pages/Board";
 import Registration from "../components/RegistrationForm/Registration";
+import NotFound from "../pages/NotFound";
 
 
 export interface IRoute {
@@ -20,7 +21,7 @@ export enum RouteNames {
 
 export const publicRoutes: IRoute[] = [
     {path: RouteNames.LOGIN, element: <Login/>},
-    {path: '*', element: <Login/>},
+    {path: '*', element: <NotFound/>},
     {path: '/', element: <Login/>},
     {path: RouteNames.REGISTER, element: <Registration/>}
 ];

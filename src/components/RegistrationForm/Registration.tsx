@@ -1,35 +1,44 @@
 import React, {FC, useState} from 'react';
 import styles from "../LoginForm/LoginForm.module.sass";
-import {useActions} from "../../hooks/useActions";
-import {useAppSelector} from "../../hooks/redux";
+import {useActions} from "../../hooks/redux";
+import axios from "axios";
 
 
 const Registration: FC = () => {
 
     const {register} = useActions();
-    const {error} = useAppSelector(state => state.auth)
+    // const {error} = useAppSelector(state => state.auth)
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirm, setPasswordConfirm] = useState('')
 
     const submit = (e: any) => {
         e.preventDefault();
+        axios.post('http://localhost:3000/register', {
+            username, password, passwordConfirm
+        })
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error.message);
+            })
         register(username, password, passwordConfirm)
     }
 
 
     return (
-        <div className={styles.form}>
-            <div className={styles.content}>
+        <div className={styles.content}>
+            <div className={styles.form}>
                 <form
                     action=""
                     className={styles.btnBox}
                     onSubmit={submit}
                 >
                     <h1 className={styles.title}>Registration</h1>
-                    {error && <div style={{color: 'red', margin: '10px'}}>
-                        {error}
-                    </div>}
+                    {/*{error && <div style={{color: 'red', margin: '10px'}}>*/}
+                    {/*    {error}*/}
+                    {/*</div>}*/}
                     <div className={styles.inputBox}>
                         <label className={styles.icon} htmlFor="username">
                             <img src="/img/icon-user.svg" alt="user"/>

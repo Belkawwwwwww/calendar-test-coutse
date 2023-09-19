@@ -2,8 +2,8 @@ import React, {FC, useEffect} from 'react';
 import './styles/App.sass';
 import Navbar from "./components/Navbar/Navbar";
 import AppRouter from "./components/AppRouter";
-import {useActions} from "./hooks/useActions";
 import {IUser} from "./models/IUser";
+import {useActions} from "./hooks/redux";
 
 const App: FC = () => {
 
