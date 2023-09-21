@@ -3,7 +3,6 @@ import styles from "./Auth.module.sass"
 import {IAuth} from "../../models/models";
 
 
-
 const Auth: FC = () => {
     const [formValue, setFormValue] = useState<IAuth>({
         username: '',
