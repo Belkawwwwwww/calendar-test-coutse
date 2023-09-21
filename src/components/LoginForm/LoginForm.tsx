@@ -1,29 +1,46 @@
-import React, {FC, useState} from 'react';
+import React, {ChangeEvent, FC, useState} from 'react';
 import styles from "./LoginForm.module.sass"
-import {useActions} from "../../hooks/redux";
-import axios from "axios";
+import {useAppDispatch} from "../../hooks/redux";
+import {useNavigate} from "react-router-dom";
+import {IAuth} from "../../models/models";
+import {login, register} from "../../store/actionCreators";
 
 
 const LoginForm: FC = () => {
 
-    const {login} = useActions()
-    // const {error} = useAppSelector(state => state.auth)
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+    const [form, setForm] = useState<IAuth>({
+        password: '',
+        username: ''
+    })
 
-    const submit = (e: any) => {
-        e.preventDefault();
-        axios.post('http://localhost:3000/register', {
-            username, password
-        })
-            .then((response) => {
-                console.log(response.data)
-            })
-            .catch((error) => {
-                console.log(error.message);
-            })
+    const isFormValid = () => {
+        return form.password.trim().length && form.username.trim().length
+    }
 
-        login(username, password)
+    const submit = async (event: React.FormEvent) => {
+        event.preventDefault();
+        if (isFormValid()) {
+            await dispatch(register(form))
+            navigate('/')
+        } else {
+            alert('Form is invalid')
+        }
+    }
+
+    const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        setForm(prev => ({...prev, [event.target.name]: event.target.value}))
+    }
+
+    const loginHandler = async (event: React.MouseEvent<HTMLInputElement>) => {
+        event.preventDefault()
+        if (isFormValid()) {
+            await dispatch(login(form))
+            navigate('/')
+        } else {
+            alert('Form is invalid')
+        }
     }
 
     return (
@@ -45,10 +62,8 @@ const LoginForm: FC = () => {
                             <img src="/img/icon-user.svg" alt="user"/>
                         </label>
                         <input
-
                             id="username"
-                            value={username}
-                            onChange={e => setUsername(e.target.value)}
+                            onChange={changeHandler}
                             name="username"
                             placeholder="Username"
                             type="text"
@@ -61,8 +76,7 @@ const LoginForm: FC = () => {
                         </label>
                         <input
                             id="password"
-                            value={password}
-                            onChange={e => setPassword(e.target.value)}
+                            onChange={changeHandler}
                             type="password"
                             name="password"
                             placeholder="Password"
@@ -71,7 +85,7 @@ const LoginForm: FC = () => {
                     </div>
                     <div className={styles.btnBox}>
                         <button
-
+                            onClick={(e: any) => loginHandler}
                             type="submit"
                         >
                             Sign In

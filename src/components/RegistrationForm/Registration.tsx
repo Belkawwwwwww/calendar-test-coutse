@@ -1,12 +1,10 @@
 import React, {FC, useState} from 'react';
 import styles from "../LoginForm/LoginForm.module.sass";
-import {useActions} from "../../hooks/redux";
 import axios from "axios";
 
 
 const Registration: FC = () => {
 
-    const {register} = useActions();
     // const {error} = useAppSelector(state => state.auth)
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -23,7 +21,6 @@ const Registration: FC = () => {
             .catch((error) => {
                 console.log(error.message);
             })
-        register(username, password, passwordConfirm)
     }
 
 

@@ -1,9 +1,9 @@
 import React from "react";
 import Login from "../pages/Login";
-import ChoiceBoard from "../pages/ChoiceBoard";
 import Board from "../pages/Board";
-import Registration from "../components/RegistrationForm/Registration";
 import NotFound from "../pages/NotFound";
+import Main from "../pages/Main";
+import Registration from "../components/RegistrationForm/Registration";
 
 
 export interface IRoute {
@@ -13,21 +13,19 @@ export interface IRoute {
 
 export enum RouteNames {
     LOGIN = '/login',
-    REGISTER = '/register',
-    CHOICE = '/choice',
     BOARD = '/board',
+    REGISTER = 'register'
 
 }
 
 export const publicRoutes: IRoute[] = [
     {path: RouteNames.LOGIN, element: <Login/>},
+    {path: RouteNames.REGISTER, element: <Registration/>},
     {path: '*', element: <NotFound/>},
-    {path: '/', element: <Login/>},
-    {path: RouteNames.REGISTER, element: <Registration/>}
+    {path: '/', element: <Main/>},
 ];
 
 export const privateRoutes: IRoute[] = [
-    {path: RouteNames.CHOICE, element: <ChoiceBoard/>},
     {path: RouteNames.BOARD, element: <Board/>},
 
 ];

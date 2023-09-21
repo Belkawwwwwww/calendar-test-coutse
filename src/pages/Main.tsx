@@ -1,11 +1,13 @@
 import React, {FC} from 'react';
 
-const ChoiceBoard: FC = () => {
+const Main: FC = () => {
+
+
     return (
         <div>
-            CHOICE BOARD
+            main
         </div>
     );
 };
 
-export default ChoiceBoard;
+export default Main;
