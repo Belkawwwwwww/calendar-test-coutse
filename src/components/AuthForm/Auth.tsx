@@ -1,17 +1,36 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import styles from "./Auth.module.sass"
 import {IAuth} from "../../models/models";
+import {useLoginUserMutation} from "../../service/authApi";
+import {useNavigate} from "react-router-dom";
+import {useAppDispatch} from "../../hooks/redux";
+import {setUser} from "../../store/slices/authSlice";
 
 
 const Auth: FC = () => {
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+
     const [formValue, setFormValue] = useState<IAuth>({
         username: '',
         password: '',
         confirmPassword: ''
     })
-    const {username, password} = formValue
+    const {username, password, confirmPassword} = formValue
+    const [showRegister, setShowRegister] = useState(false)
+    const [
+        loginUser,
+        {
+            data: loginData,
+            isSuccess: isLoginSuccess,
+            error: loginError,
+        },
+        ] = useLoginUserMutation();
 
-    const handleChange = () => {};
+
+    const handleChange = (e: any) => {
+        setFormValue({...formValue, [e.target.name]: e.target.value})
+    };
 
 
     const submit = async (event: React.FormEvent) => {
@@ -19,9 +38,14 @@ const Auth: FC = () => {
 
     }
 
-    const loginHandler = async (event: React.MouseEvent<HTMLInputElement>) => {
-        event.preventDefault()
+    const handleLogin = async () => {
+        if(username && password) {
+            await loginUser({username, password})
+        } else {
+            alert("Form is valid")
+        }
     }
+
 
     return (
         <div className={styles.content}>
@@ -32,8 +56,9 @@ const Auth: FC = () => {
                     className={styles.btnBox}
                     onSubmit={submit}
                 >
-
-                    <h1 className={styles.title}>User Login</h1>
+                    <h1 className={styles.title}>
+                        {!showRegister ? "User Login" : "Registration"}
+                    </h1>
                     {/*{error && <div style={{color: 'red', margin: '10px'}}>*/}
                     {/*    {error}*/}
                     {/*</div>}*/}
@@ -65,22 +90,62 @@ const Auth: FC = () => {
                             required
                         />
                     </div>
+                    {showRegister && (
+                        <>
+                            <div className={styles.inputBox}>
+                                <label htmlFor="password" className={styles.icon}>
+                                    <img src="/img/icon-password.svg" alt="password"/>
+                                </label>
+                                <input
+                                    value={confirmPassword}
+                                    id="password"
+                                    onChange={handleChange}
+                                    type="password"
+                                    name="confirmPassword"
+                                    placeholder="Confirm Password"
+                                    required
+                                />
+                            </div>
+
+                        </>
+                    )}
                     <div className={styles.btnBox}>
-                        <button
-                            onClick={(e: any) => loginHandler}
-                            type="submit"
-                        >
-                            Sign In
-                        </button>
+                        {!showRegister ? (
+                            <button
+                                onClick={() => handleLogin}
+                                type="submit"
+                            >
+                                Sign In
+                            </button>
+                        ) : (
+                            <button
+                                onClick={(e: any) => handleLogin}
+                                type="submit"
+                            >
+                                Register
+                            </button>
+                        )}
+
                     </div>
                 </form>
                 <div className={styles.subtitle}>
-                    <a
-                        className={styles.link}
-                        href={'/register'}
-                    >
-                        Registration
-                    </a>
+                    {!showRegister ? (
+                        <p
+                            className={styles.link}
+                            onClick={() => setShowRegister(true)}
+                        >
+                            Registration
+                        </p>
+                    ) : (
+                        <p
+                            className={styles.link}
+                            onClick={() => setShowRegister(false)}
+                        >
+                            Login
+                        </p>
+
+                    )}
+
                 </div>
 
 

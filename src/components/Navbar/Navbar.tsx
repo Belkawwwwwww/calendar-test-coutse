@@ -7,7 +7,7 @@ import {useAppSelector} from "../../hooks/redux";
 const Navbar: FC = () => {
 
     const {isOpen, toggle} = useModal();
-    const { username, isAuth} = useAppSelector(state => state.auth)
+    // const { username, isAuth} = useAppSelector(state => state.auth)
 
     return (
         <>
