@@ -1,46 +1,27 @@
-import React, {ChangeEvent, FC, useState} from 'react';
-import styles from "./LoginForm.module.sass"
-import {useAppDispatch} from "../../hooks/redux";
-import {useNavigate} from "react-router-dom";
+import React, {FC, useState} from 'react';
+import styles from "./Auth.module.sass"
 import {IAuth} from "../../models/models";
-import {login, register} from "../../store/actionCreators";
 
 
-const LoginForm: FC = () => {
 
-    const dispatch = useAppDispatch()
-    const navigate = useNavigate()
-    const [form, setForm] = useState<IAuth>({
+const Auth: FC = () => {
+    const [formValue, setFormValue] = useState<IAuth>({
+        username: '',
         password: '',
-        username: ''
+        confirmPassword: ''
     })
+    const {username, password} = formValue
 
-    const isFormValid = () => {
-        return form.password.trim().length && form.username.trim().length
-    }
+    const handleChange = () => {};
+
 
     const submit = async (event: React.FormEvent) => {
         event.preventDefault();
-        if (isFormValid()) {
-            await dispatch(register(form))
-            navigate('/')
-        } else {
-            alert('Form is invalid')
-        }
-    }
 
-    const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setForm(prev => ({...prev, [event.target.name]: event.target.value}))
     }
 
     const loginHandler = async (event: React.MouseEvent<HTMLInputElement>) => {
         event.preventDefault()
-        if (isFormValid()) {
-            await dispatch(login(form))
-            navigate('/')
-        } else {
-            alert('Form is invalid')
-        }
     }
 
     return (
@@ -62,8 +43,9 @@ const LoginForm: FC = () => {
                             <img src="/img/icon-user.svg" alt="user"/>
                         </label>
                         <input
+                            value={username}
                             id="username"
-                            onChange={changeHandler}
+                            onChange={handleChange}
                             name="username"
                             placeholder="Username"
                             type="text"
@@ -75,8 +57,9 @@ const LoginForm: FC = () => {
                             <img src="/img/icon-password.svg" alt="password"/>
                         </label>
                         <input
+                            value={password}
                             id="password"
-                            onChange={changeHandler}
+                            onChange={handleChange}
                             type="password"
                             name="password"
                             placeholder="Password"
@@ -109,4 +92,4 @@ const LoginForm: FC = () => {
     );
 };
 
-export default LoginForm;
+export default Auth;

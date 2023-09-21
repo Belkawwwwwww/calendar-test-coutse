@@ -1,14 +1,13 @@
 import React, {FC} from 'react';
 import {RouteNames} from "../../router";
 import styles from "./Navbar.module.sass"
-import { useAppSelector} from "../../hooks/redux";
 import useModal from "../../hooks/useModal";
-import Modal from "../ModalPopup/Modal";
+import {useAppSelector} from "../../hooks/redux";
 
 const Navbar: FC = () => {
 
     const {isOpen, toggle} = useModal();
-
+    const { username, isAuth} = useAppSelector(state => state.auth)
 
     return (
         <>

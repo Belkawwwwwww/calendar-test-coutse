@@ -1,44 +1,26 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 
-
-export interface AuthState {
-    access: string
-    username: string
+interface AuthState {
     isAuth: boolean
-}
-
-const initialState: AuthState = {
-    access: '',
-    username: '',
-    isAuth: false
-}
-
-interface AuthPayload {
     username: string
-    access: string
 }
+
+const initialState : AuthState = {
+    isAuth: false,
+    username: ''
+}
+
 
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        logout(state) {
-            state.isAuth = false
-            state.access = ''
-            state.username = ''
-            localStorage.removeItem('username')
-            localStorage.removeItem('access')
-        },
-        login(state, action: PayloadAction<AuthPayload>) {
-            state.access = action.payload.access
-            state.username = action.payload.username
-            state.isAuth = Boolean(action.payload.access)
-
-            localStorage.setItem('auth', 'true')
+        login(state, action) {
+            state.user = action.payload
+            state.isLogged = true
         }
     },
     extraReducers: {}
 })
-
 
 export default authSlice.reducer;

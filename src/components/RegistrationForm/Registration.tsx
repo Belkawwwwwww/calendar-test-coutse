@@ -1,9 +1,16 @@
 import React, {FC, useState} from 'react';
-import styles from "../LoginForm/LoginForm.module.sass";
+import styles from "../AuthForm/Auth.module.sass";
 import axios from "axios";
 
+const initialState = {
+    username: '',
+    password: '',
+    confirmPassword: ''
+}
 
 const Registration: FC = () => {
+
+    const [formValue, setFormValue] = useState(initialState)
 
     // const {error} = useAppSelector(state => state.auth)
     const [username, setUsername] = useState('')
