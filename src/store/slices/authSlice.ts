@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {RootState} from "../strore";
 
+
 export interface AuthState {
     name: string | null;
     token: string | null;

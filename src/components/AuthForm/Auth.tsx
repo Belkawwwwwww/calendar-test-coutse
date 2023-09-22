@@ -1,15 +1,17 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useState} from 'react';
 import styles from "./Auth.module.sass"
 import {IAuth} from "../../models/models";
 import {useLoginUserMutation} from "../../service/authApi";
 import {useNavigate} from "react-router-dom";
-import {useAppDispatch} from "../../hooks/redux";
-import {setUser} from "../../store/slices/authSlice";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 
 
 const Auth: FC = () => {
+
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
+    const {login, error} = useAppSelector(state => state.auth)
+
 
     const [formValue, setFormValue] = useState<IAuth>({
         username: '',

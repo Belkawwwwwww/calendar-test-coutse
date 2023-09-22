@@ -1,7 +1,6 @@
 import {IUser} from "../../../models/models";
 import {AuthActionsEnum, SetAuthAction, SetErrorAction, SetIsLoadingAction, SetUserAction} from "./type";
 import {AppDispatch} from "../../strore";
-import axios from "axios";
 
 export const AuthActionCreators = {
     setUser: (user: IUser): SetUserAction => ({type: AuthActionsEnum.SET_USER, payload: user}),
@@ -10,7 +9,7 @@ export const AuthActionCreators = {
     setError: (payload: string): SetErrorAction => ({type: AuthActionsEnum.SET_ERROR, payload}),
     login: (username: string, password: string) => async (dispatch: AppDispatch) => {
         try {
-
+            dispatch(AuthActionCreators.setIsLoading(true))
 
         } catch (e) {
             dispatch(AuthActionCreators.setError('Произошла ошибка при логине'))
