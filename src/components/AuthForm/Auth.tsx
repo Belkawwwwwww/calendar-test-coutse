@@ -7,7 +7,6 @@ import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 
 
 const Auth: FC = () => {
-
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const {login, error} = useAppSelector(state => state.auth)
