@@ -1,51 +1,48 @@
-import React, {FC, useState} from 'react';
+import React, {FC, FormEvent, MouseEvent, useState} from 'react';
 import styles from "./Auth.module.sass"
 import {IAuth} from "../../models/models";
-import {useLoginUserMutation} from "../../service/authApi";
 import {useNavigate} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {useAppDispatch} from "../../hooks/redux";
+import {login, register} from "../../store/actionCreators";
 
 
 const Auth: FC = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
-    const {login, error} = useAppSelector(state => state.auth)
-
-
-    const [formValue, setFormValue] = useState<IAuth>({
-        username: '',
+    const [form, setForm] = useState<IAuth>({
         password: '',
+        username: '',
         confirmPassword: ''
     })
-    const {username, password, confirmPassword} = formValue
-    const [showRegister, setShowRegister] = useState(false)
-    const [
-        loginUser,
-        {
-            data: loginData,
-            isSuccess: isLoginSuccess,
-            error: loginError,
-        },
-        ] = useLoginUserMutation();
 
-
-    const handleChange = (e: any) => {
-        setFormValue({...formValue, [e.target.name]: e.target.value})
-    };
-
-
-    const submit = async (event: React.FormEvent) => {
-        event.preventDefault();
-
+    const isFormValid = () => {
+        return form.password.trim().length && form.username.trim().length
     }
 
-    const handleLogin = async () => {
-        if(username && password) {
-            await loginUser({username, password})
+    const submit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (isFormValid()) {
+            await dispatch(register(form))
+            navigate("/")
         } else {
-            alert("Form is valid")
+            alert("Form is invalid")
         }
     }
+    const loginHandler = async (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault()
+        if (isFormValid()) {
+            await dispatch(login(form))
+            navigate("/")
+        } else {
+            alert("Form is invalid")
+        }
+    }
+
+    const changeHandler = (e: any) => {
+        setForm({...form, [e.target.name]: e.target.value})
+    };
+
+    const [showRegister, setShowRegister] = useState(false)
 
 
     return (
@@ -68,9 +65,8 @@ const Auth: FC = () => {
                             <img src="/img/icon-user.svg" alt="user"/>
                         </label>
                         <input
-                            value={username}
                             id="username"
-                            onChange={handleChange}
+                            onChange={changeHandler}
                             name="username"
                             placeholder="Username"
                             type="text"
@@ -82,9 +78,8 @@ const Auth: FC = () => {
                             <img src="/img/icon-password.svg" alt="password"/>
                         </label>
                         <input
-                            value={password}
                             id="password"
-                            onChange={handleChange}
+                            onChange={changeHandler}
                             type="password"
                             name="password"
                             placeholder="Password"
@@ -98,9 +93,8 @@ const Auth: FC = () => {
                                     <img src="/img/icon-password.svg" alt="password"/>
                                 </label>
                                 <input
-                                    value={confirmPassword}
                                     id="password"
-                                    onChange={handleChange}
+                                    onChange={changeHandler}
                                     type="password"
                                     name="confirmPassword"
                                     placeholder="Confirm Password"
@@ -113,14 +107,14 @@ const Auth: FC = () => {
                     <div className={styles.btnBox}>
                         {!showRegister ? (
                             <button
-                                onClick={() => handleLogin}
+                                onClick={loginHandler}
                                 type="submit"
                             >
                                 Sign In
                             </button>
                         ) : (
                             <button
-                                onClick={(e: any) => handleLogin}
+                                onClick={loginHandler}
                                 type="submit"
                             >
                                 Register

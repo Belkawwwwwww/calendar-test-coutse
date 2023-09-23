@@ -1,22 +1,31 @@
 import React, {FC} from 'react';
 import {RouteNames} from "../../router";
 import styles from "./Navbar.module.sass"
-import useModal from "../../hooks/useModal";
-import {useAppSelector} from "../../hooks/redux";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {authSlice} from "../../store/slices/authSlice";
 
 const Navbar: FC = () => {
 
-    const {isOpen, toggle} = useModal();
-    // const { username, isAuth} = useAppSelector(state => state.auth)
+    //const {isOpen, toggle} = useModal();
+    const dispatch = useAppDispatch()
+    const {username, isAuthenticated} = useAppSelector(state => state.authReducer)
+
+    const logoutHandler = (e: any) => {
+        e.preventDefault()
+        dispatch(authSlice.actions.logout())
+    }
 
     return (
         <>
-                    <div className={styles.navbar}>
-                        <div className={styles.logo}>
-                            <a href="/">Logo</a>
-                        </div>
-                        <div className={styles.links}>
-                            <div className={styles.link}>
+            <div className={styles.navbar}>
+                <div className={styles.logo}>
+                    <a href="/">Logo</a>
+                </div>
+                <div className={styles.links}>
+                    {
+                        !isAuthenticated
+                            ?
+                            <>
                                 <a
                                     onClick={() => (RouteNames.LOGIN)}
                                     href="/login"
@@ -24,9 +33,25 @@ const Navbar: FC = () => {
                                     Login
                                 </a>
 
-                            </div>
-                        </div>
-                    </div>
+                            </>
+
+                            : <>
+                                <span>{username}</span>
+                                <button>
+                                    Создать доску
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={logoutHandler}
+                                >
+                                    выйти
+                                </button>
+                            </>
+
+                    }
+
+                </div>
+            </div>
 
         </>
 

@@ -1,13 +1,9 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC} from 'react';
 import './styles/App.sass';
 import Navbar from "./components/Navbar/Navbar";
 import AppRouter from "./components/AppRouter";
-import {IUser} from "./models/models";
 
 const App: FC = () => {
-
-
-
 
     return (
         <>
