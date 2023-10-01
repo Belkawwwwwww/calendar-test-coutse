@@ -3,8 +3,7 @@ import Login from "../pages/Login";
 import Board from "../pages/Board";
 import NotFound from "../pages/NotFound";
 import Main from "../pages/Main";
-// import Registration from "../components/RegistrationForm/Registration";
-
+import Register from "../components/RegisterForm/Register";
 
 export interface IRoute {
     path: string;
@@ -14,13 +13,13 @@ export interface IRoute {
 export enum RouteNames {
     LOGIN = '/login',
     BOARD = '/board',
-    // REGISTER = 'register'
+    REGISTER = '/register'
 
 }
 
 export const publicRoutes: IRoute[] = [
     {path: RouteNames.LOGIN, element: <Login/>},
-    // {path: RouteNames.REGISTER, element: <Registration/>},
+    {path: RouteNames.REGISTER, element: <Register/>},
     {path: '*', element: <NotFound/>},
     {path: '/', element: <Main/>},
 ];

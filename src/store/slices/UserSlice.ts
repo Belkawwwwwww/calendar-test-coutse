@@ -1,40 +1,46 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createSelector, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IUser} from "../../models/models";
+import {RootState} from "../index";
 
-export interface UserState {
+export interface UserSlice {
+    isAuth: boolean;
+    user: IUser[];
     isLoading: boolean;
-    error: string;
-    users: IUser[];
-
+    error?: string;
 }
 
-const initialState: UserState = {
-    users: [],
+const initialState: UserSlice = {
+    isAuth: false,
+    user: [],
     isLoading: false,
-    error: ''
 }
 
 export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        usersFetching(state) {
-            state.isLoading = true;
+        setLoading(state, {payload}: PayloadAction<boolean>) {
+            state.isLoading = payload;
         },
-        usersFetchingSuccess(state, action: PayloadAction<IUser[]>) {
-            state.isLoading = false;
-            state.error = ''
-            state.users = action.payload
+        setUser(state, {payload}: PayloadAction<IUser[]>) {
+            state.user = payload;
         },
-        usersFetchingError(state, action: PayloadAction<Error>) {
-            state.isLoading = false;
-            state.error = action.payload.message
+        setError(state, {payload}: PayloadAction<string | undefined>) {
+            state.error = payload;
         },
+        setAuth(state, { payload }: PayloadAction<boolean>) {
+            state.isAuth = payload;
+        }
     },
-    extraReducers: {
 
-    }
 })
 
+const _isLoading = (state: RootState) => state.user.isLoading;
+const _error = (state: RootState) => state.user.error;
+const _user = (state: RootState) => state.user.user;
+const _isAuth = (state: RootState) => state.user.isAuth;
 
-export default userSlice.reducer;
+export const isLoadingUserSelector = createSelector([_isLoading], (state) => state);
+export const errorUserSelector = createSelector([_error], (state) => state);
+export const userDataSelector = createSelector([_user], (state) => state);
+export const isAuthSelector = createSelector([_isAuth], (state) => state);

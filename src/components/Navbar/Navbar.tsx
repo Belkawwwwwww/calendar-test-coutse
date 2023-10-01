@@ -1,19 +1,20 @@
 import React, {FC} from 'react';
 import {RouteNames} from "../../router";
 import styles from "./Navbar.module.sass"
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import {authSlice} from "../../store/slices/authSlice";
+import {useAppDispatch, useAppSelector} from "../../store/hooks/redux";
+import {isAuthSelector} from "../../store/slices/UserSlice";
+import {logout} from "../../store/action/userAction";
 
 const Navbar: FC = () => {
 
     //const {isOpen, toggle} = useModal();
     const dispatch = useAppDispatch()
-    const {username, isAuthenticated} = useAppSelector(state => state.authReducer)
+    const isAuth = useAppSelector(isAuthSelector)
 
-    const logoutHandler = (e: any) => {
-        e.preventDefault()
-        dispatch(authSlice.actions.logout())
+    const submit = () => {
+        dispatch(logout())
     }
+
 
     return (
         <>
@@ -23,9 +24,9 @@ const Navbar: FC = () => {
                 </div>
                 <div className={styles.links}>
                     {
-                        !isAuthenticated
+                        !isAuth
                             ?
-                            <>
+                            <div className={styles.link}>
                                 <a
                                     onClick={() => (RouteNames.LOGIN)}
                                     href="/login"
@@ -33,16 +34,16 @@ const Navbar: FC = () => {
                                     Login
                                 </a>
 
-                            </>
+                            </div>
 
                             : <>
-                                <span>{username}</span>
+                                <span></span>
                                 <button>
                                     Создать доску
                                 </button>
                                 <button
+                                    onClick={submit}
                                     type="button"
-                                    onClick={logoutHandler}
                                 >
                                     выйти
                                 </button>

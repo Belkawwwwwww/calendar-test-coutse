@@ -1,11 +1,13 @@
 import React from 'react';
 import {Route, Routes} from "react-router-dom";
 import {privateRoutes, publicRoutes} from "../router";
-import {useAppSelector} from "../hooks/redux";
+import {useAppSelector} from "../store/hooks/redux";
+import {isAuthSelector} from "../store/slices/UserSlice";
 
 
 const AppRouter = () => {
-    const {isAuthenticated} = useAppSelector(state => state.authReducer)
+
+    const isAuth = useAppSelector(isAuthSelector)
 
     const public_routes = publicRoutes.map(route =>
         <Route
@@ -16,7 +18,7 @@ const AppRouter = () => {
     )
 
     return (
-        isAuthenticated
+        isAuth
             ?
             <Routes>
                 {privateRoutes.map(route =>
