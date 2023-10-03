@@ -22,9 +22,9 @@ export const authSlice = createSlice({
 
 })
 
-const _isAuth = (state: RootState) => state.auth.isAuth;
+//const _isAuth = (state: RootState) => state.auth.isAuth;
 
-export const isAuthSelector = createSelector([_isAuth], (state) => state);
+//export const isAuthSelector = createSelector([_isAuth], (state) => state);
 
 
 

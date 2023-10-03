@@ -3,7 +3,7 @@ import styles from "./Auth.module.sass"
 import {useNavigate} from "react-router-dom";
 import {login} from "../../store/action/userAction";
 import {useAppDispatch, useAppSelector} from "../../store/hooks/redux";
-import {errorUserSelector} from "../../store/slices/UserSlice";
+import {errorUserSelector, isLoadingUserSelector} from "../../store/slices/UserSlice";
 
 
 const LoginForm: FC = () => {
@@ -12,6 +12,8 @@ const LoginForm: FC = () => {
     const [password, setPassword] = useState<string>('')
     const dispatch = useAppDispatch();
     const error = useAppSelector(errorUserSelector)
+    const isLoading = useAppSelector(isLoadingUserSelector)
+
 
     const navigate = useNavigate()
 

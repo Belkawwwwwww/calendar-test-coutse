@@ -8,9 +8,9 @@ import {register} from "../../store/action/userAction";
 const Registration: FC = () => {
 
     const dispatch = useAppDispatch()
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const [passwordConfirm, setPasswordConfirm] = useState('')
+    const [username, setUsername] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
+    const [passwordConfirm, setPasswordConfirm] = useState<string>('')
     const error = useAppSelector(errorUserSelector)
 
 
