@@ -31,15 +31,14 @@ export const register =
   (username: string, password: string, passwordConfirm: string) =>
   async (dispatch: AppDispatch) => {
     try {
-      const response = await axios.get<{
-        id: string;
-        password: string;
-        passwordConfirm: string;
-      }>(`http://localhost:3000/users/${username}`);
-      if (response.status === 200) {
-        dispatch(userSlice.actions.setError("Такой логин уже существует"));
-      } else {
+      if (password !== passwordConfirm) {
+        dispatch(userSlice.actions.setError("Пароли не совпадают"));
       }
+      const response = await axios.post(`http://localhost:3000/users/`, {
+        id: username,
+        password: password
+      })
+
     } catch (e) {
       dispatch(userSlice.actions.setError("Произошла ошибка при регистрации"));
     }
