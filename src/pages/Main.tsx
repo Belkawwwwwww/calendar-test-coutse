@@ -1,13 +1,7 @@
-import React, {FC} from 'react';
+import React, { FC } from "react";
 
 const Main: FC = () => {
-
-
-    return (
-        <div>
-            main
-        </div>
-    );
+  return <div>main</div>;
 };
 
 export default Main;

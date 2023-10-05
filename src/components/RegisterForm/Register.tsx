@@ -1,20 +1,22 @@
 import React, { ChangeEvent, FC, useState } from "react";
-import styles from "../LoginForm/Auth.module.sass";
+import styles from "../LoginForm/Login.module.sass";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import { errorUserSelector } from "../../store/slices/UserSlice";
 import { register } from "../../store/action/userAction";
+import { useNavigate } from "react-router-dom";
 
 const Registration: FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [passwordConfirm, setPasswordConfirm] = useState<string>("");
+  const [passwordConfig, setPasswordConfig] = useState<string>("");
   const error = useAppSelector(errorUserSelector);
-
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    if (username && password && passwordConfirm)
-      dispatch(register(username, password, passwordConfirm));
+    if (username && password && passwordConfig)
+      dispatch(register(username, password, passwordConfig));
+    navigate("/board");
   };
 
   const onHandlerUser = (e: ChangeEvent<HTMLInputElement>) => {
@@ -24,8 +26,8 @@ const Registration: FC = () => {
     if (e.target.name === "password") {
       setPassword(e.target.value);
     }
-    if (e.target.name === "passwordConfirm") {
-      setPasswordConfirm(e.target.value);
+    if (e.target.name === "passwordConfig") {
+      setPasswordConfig(e.target.value);
     }
   };
 
@@ -68,10 +70,10 @@ const Registration: FC = () => {
               <img src="/img/icon-password.svg" alt="password" />
             </label>
             <input
-              value={passwordConfirm}
+              value={passwordConfig}
               onChange={onHandlerUser}
               type="password"
-              name="passwordConfirm"
+              name="passwordConfig"
               id="psw-2"
               placeholder="Confirm Password"
               required

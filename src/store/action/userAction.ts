@@ -5,17 +5,18 @@ import axios from "axios";
 export const login =
   (username: string, password: string) => async (dispatch: AppDispatch) => {
     try {
-      const response = await axios.get<{ id: string; password: string }>(
-        `http://localhost:3000/users/${username}`,
-      );
-      if (response.status !== 200) {
-        dispatch(userSlice.actions.setError("Некорректный логин"));
-      } else if (response.data.password !== password) {
-        dispatch(userSlice.actions.setError("Некорректный пароль"));
-      } else {
-        localStorage.setItem("auth", "true");
-        dispatch(userSlice.actions.setAuth(true));
-      }
+        const response = await axios.get<{
+          answercode: number;
+          answer: string;
+        }>(
+          `https://api.safechron.online/authentication?username=${username}&password=${password}`,
+        );
+        if (response.data.answercode === 1) {
+          localStorage.setItem("auth", "true");
+          dispatch(userSlice.actions.setAuth(true));
+        } else if (response.data.answercode === 3) {
+          dispatch(userSlice.actions.setError(response.data.answer));
+        }
     } catch (e) {
       dispatch(userSlice.actions.setError("Некорректный логин или пароль"));
     }
@@ -25,20 +26,29 @@ export const logout = () => async (dispatch: AppDispatch) => {
   dispatch(userSlice.actions.setAuth(false));
   dispatch(userSlice.actions.setError(undefined));
   localStorage.removeItem("auth");
-  localStorage.removeItem("username");
 };
 export const register =
-  (username: string, password: string, passwordConfirm: string) =>
+  (username: string, password: string, passwordConfig: string) =>
   async (dispatch: AppDispatch) => {
     try {
-      if (password !== passwordConfirm) {
-        dispatch(userSlice.actions.setError("Пароли не совпадают"));
+      const response = await axios.post<{ answercode: number; answer: string }>(
+        "https://api.safechron.online/registration",
+        {
+          username: username,
+          password: password,
+          passwordConfig: passwordConfig,
+        },
+      );
+      if (response.data.answercode === 1) {
+        dispatch(userSlice.actions.setAuth(true));
+        localStorage.setItem("auth", "true");
+      } else if (response.data.answercode === 4) {
+        dispatch(userSlice.actions.setError(response.data.answer));
+      } else if (response.data.answercode === 3) {
+        dispatch(userSlice.actions.setError(response.data.answer));
+      } else if (response.data.answercode === 5) {
+        dispatch(userSlice.actions.setError(response.data.answer));
       }
-      const response = await axios.post(`http://localhost:3000/users/`, {
-        id: username,
-        password: password
-      })
-
     } catch (e) {
       dispatch(userSlice.actions.setError("Произошла ошибка при регистрации"));
     }

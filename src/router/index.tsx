@@ -6,15 +6,14 @@ import Main from "../pages/Main";
 import Register from "../components/RegisterForm/Register";
 
 export interface IRoute {
-    path: string;
-    element: React.ReactElement;
+  path: string;
+  element: React.ReactElement;
 }
 
 export enum RouteNames {
     LOGIN = '/login',
     BOARD = '/board',
     REGISTER = '/register'
-
 }
 
 export const publicRoutes: IRoute[] = [

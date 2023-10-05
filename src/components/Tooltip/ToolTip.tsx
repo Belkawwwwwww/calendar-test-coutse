@@ -1,10 +1,10 @@
-import React, {FC, ReactElement} from 'react';
-import styles from './ToolTip.module.sass'
+import React, { FC, ReactElement } from "react";
+import styles from "./ToolTip.module.sass";
 
 type PropsType = {
-    children: ReactElement;
-    text: string
-}
+  children: ReactElement;
+  text: string;
+};
 
 const ToolTip: FC<PropsType> = ({children, text}) => {
     return (
