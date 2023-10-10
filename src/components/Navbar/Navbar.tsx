@@ -1,21 +1,25 @@
-import React, { FC } from "react";
-import { RouteNames } from "../../router";
+import React, {FC, useState} from "react";
+import {RouteNames} from "../../router";
 import styles from "./Navbar.module.sass";
-import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
-import { isAuthSelector } from "../../store/slices/UserSlice";
-import { logout } from "../../store/action/userAction";
-import { useNavigate } from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../../store/hooks/redux";
+import {isAuthSelector} from "../../store/slices/UserSlice";
+import {logout} from "../../store/action/userAction";
+import {useNavigate} from "react-router-dom";
+import Modal from "../Modal/modal";
 
 const Navbar: FC = () => {
-  //const {isOpen, toggle} = useModal();
-  const dispatch = useAppDispatch();
-  const isAuth = useAppSelector(isAuthSelector);
-  const navigate = useNavigate();
+    const [showModal, setShowModal] = useState<boolean>(false)
+    const dispatch = useAppDispatch();
+    const isAuth = useAppSelector(isAuthSelector);
+    const navigate = useNavigate();
 
   const handleSubmit = () => {
     dispatch(logout());
     navigate("/");
   };
+    const closeModal = () => {
+        setShowModal(false)
+    }
 
   return (
     <div className={styles.navbar}>
@@ -31,7 +35,16 @@ const Navbar: FC = () => {
           </div>
         ) : (
           <div className={styles.btnBox}>
-            <button className={styles.btnCreate}> Создать доску</button>
+              <button className={styles.btnCreate} onClick={() => {
+                  setShowModal(true)
+              }}>Создать доску
+              </button>
+              <Modal active={showModal} onClose={closeModal}>
+                  <label htmlFor="name">Название доски</label>
+                  <input
+                      type="text"
+                  />
+              </Modal>
             <button
               onClick={handleSubmit}
               type="button"
