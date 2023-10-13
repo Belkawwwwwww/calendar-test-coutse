@@ -1,67 +1,62 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from "react";
 import {RouteNames} from "../../router";
-import styles from "./Navbar.module.sass"
-import {useAppSelector} from "../../hooks/redux";
-import {useActions} from "../../hooks/useActions";
-import useModal from "../../hooks/useModal";
-import Modal from "../ModalPopup/Modal";
-
+import styles from "./Navbar.module.sass";
+import {useAppDispatch, useAppSelector} from "../../store/hooks/redux";
+import {isAuthSelector} from "../../store/slices/UserSlice";
+import {logout} from "../../store/action/userAction";
+import {useNavigate} from "react-router-dom";
+import Modal from "../Modal/modal";
 
 const Navbar: FC = () => {
+    const [showModal, setShowModal] = useState<boolean>(false)
+    const dispatch = useAppDispatch();
+    const isAuth = useAppSelector(isAuthSelector);
+    const navigate = useNavigate();
 
-    const {isAuth} = useAppSelector(state => state.auth)
-    const {logout} = useActions()
-    const {isOpen, toggle} = useModal();
+  const handleSubmit = () => {
+    dispatch(logout());
+    navigate("/");
+  };
+    const closeModal = () => {
+        setShowModal(false)
+    }
 
-
-    return (
-        <>
-            {
-                isAuth
-                    ?
-                    <div className={styles.navbar}>
-                        <div className={styles.logo}>
-                            <span>Logo</span>
-                        </div>
-                        <div className={styles.links}>
-                            <div className={styles.link}>
-                                <button
-                                    onClick={toggle}
-                                >
-                                    Создать доску
-                                </button>
-                                <Modal isOpen={isOpen} toggle={toggle}></Modal>
-                                <button
-                                    type="button"
-                                    onClick={logout}
-                                >
-                                    выйти
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    :
-                    <div className={styles.navbar}>
-                        <div className={styles.logo}>
-                            <span>Logo</span>
-                        </div>
-                        <div className={styles.links}>
-                            <div className={styles.link}>
-                                <a
-                                    onClick={() => (RouteNames.LOGIN)}
-                                    href="/login"
-                                >
-                                    Login
-                                </a>
-
-                            </div>
-                        </div>
-                    </div>
-            }
-        </>
-
-
-    );
+  return (
+    <div className={styles.navbar}>
+      <div className={styles.logo}>
+        <a href="/">Logo</a>
+      </div>
+      <div className={styles.links}>
+        {!isAuth ? (
+          <div className={styles.link}>
+            <a onClick={() => RouteNames.LOGIN} href="/login">
+              Login
+            </a>
+          </div>
+        ) : (
+          <div className={styles.btnBox}>
+              <button className={styles.btnCreate} onClick={() => {
+                  setShowModal(true)
+              }}>Создать доску
+              </button>
+              <Modal active={showModal} onClose={closeModal}>
+                  <label htmlFor="name">Название доски</label>
+                  <input
+                      type="text"
+                  />
+              </Modal>
+            <button
+              onClick={handleSubmit}
+              type="button"
+              className={styles.btnlogOut}
+            >
+              Выйти
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default Navbar;

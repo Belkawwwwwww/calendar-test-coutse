@@ -1,32 +1,29 @@
 import React from "react";
 import Login from "../pages/Login";
-import ChoiceBoard from "../pages/ChoiceBoard";
 import Board from "../pages/Board";
-import Registration from "../components/RegistrationForm/Registration";
-
+import NotFound from "../pages/NotFound";
+import Main from "../pages/Main";
+import Register from "../components/RegisterForm/Register";
 
 export interface IRoute {
-    path: string;
-    element: React.ReactElement;
+  path: string;
+  element: React.ReactElement;
 }
 
 export enum RouteNames {
     LOGIN = '/login',
-    REGISTER = '/register',
-    CHOICE = '/choice',
     BOARD = '/board',
-
+    REGISTER = '/register'
 }
 
 export const publicRoutes: IRoute[] = [
     {path: RouteNames.LOGIN, element: <Login/>},
-    {path: '*', element: <Login/>},
-    {path: '/', element: <Login/>},
-    {path: RouteNames.REGISTER, element: <Registration/>}
+    {path: RouteNames.REGISTER, element: <Register/>},
+    {path: '*', element: <NotFound/>},
+    {path: '/', element: <Main/>},
 ];
 
 export const privateRoutes: IRoute[] = [
-    {path: RouteNames.CHOICE, element: <ChoiceBoard/>},
     {path: RouteNames.BOARD, element: <Board/>},
 
 ];
