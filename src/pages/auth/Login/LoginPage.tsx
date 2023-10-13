@@ -1,21 +1,23 @@
-import React, { ChangeEvent, FC, useState } from "react";
+import React, {ChangeEvent, FC, FormEvent, useState} from "react";
 import styles from "./Login.module.sass";
-import { login } from "../../store/action/userAction";
-import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
-import { errorUserSelector } from "../../store/slices/UserSlice";
-import { useNavigate } from "react-router-dom";
+import {login} from "../../../store/action/userAction";
+import {useAppDispatch, useAppSelector} from "../../../store/hooks/redux";
+import {errorUserSelector} from "../../../store/slices/UserSlice";
+import {useNavigate} from "react-router-dom";
 
-const LoginForm: FC = () => {
+const LoginPage: FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const error = useAppSelector(errorUserSelector);
+  const navigate = useNavigate()
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (username && password) dispatch(login(username, password));
-    navigate("/board");
+    if (username && password) {
+      dispatch(login(username, password))
+      navigate("/")
+    }
   };
 
   const onHandlerUser = (e: ChangeEvent<HTMLInputElement>) => {
@@ -79,4 +81,4 @@ const LoginForm: FC = () => {
   );
 };
 
-export default LoginForm;
+export default LoginPage;

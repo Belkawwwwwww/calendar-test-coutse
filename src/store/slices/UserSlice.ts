@@ -1,17 +1,17 @@
-import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IUser } from "../../models/models";
-import { RootState } from "../index";
+import {createSelector, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {IUser} from "../../models/models";
+import {RootState} from "../index";
 
 export interface UserSlice {
   isAuth: boolean;
-  user: IUser[];
+    user: IUser;
   isLoading: boolean;
   error?: string;
 }
 
 const initialState: UserSlice = {
     isAuth: false,
-    user: [],
+    user: {} as IUser,
     isLoading: false,
 }
 
@@ -22,7 +22,7 @@ export const userSlice = createSlice({
         setLoading(state, {payload}: PayloadAction<boolean>) {
             state.isLoading = payload;
         },
-        setUser(state, {payload}: PayloadAction<IUser[]>) {
+        setUser(state, {payload}: PayloadAction<IUser>) {
             state.user = payload;
         },
         setError(state, {payload}: PayloadAction<string | undefined>) {

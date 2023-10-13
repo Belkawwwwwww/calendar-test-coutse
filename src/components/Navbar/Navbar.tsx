@@ -1,5 +1,4 @@
 import React, {FC, useState} from "react";
-import {RouteNames} from "../../router";
 import styles from "./Navbar.module.sass";
 import {useAppDispatch, useAppSelector} from "../../store/hooks/redux";
 import {isAuthSelector} from "../../store/slices/UserSlice";
@@ -29,29 +28,45 @@ const Navbar: FC = () => {
       <div className={styles.links}>
         {!isAuth ? (
           <div className={styles.link}>
-            <a onClick={() => RouteNames.LOGIN} href="/login">
-              Login
-            </a>
+              <a href="/login">
+                  Login
+              </a>
+              <a href="/register">
+                  Sign up
+              </a>
           </div>
+            
         ) : (
           <div className={styles.btnBox}>
-              <button className={styles.btnCreate} onClick={() => {
-                  setShowModal(true)
-              }}>Создать доску
-              </button>
-              <Modal active={showModal} onClose={closeModal}>
-                  <label htmlFor="name">Название доски</label>
+              <div className={styles.leftNav}>
+                  <button>Рабочие пространства</button>
+                  <button>Недавние</button>
+                  <button>В избранном</button>
+                  <button className={styles.btnCreate} onClick={() => {
+                      setShowModal(true)
+                  }}>Создать доску
+                  </button>
+                  <Modal active={showModal} onClose={closeModal}>
+                      <label htmlFor="name">Название доски</label>
+                      <input
+                          type="text"
+                      />
+                  </Modal>
+              </div>
+              <div className={styles.rightNav}>
                   <input
+                      className={styles.input}
                       type="text"
+                      placeholder="Поиск"
                   />
-              </Modal>
-            <button
-              onClick={handleSubmit}
-              type="button"
-              className={styles.btnlogOut}
-            >
-              Выйти
-            </button>
+                  <button
+                      onClick={handleSubmit}
+                      type="button"
+                      className={styles.btnlogOut}
+                  >
+                      Выйти
+                  </button>
+              </div>
           </div>
         )}
       </div>

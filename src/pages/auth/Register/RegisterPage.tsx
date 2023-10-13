@@ -1,22 +1,19 @@
-import React, { ChangeEvent, FC, useState } from "react";
-import styles from "../LoginForm/Login.module.sass";
-import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
-import { errorUserSelector } from "../../store/slices/UserSlice";
-import { register } from "../../store/action/userAction";
-import { useNavigate } from "react-router-dom";
+import React, {ChangeEvent, FC, FormEvent, useState} from "react";
+import styles from "../Login/Login.module.sass";
+import {useAppDispatch, useAppSelector} from "../../../store/hooks/redux";
+import {errorUserSelector} from "../../../store/slices/UserSlice";
+import {register} from "../../../store/action/userAction";
 
 const Registration: FC = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordConfig, setPasswordConfig] = useState<string>("");
   const error = useAppSelector(errorUserSelector);
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (username && password && passwordConfig)
       dispatch(register(username, password, passwordConfig));
-    navigate("/board");
   };
 
   const onHandlerUser = (e: ChangeEvent<HTMLInputElement>) => {
