@@ -47,8 +47,9 @@ const Navbar: FC = () => {
                   }}>Создать доску
                   </button>
                   <Modal active={showModal} onClose={closeModal}>
-                      <label htmlFor="name">Название доски</label>
+                      <label htmlFor="name" className={styles.labelModal}>Название доски</label>
                       <input
+                          className={styles.inputModal}
                           type="text"
                       />
                   </Modal>
