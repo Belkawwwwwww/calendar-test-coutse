@@ -1,7 +1,7 @@
 import {AppDispatch} from "../index";
 import {userSlice} from "../slices/UserSlice";
 // import axios from "axios";
-import ax from "../../utils/axios/axios"
+import ax from "../../utils/axios"
 
 export const login =
   (username: string, password: string) => async (dispatch: AppDispatch) => {
@@ -16,7 +16,7 @@ export const login =
             `/authentication?username=${username}&password=${password}`,
         );
 
-        console.log(response.data.data.user_id);
+        console.log(response.data);
         if (response.data.answercode === 1) {
             localStorage.setItem("isAuth", "true");
             localStorage.setItem("username", username);
