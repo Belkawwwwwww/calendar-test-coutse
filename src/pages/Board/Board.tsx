@@ -49,23 +49,39 @@ const Board: FC = () => {
                 <div className={styles.header}>
                   <h3>Username</h3>
                   <div className={styles.options}>
-                    <a className={styles.page} href="">Доски</a>
-                    <a className={styles.page} href="">Представления</a>
-                    <a className={styles.page} href="">Участники</a>
-                    <a className={styles.page} href="">Настройки</a>
-                    <a className={styles.page} href="">Настройки</a>
-                    <a className={styles.page} href="">Настройки</a>
+                    <a className={styles.page} href="">
+                      Доски
+                    </a>
+                    <a className={styles.page} href="">
+                      Представления
+                    </a>
+                    <a className={styles.page} href="">
+                      Участники
+                    </a>
+                    <a className={styles.page} href="">
+                      Настройки
+                    </a>
+                    <a className={styles.page} href="">
+                      Настройки
+                    </a>
+                    <a className={styles.page} href="">
+                      Настройки
+                    </a>
                   </div>
                 </div>
                 <div>
                   <div className={styles.create}>
-                    <a href="" className={styles.createBoard}>Создать доску</a>
+                    <a href="" className={styles.createBoard}>
+                      Создать доску
+                    </a>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <button className={styles.closeBoard}>Посмотреть закрытые доски</button>
+          <button className={styles.closeBoard}>
+            Посмотреть закрытые доски
+          </button>
         </div>
       </div>
     </div>
