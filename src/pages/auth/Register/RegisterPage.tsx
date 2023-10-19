@@ -1,8 +1,8 @@
-import React, {ChangeEvent, FC, FormEvent, useState} from "react";
+import React, { ChangeEvent, FC, FormEvent, useState } from "react";
 import styles from "../Login/Login.module.sass";
-import {useAppDispatch, useAppSelector} from "../../../store/hooks/redux";
-import {errorUserSelector} from "../../../store/slices/UserSlice";
-import {register} from "../../../store/action/userAction";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
+import { errorUserSelector } from "../../../store/slices/UserSlice";
+import { register } from "../../../store/action/userAction";
 
 const Registration: FC = () => {
   const dispatch = useAppDispatch();

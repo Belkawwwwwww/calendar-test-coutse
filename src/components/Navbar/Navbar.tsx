@@ -44,7 +44,7 @@ const Navbar: FC = () => {
                   <button>В избранном</button>
                   <button className={styles.btnCreate} onClick={() => {
                       setShowModal(true)
-                  }}>Создать доску
+                  }}>Создать
                   </button>
                   <Modal active={showModal} onClose={closeModal}>
                       <label htmlFor="name" className={styles.labelModal}>Название доски</label>
@@ -55,6 +55,9 @@ const Navbar: FC = () => {
                   </Modal>
               </div>
               <div className={styles.rightNav}>
+                  <label htmlFor="search" className={styles.icon}>
+                      <img src="/img/search.svg" alt="" />
+                  </label>
                   <input
                       className={styles.input}
                       type="text"

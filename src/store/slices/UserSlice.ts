@@ -1,10 +1,10 @@
-import {createSelector, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IUser} from "../../models/models";
-import {RootState} from "../index";
+import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IUser } from "../../models/models";
+import { RootState } from "../index";
 
 export interface UserSlice {
   isAuth: boolean;
-    user: IUser;
+  user: IUser;
   isLoading: boolean;
   error?: string;
 }
