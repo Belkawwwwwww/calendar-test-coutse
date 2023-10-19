@@ -10,15 +10,12 @@ export const login =
         answercode: number;
         answer: string;
         data: any;
-        user_id: number;
       }>(`/authentication?username=${username}&password=${password}`);
-
-      console.log(response);
-      // console.log(response.data.data.user_id);
-      // const user_id = response.data.data.user_id
+      console.log(response)
       if (response.data.answercode === 1) {
         dispatch(userSlice.actions.setAuth(true));
         dispatch(userSlice.actions.setUser(response.data.data.user_id));
+        localStorage.setItem("user_id", response.data.data.user_id);
       } else if (response.data.answercode === 3) {
         dispatch(userSlice.actions.setError(response.data.answer));
       }
@@ -44,6 +41,7 @@ export const logout = () => async (dispatch: AppDispatch) => {
     dispatch(userSlice.actions.setUser);
     localStorage.removeItem("isAuth");
     localStorage.removeItem("username");
+    localStorage.removeItem("user_id")
   }
 };
 export const register =
@@ -73,3 +71,4 @@ export const register =
       dispatch(userSlice.actions.setError("Произошла ошибка при регистрации"));
     }
   };
+

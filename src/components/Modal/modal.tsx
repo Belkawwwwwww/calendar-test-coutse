@@ -4,7 +4,7 @@ import styles from "./modal.module.sass";
 interface IModalProps {
   active: boolean;
   title?: string;
-  onSubmit?: () => void;
+  onSubmit: () => void;
   onClose: () => void;
 }
 
@@ -12,6 +12,7 @@ const Modal = ({
   active,
   title,
   onClose,
+  onSubmit,
   children,
 }: PropsWithChildren<IModalProps>) => {
   if (!active) {
@@ -25,7 +26,7 @@ const Modal = ({
         </div>
         <div className={styles.body}>{children}</div>
         <div className={styles.footer}>
-          <button>Сохранить</button>
+          <button onClick={onSubmit}>Сохранить</button>
           <button onClick={onClose}>Отменить</button>
         </div>
       </div>
