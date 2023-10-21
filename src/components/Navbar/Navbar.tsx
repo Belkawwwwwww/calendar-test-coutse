@@ -11,12 +11,19 @@ import Modal from "../Modal/modal";
 import { create } from "../../store/action/createBoard";
 
 const Navbar: FC = () => {
-  const [showModal, setShowModal] = useState<boolean>(false);
   const [nameboard, setNameboard] = useState<string>("");
   const dispatch = useAppDispatch();
   const isAuth = useAppSelector(isAuthSelector);
   const navigate = useNavigate();
   const error = useAppSelector(errorUserSelector);
+  const [isModalActive, setModalActive] = useState(false);
+
+  const handleModalOpen = () => {
+    setModalActive(true);
+  };
+  const handleModalClose = () => {
+    setModalActive(false);
+  };
 
   const handleSubmit = () => {
     dispatch(logout());
@@ -29,10 +36,6 @@ const Navbar: FC = () => {
   };
   const handler = (e: any) => {
     setNameboard(e.target.value);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
   };
 
   return (
@@ -52,29 +55,27 @@ const Navbar: FC = () => {
               <button>Рабочие пространства</button>
               <button>Недавние</button>
               <button>В избранном</button>
-              <button
-                className={styles.btnCreate}
-                onClick={() => {
-                  setShowModal(true);
-                }}
-              >
+              <button className={styles.btnCreate} onClick={handleModalOpen}>
                 Создать
               </button>
-              <Modal active={showModal} onClose={closeModal} onSubmit={submit}>
-                <label htmlFor="name" className={styles.labelModal}>
-                  Название доски
-                </label>
-                <input
-                  value={nameboard}
-                  className={styles.inputModal}
-                  type="text"
-                  onChange={handler}
-                  required
-                />
-                {error && (
-                  <div style={{ color: "red", margin: "10px" }}>{error}</div>
-                )}
-              </Modal>
+              {isModalActive && (
+                <Modal
+                  title="Название доски"
+                  onClose={handleModalClose}
+                  onSubmit={submit}
+                >
+                  <input
+                    value={nameboard}
+                    className={styles.inputModal}
+                    type="text"
+                    onChange={handler}
+                    required
+                  />
+                  {error && (
+                    <div style={{ color: "red", margin: "10px" }}>{error}</div>
+                  )}
+                </Modal>
+              )}
             </div>
             <div className={styles.rightNav}>
               <label htmlFor="search" className={styles.icon}>

@@ -1,33 +1,23 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import "./styles/App.sass";
 import Navbar from "./components/Navbar/Navbar";
-import { Route, Routes } from "react-router-dom";
-import PrivateRoute from "./utils/router/privateRoute";
-import Board from "./pages/Board/Board";
-import AuthRootComponent from "./pages/auth";
-import Home from "./pages/Home/Home";
+import { useAppDispatch } from "./store/hooks/redux";
+import { userSlice } from "./store/slices/UserSlice";
+import AppRouter from "./components/AppRouter";
 
 const App: FC = () => {
-  //const dispatch = useAppDispatch();
-  //const isAuth = useAppSelector(isAuthSelector);
+  const dispatch = useAppDispatch();
 
-  //   useEffect(() => {
-  //
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (localStorage.getItem("user_id")) {
+      dispatch(userSlice.actions.setAuth(true));
+    }
+  }, [dispatch]);
 
   return (
     <>
       <Navbar />
-      <Routes>
-        <Route element={<Navbar />} />
-        <Route element={<PrivateRoute />}>
-          <Route path="/board" element={<Board />} />
-        </Route>
-        <Route path="/" element={<Home />} />
-        <Route path="login" element={<AuthRootComponent />} />
-        <Route path="register" element={<AuthRootComponent />} />
-      </Routes>
+      <AppRouter />
     </>
   );
 };

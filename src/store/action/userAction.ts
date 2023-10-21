@@ -11,11 +11,12 @@ export const login =
         answer: string;
         data: any;
       }>(`/authentication?username=${username}&password=${password}`);
-      console.log(response)
+        console.log(response);
       if (response.data.answercode === 1) {
         dispatch(userSlice.actions.setAuth(true));
         dispatch(userSlice.actions.setUser(response.data.data.user_id));
         localStorage.setItem("user_id", response.data.data.user_id);
+        dispatch(userSlice.actions.setError(undefined));
       } else if (response.data.answercode === 3) {
         dispatch(userSlice.actions.setError(response.data.answer));
       }
@@ -25,24 +26,9 @@ export const login =
   };
 
 export const logout = () => async (dispatch: AppDispatch) => {
-  const response = await ax.get<{
-    answercode: number;
-    answer: string;
-  }>(`/logout`);
-
-  console.log(response);
-  if (response.data.answercode === 2) {
+    localStorage.removeItem("user_id");
     dispatch(userSlice.actions.setAuth(false));
     dispatch(userSlice.actions.setError(undefined));
-    dispatch(userSlice.actions.setUser);
-  } else {
-    dispatch(userSlice.actions.setAuth(false));
-    dispatch(userSlice.actions.setError(undefined));
-    dispatch(userSlice.actions.setUser);
-    localStorage.removeItem("isAuth");
-    localStorage.removeItem("username");
-    localStorage.removeItem("user_id")
-  }
 };
 export const register =
   (username: string, password: string, passwordConfig: string) =>
