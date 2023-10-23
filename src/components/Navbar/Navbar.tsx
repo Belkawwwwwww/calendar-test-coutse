@@ -53,8 +53,6 @@ const Navbar: FC = () => {
           <div className={styles.btnBox}>
             <div className={styles.leftNav}>
               <button>Рабочие пространства</button>
-              <button>Недавние</button>
-              <button>В избранном</button>
               <button className={styles.btnCreate} onClick={handleModalOpen}>
                 Создать
               </button>

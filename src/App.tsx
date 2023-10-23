@@ -3,7 +3,7 @@ import "./styles/App.sass";
 import Navbar from "./components/Navbar/Navbar";
 import { useAppDispatch } from "./store/hooks/redux";
 import { userSlice } from "./store/slices/UserSlice";
-import AppRouter from "./components/AppRouter";
+import AppRouter from "./components/lib/route/AppRouter";
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
