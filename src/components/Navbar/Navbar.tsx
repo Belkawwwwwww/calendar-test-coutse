@@ -27,7 +27,7 @@ const Navbar: FC = () => {
 
   const handleSubmit = () => {
     dispatch(logout());
-    navigate("/");
+    navigate("/login");
   };
 
   const submit = () => {
@@ -47,7 +47,7 @@ const Navbar: FC = () => {
         {!isAuth ? (
           <div className={styles.link}>
             <a href="/login">Login</a>
-            <a href="/register">Sign up</a>
+            <a href="/registration">Sign up</a>
           </div>
         ) : (
           <div className={styles.btnBox}>

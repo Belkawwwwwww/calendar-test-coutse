@@ -4,6 +4,22 @@ import { userSlice } from "../slices/UserSlice";
 import ax from "../../utils/axios";
 import { IUser } from "../../models/models";
 
+export const checkAuth = (user_id: number) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await ax.get<{
+      answercode: number;
+      answer: string;
+    }>(`/profile?user_id=${user_id}`);
+    if (response.data.answercode === 1) {
+    } else if (response.data.answercode === 2) {
+      dispatch(userSlice.actions.setError(response.data.answer));
+    } else if (response.data.answercode === 2) {
+      dispatch(userSlice.actions.setError(response.data.answer));
+    }
+  } catch (e) {
+      dispatch(userSlice.actions.setError("Произошла ошибка"));
+  }
+};
 export const login =
   (username: string, password: string) => async (dispatch: AppDispatch) => {
     try {
@@ -13,18 +29,16 @@ export const login =
         data: any;
       }>(`/authentication?username=${username}&password=${password}`);
       console.log(response);
-      if (response.data.answercode === 1) {
-        dispatch(userSlice.actions.setAuth(true));
-        dispatch(userSlice.actions.setUser(response.data.data.user_id));
-        dispatch(userSlice.actions.setError(undefined));
-        localStorage.setItem("user_id", response.data.data.user_id);
-      } else if (response.data.answercode === 3) {
-        dispatch(userSlice.actions.setError(response.data.answer));
-      }
+        if (response.data.answercode === 1) {
+            dispatch(userSlice.actions.setAuth(true));
+            dispatch(userSlice.actions.setUser(response.data.data.user_id));
+            dispatch(userSlice.actions.setError(undefined));
+            localStorage.setItem("user_id", response.data.data.user_id);
+        } else if (response.data.answercode === 3) {
+            dispatch(userSlice.actions.setError(response.data.answer));
+        }
     } catch (e) {
       dispatch(userSlice.actions.setError("Некорректный логин или пароль"));
-    } finally {
-
     }
   };
 

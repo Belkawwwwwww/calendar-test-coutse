@@ -3,19 +3,21 @@ import styles from "./Login.module.sass";
 import { login } from "../../../store/action/userAction";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
 import { errorUserSelector } from "../../../store/slices/UserSlice";
+import {useNavigate} from "react-router-dom";
 
 const LoginPage: FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const dispatch = useAppDispatch();
   const error = useAppSelector(errorUserSelector);
+  const navigate = useNavigate()
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (username && password) {
       dispatch(login(username, password));
-    } else if (localStorage.getItem("user_id")) {
     }
+    navigate("/board")
   };
 
   const onHandlerUser = (e: ChangeEvent<HTMLInputElement>) => {
@@ -70,7 +72,7 @@ const LoginPage: FC = () => {
           </div>
         </form>
         <div className={styles.subtitle}>
-          <a className={styles.link} href={"/register"}>
+          <a className={styles.link} href={"/registration"}>
             Registration
           </a>
         </div>
