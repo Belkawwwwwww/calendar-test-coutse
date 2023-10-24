@@ -13,14 +13,14 @@ const App: FC = () => {
   const user_id = localStorage.getItem("user_id");
 
 
-  useEffect(() => {
-    if (localStorage.getItem("user_id")) {
-      dispatch(userSlice.actions.setAuth(true));
-    }
-  }, [dispatch]);
+  // useEffect(() => {
+  //   if (localStorage.getItem("user_id")) {
+  //     dispatch(userSlice.actions.setAuth(true));
+  //   }
+  // }, [dispatch]);
 
   useEffect(() => {
-    if (localStorage.getItem("user_id")) {
+    if (user_id) {
       dispatch(checkAuth(user_id));
     } else {
       navigate("/login")
