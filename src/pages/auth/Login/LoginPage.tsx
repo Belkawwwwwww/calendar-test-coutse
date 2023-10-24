@@ -3,14 +3,14 @@ import styles from "./Login.module.sass";
 import { login } from "../../../store/action/userAction";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
 import { errorUserSelector } from "../../../store/slices/UserSlice";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage: FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const dispatch = useAppDispatch();
   const error = useAppSelector(errorUserSelector);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -10,11 +10,15 @@ export const checkAuth = (user_id: number) => async (dispatch: AppDispatch) => {
       answercode: number;
       answer: string;
     }>(`/profile?user_id=${user_id}`);
-    if (response.data.answercode === 1) {
+      console.log(response);
+      if (response.data.answercode === 1) {
+        dispatch(userSlice.actions.setAuth(true));
     } else if (response.data.answercode === 2) {
       dispatch(userSlice.actions.setError(response.data.answer));
+      localStorage.removeItem("user_id")
     } else if (response.data.answercode === 2) {
       dispatch(userSlice.actions.setError(response.data.answer));
+      localStorage.removeItem("user_id")
     }
   } catch (e) {
       dispatch(userSlice.actions.setError("Произошла ошибка"));

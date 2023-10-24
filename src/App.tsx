@@ -9,21 +9,15 @@ import { checkAuth } from "./store/action/userAction";
 const App: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user_id = localStorage.getItem("user_id");
-
-  // useEffect(() => {
-  //   if (localStorage.getItem("user_id")) {
-  //     dispatch(userSlice.actions.setAuth(true));
-  //   }
-  // }, [dispatch]);
+  const id = Number(localStorage.getItem("user_id"));
 
   useEffect(() => {
-    if (user_id !== null && !isNaN(Number(user_id))) {
-      dispatch(checkAuth(user_id));
+    if (id) {
+      dispatch(checkAuth(id));
     } else {
       navigate("/login");
     }
-  }, [navigate]);
+  }, []);
 
   return (
     <>
