@@ -24,6 +24,10 @@ export const publicRoutes: Route[] = [
     path: RouteEnum.REGISTRATION,
     element: <RegisterPage />,
   },
+  {
+    path: RouteEnum.NOTFOUND,
+    element: <NotFound/>
+  }
 ];
 
 export const privateRoutes: Route[] = [
@@ -31,6 +35,10 @@ export const privateRoutes: Route[] = [
     path: RouteEnum.BOARD,
     element: <Board />,
   },
+  {
+    path: RouteEnum.NOTFOUND,
+    element: <NotFound/>
+  }
 ];
 
 export const anotherRoutes: Route[] = [
