@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, FormEvent, useState } from "react";
+import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import styles from "./Login.module.sass";
 import { login } from "../../../store/action/userAction";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
@@ -19,15 +19,14 @@ const LoginPage: FC = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (username && password) {
-      dispatch(login(username, password))
-        .then(() => {
-          navigate("/board");
-        })
-        .catch(() => {
-          localStorage.removeItem("user_id");
-        });
+      dispatch(login(username, password));
     }
   };
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/board");
+    }
+  }, []);
 
   const onHandlerUser = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === "username") {
@@ -86,7 +85,6 @@ const LoginPage: FC = () => {
           </a>
         </div>
       </div>
-      {isAuth}
     </div>
   );
 };

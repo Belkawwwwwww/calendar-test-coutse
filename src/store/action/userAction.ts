@@ -1,6 +1,5 @@
 import { AppDispatch } from "../index";
 import { userSlice } from "../slices/UserSlice";
-// import axios from "axios";
 import ax from "../../utils/axios";
 
 export const checkAuth = (user_id: number) => async (dispatch: AppDispatch) => {
