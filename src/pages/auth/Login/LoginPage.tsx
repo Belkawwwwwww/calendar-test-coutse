@@ -16,17 +16,21 @@ const LoginPage: FC = () => {
   const navigate = useNavigate();
   const isAuth = useAppSelector(isAuthSelector);
 
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (username && password) {
       dispatch(login(username, password));
+      console.log(isAuth)
     }
   };
+  console.log(isAuth)
   useEffect(() => {
     if (isAuth) {
+      // console.log(isAuth)
       navigate("/board");
     }
-  }, []);
+  }, [isAuth]);
 
   const onHandlerUser = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === "username") {

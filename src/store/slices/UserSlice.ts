@@ -24,7 +24,7 @@ export const userSlice = createSlice({
     setError(state, { payload }: PayloadAction<string | undefined>) {
       state.error = payload;
     },
-    setAuth(state, { payload }: PayloadAction<boolean>) {
+    setIsAuth(state, { payload }: PayloadAction<boolean>) {
       state.isAuth = payload;
     },
   },

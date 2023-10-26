@@ -10,7 +10,7 @@ export const checkAuth = (user_id: number) => async (dispatch: AppDispatch) => {
     }>(`/profile?user_id=${user_id}`);
     console.log(response);
     if (response.data.answercode === 1) {
-      dispatch(userSlice.actions.setAuth(true));
+      dispatch(userSlice.actions.setIsAuth(true));
     } else if (response.data.answercode === 2) {
       dispatch(userSlice.actions.setError(response.data.answer));
     } else if (response.data.answercode === 2) {
@@ -31,7 +31,7 @@ export const login =
       console.log(response);
         if (response.data.answercode === 1) {
           localStorage.setItem("user_id", response.data.data.user_id);
-          dispatch(userSlice.actions.setAuth(true));
+          dispatch(userSlice.actions.setIsAuth(true));
           dispatch(userSlice.actions.setError(undefined));
         } else if (response.data.answercode === 3) {
             dispatch(userSlice.actions.setError(response.data.answer));
@@ -43,7 +43,7 @@ export const login =
 
 export const logout = () => async (dispatch: AppDispatch) => {
     localStorage.removeItem("user_id");
-    dispatch(userSlice.actions.setAuth(false));
+    dispatch(userSlice.actions.setIsAuth(false));
     dispatch(userSlice.actions.setError(undefined));
 };
 export const register =
@@ -60,7 +60,7 @@ export const register =
       );
 
       if (response.data.answercode === 1) {
-        dispatch(userSlice.actions.setAuth(true));
+        dispatch(userSlice.actions.setIsAuth(true));
       } else if (response.data.answercode === 4) {
         dispatch(userSlice.actions.setError(response.data.answer));
       } else if (response.data.answercode === 3) {
