@@ -31,9 +31,9 @@ export const login =
       }>(`/authentication?username=${username}&password=${password}`);
       console.log(response);
         if (response.data.answercode === 1) {
-            dispatch(userSlice.actions.setAuth(true));
-            dispatch(userSlice.actions.setError(undefined));
-            localStorage.setItem("user_id", response.data.data.user_id);
+          localStorage.setItem("user_id", response.data.data.user_id);
+          dispatch(userSlice.actions.setAuth(true));
+          dispatch(userSlice.actions.setError(undefined));
         } else if (response.data.answercode === 3) {
             dispatch(userSlice.actions.setError(response.data.answer));
         }

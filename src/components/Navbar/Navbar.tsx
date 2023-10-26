@@ -32,7 +32,7 @@ const Navbar: FC = () => {
 
   const submit = () => {
     dispatch(create(nameboard));
-    navigate("/board");
+    // navigate("/board");
   };
   const handler = (e: any) => {
     setNameboard(e.target.value);

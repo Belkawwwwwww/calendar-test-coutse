@@ -22,9 +22,6 @@ export const userSlice = createSlice({
     setLoading(state, { payload }: PayloadAction<boolean>) {
       state.isLoading = payload;
     },
-    setUser(state, { payload }: PayloadAction<IUser>) {
-      state.user = payload;
-    },
     setError(state, { payload }: PayloadAction<string | undefined>) {
       state.error = payload;
     },

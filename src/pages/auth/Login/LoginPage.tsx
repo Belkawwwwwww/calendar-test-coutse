@@ -2,7 +2,10 @@ import React, { ChangeEvent, FC, FormEvent, useState } from "react";
 import styles from "./Login.module.sass";
 import { login } from "../../../store/action/userAction";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
-import { errorUserSelector } from "../../../store/slices/UserSlice";
+import {
+  errorUserSelector,
+  isAuthSelector,
+} from "../../../store/slices/UserSlice";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage: FC = () => {
@@ -11,13 +14,19 @@ const LoginPage: FC = () => {
   const dispatch = useAppDispatch();
   const error = useAppSelector(errorUserSelector);
   const navigate = useNavigate();
+  const isAuth = useAppSelector(isAuthSelector);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (username && password) {
-      dispatch(login(username, password));
+      dispatch(login(username, password))
+        .then(() => {
+          navigate("/board");
+        })
+        .catch(() => {
+          localStorage.removeItem("user_id");
+        });
     }
-    navigate("/board")
   };
 
   const onHandlerUser = (e: ChangeEvent<HTMLInputElement>) => {
@@ -77,6 +86,7 @@ const LoginPage: FC = () => {
           </a>
         </div>
       </div>
+      {isAuth}
     </div>
   );
 };
