@@ -14,6 +14,7 @@ export const create = (nameboard: string) => async (dispatch: AppDispatch) => {
     );
     console.log(response);
     if (response.data.answercode === 1) {
+
     } else if (response.data.answercode === 10) {
       dispatch(userSlice.actions.setError(response.data.answer));
     } else if (response.data.answercode === 2) {
@@ -22,6 +23,6 @@ export const create = (nameboard: string) => async (dispatch: AppDispatch) => {
       dispatch(userSlice.actions.setError(response.data.answer));
     }
   } catch (e) {
-    //dispatch(userSlice.actions.setError("Произошла ошибка при регистрации"));
+    dispatch(userSlice.actions.setError("Произошла ошибка при создании доски"));
   }
 };

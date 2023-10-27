@@ -30,11 +30,10 @@ const Navbar: FC = () => {
     navigate("/login");
   };
 
-  const submit = () => {
+  const handleSubmitModal = () => {
     dispatch(create(nameboard));
-    // navigate("/board");
   };
-  const handler = (e: any) => {
+  const onHandlerModal = (e: any) => {
     setNameboard(e.target.value);
   };
 
@@ -60,13 +59,13 @@ const Navbar: FC = () => {
                 <Modal
                   title="Название доски"
                   onClose={handleModalClose}
-                  onSubmit={submit}
+                  onSubmit={handleSubmitModal}
                 >
                   <input
                     value={nameboard}
                     className={styles.inputModal}
                     type="text"
-                    onChange={handler}
+                    onChange={onHandlerModal}
                     required
                   />
                   {error && (

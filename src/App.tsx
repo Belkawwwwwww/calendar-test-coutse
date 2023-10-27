@@ -17,7 +17,7 @@ const App: FC = () => {
     } else {
       navigate("/login");
     }
-  }, []);
+  }, [id]);
 
   return (
     <>

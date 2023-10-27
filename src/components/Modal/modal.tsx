@@ -68,7 +68,7 @@ const Modal = (props: IModalProps) => {
           <p className={styles.title}>{title}</p>
           {children}
           <div className={styles.footer}>
-            <button onSubmit={onSubmit}>Сохранить</button>
+            <button onClick={onSubmit}>Создать</button>
           </div>
         </div>
       </div>
