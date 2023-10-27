@@ -1,28 +1,34 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styles from "./Navbar.module.sass";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import {
   errorUserSelector,
   isAuthSelector,
+  userSlice,
 } from "../../store/slices/UserSlice";
 import { logout } from "../../store/action/userAction";
 import { useNavigate } from "react-router-dom";
 import Modal from "../Modal/modal";
 import { create } from "../../store/action/createBoard";
+import { isModalOpenSelector, modalSlice } from "../../store/slices/ModalSlice";
 
 const Navbar: FC = () => {
-  const [nameboard, setNameboard] = useState<string>("");
+  const [nameBoard, setNameBoard] = useState<string>("");
+  const [isModalActive, setModalActive] = useState(false);
   const dispatch = useAppDispatch();
   const isAuth = useAppSelector(isAuthSelector);
   const navigate = useNavigate();
   const error = useAppSelector(errorUserSelector);
-  const [isModalActive, setModalActive] = useState(false);
+  const isModalOpen = useAppSelector(isModalOpenSelector);
 
   const handleModalOpen = () => {
+    dispatch(modalSlice.actions.setIsModalOpen(true));
     setModalActive(true);
   };
   const handleModalClose = () => {
     setModalActive(false);
+    dispatch(modalSlice.actions.setIsModalOpen(false));
+    dispatch(userSlice.actions.setError(undefined));
   };
 
   const handleSubmit = () => {
@@ -31,10 +37,20 @@ const Navbar: FC = () => {
   };
 
   const handleSubmitModal = () => {
-    dispatch(create(nameboard));
+    if (nameBoard) {
+      dispatch(create(nameBoard));
+    }
   };
+
+  useEffect(() => {
+    if (!isModalOpen) {
+      setNameBoard("");
+      setModalActive(false);
+    }
+  }, [isModalOpen]);
+
   const onHandlerModal = (e: any) => {
-    setNameboard(e.target.value);
+    setNameBoard(e.target.value);
   };
 
   return (
@@ -62,14 +78,18 @@ const Navbar: FC = () => {
                   onSubmit={handleSubmitModal}
                 >
                   <input
-                    value={nameboard}
+                    value={nameBoard}
                     className={styles.inputModal}
                     type="text"
                     onChange={onHandlerModal}
                     required
                   />
                   {error && (
-                    <div style={{ color: "red", margin: "10px" }}>{error}</div>
+                    <div
+                      style={{ color: "red", margin: "10px", width: "40px" }}
+                    >
+                      {error}
+                    </div>
                   )}
                 </Modal>
               )}

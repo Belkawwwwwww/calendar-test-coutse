@@ -21,6 +21,7 @@ const Modal = (props: IModalProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
   const [isMounted, setMounted] = useState(false);
 
+
   useEffect(() => {
     createContainer({ id: MODAL_CONTAINER_ID });
     setMounted(true);
@@ -48,6 +49,7 @@ const Modal = (props: IModalProps) => {
       window.removeEventListener("keydown", handleEscapePress);
     };
   }, [onClose]);
+
 
   const handleClose: MouseEventHandler<HTMLDivElement | HTMLButtonElement> =
     useCallback(() => {
