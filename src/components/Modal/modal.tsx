@@ -37,15 +37,15 @@ const Modal = (props: IModalProps) => {
   }, [inputValue]);
 
   useEffect(() => {
-    const handleWrapperClick = (event: MouseEvent) => {
-      const { target } = event;
+    const handleWrapperClick = (e: MouseEvent) => {
+      const { target } = e;
 
       if (target instanceof Node && rootRef.current === target) {
         onClose?.();
       }
     };
-    const handleEscapePress = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+    const handleEscapePress = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
         onClose?.();
       }
     };
