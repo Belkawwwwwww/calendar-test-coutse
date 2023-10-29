@@ -49,10 +49,6 @@ const Navbar: FC = () => {
     }
   }, [isModalOpen]);
 
-  const onHandlerModal = (e: any) => {
-    setNameBoard(e.target.value);
-  };
-
   return (
     <div className={styles.navbar}>
       <div className={styles.logo}>
@@ -77,13 +73,6 @@ const Navbar: FC = () => {
                   onClose={handleModalClose}
                   onSubmit={handleSubmitModal}
                 >
-                  <input
-                    value={nameBoard}
-                    className={styles.inputModal}
-                    type="text"
-                    onChange={onHandlerModal}
-                    required
-                  />
                   {error && (
                     <div
                       style={{ color: "red", margin: "10px", width: "40px" }}
