@@ -7,13 +7,12 @@ import { privateRoutes, publicRoutes } from "./index";
 const AppRouter = () => {
   const isAuth = useAppSelector(isAuthSelector);
   return isAuth ? (
-
     <Routes>
       {privateRoutes.map((route) => (
         <Route path={route.path} element={route.element} key={route.path} />
       ))}
       {publicRoutes.map((route) => (
-          <Route path={route.path} element={route.element} key={route.path} />
+        <Route path={route.path} element={route.element} key={route.path} />
       ))}
     </Routes>
   ) : (

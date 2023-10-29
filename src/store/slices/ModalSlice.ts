@@ -8,7 +8,7 @@ export interface ModalSlice {
 
 const initialState: ModalSlice = {
   isModalOpen: false,
-  nameBoard: '',
+  nameBoard: "",
 };
 
 export const modalSlice = createSlice({
@@ -18,9 +18,9 @@ export const modalSlice = createSlice({
     setIsModalOpen(state, { payload }: PayloadAction<boolean>) {
       state.isModalOpen = payload;
     },
-    setNameBoard(state, {payload}: PayloadAction<string>) {
+    setNameBoard(state, { payload }: PayloadAction<string>) {
       state.nameBoard = payload;
-    }
+    },
   },
 });
 
@@ -31,6 +31,4 @@ export const isModalOpenSelector = createSelector(
   [_isOpenModal],
   (state) => state,
 );
-export const nameBoard = createSelector([_nameBoard], (state) => state)
-
-
+export const nameBoard = createSelector([_nameBoard], (state) => state);

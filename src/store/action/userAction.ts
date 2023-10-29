@@ -29,22 +29,22 @@ export const login =
         data: any;
       }>(`/authentication?username=${username}&password=${password}`);
       console.log(response);
-        if (response.data.answercode === 1) {
-          localStorage.setItem("user_id", response.data.data.user_id);
-          dispatch(userSlice.actions.setIsAuth(true));
-          dispatch(userSlice.actions.setError(undefined));
-        } else if (response.data.answercode === 3) {
-            dispatch(userSlice.actions.setError(response.data.answer));
-        }
+      if (response.data.answercode === 1) {
+        localStorage.setItem("user_id", response.data.data.user_id);
+        dispatch(userSlice.actions.setIsAuth(true));
+        dispatch(userSlice.actions.setError(undefined));
+      } else if (response.data.answercode === 3) {
+        dispatch(userSlice.actions.setError(response.data.answer));
+      }
     } catch (e) {
       dispatch(userSlice.actions.setError("Некорректный логин или пароль"));
     }
   };
 
 export const logout = () => async (dispatch: AppDispatch) => {
-    localStorage.removeItem("user_id");
-    dispatch(userSlice.actions.setIsAuth(false));
-    dispatch(userSlice.actions.setError(undefined));
+  localStorage.removeItem("user_id");
+  dispatch(userSlice.actions.setIsAuth(false));
+  dispatch(userSlice.actions.setError(undefined));
 };
 export const register =
   (username: string, password: string, passwordConfig: string) =>
@@ -80,4 +80,3 @@ export const register =
 //
 //     }
 // }
-

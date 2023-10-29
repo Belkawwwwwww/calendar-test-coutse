@@ -20,9 +20,8 @@ const Modal = (props: IModalProps) => {
 
   const rootRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-
 
   useEffect(() => {
     createContainer({ id: MODAL_CONTAINER_ID });
@@ -34,7 +33,7 @@ const Modal = (props: IModalProps) => {
   };
 
   useEffect(() => {
-    setIsButtonDisabled(inputValue === '');
+    setIsButtonDisabled(inputValue === "");
   }, [inputValue]);
 
   useEffect(() => {
@@ -60,12 +59,10 @@ const Modal = (props: IModalProps) => {
     };
   }, [onClose]);
 
-
   const handleClose: MouseEventHandler<HTMLDivElement | HTMLButtonElement> =
     useCallback(() => {
       onClose?.();
     }, [onClose]);
-
 
   return isMounted ? (
     <Portal id={MODAL_CONTAINER_ID}>
@@ -79,10 +76,12 @@ const Modal = (props: IModalProps) => {
             Х
           </button>
           <p className={styles.title}>{title}</p>
-          <input value={inputValue} onChange={handleInputChange}/>
+          <input value={inputValue} onChange={handleInputChange} />
           {children}
           <div className={styles.footer}>
-            <button disabled={isButtonDisabled}  onClick={onSubmit}>Создать</button>
+            <button disabled={isButtonDisabled} onClick={onSubmit}>
+              Создать
+            </button>
           </div>
         </div>
       </div>

@@ -26,8 +26,8 @@ export const publicRoutes: Route[] = [
   },
   {
     path: RouteEnum.NOTFOUND,
-    element: <NotFound/>
-  }
+    element: <NotFound />,
+  },
 ];
 
 export const privateRoutes: Route[] = [
@@ -37,13 +37,13 @@ export const privateRoutes: Route[] = [
   },
   {
     path: RouteEnum.NOTFOUND,
-    element: <NotFound/>
-  }
+    element: <NotFound />,
+  },
 ];
 
 export const anotherRoutes: Route[] = [
-    {
-        path: RouteEnum.NOTFOUND,
-        element: <NotFound/>
-    }
+  {
+    path: RouteEnum.NOTFOUND,
+    element: <NotFound />,
+  },
 ];

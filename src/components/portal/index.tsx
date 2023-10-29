@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
+import React, {useEffect, useState} from "react";
+import {createPortal} from "react-dom";
 
 //отрендерить свое содержимое children в контейнер с определенным id
 
-
 //функция кот облегчает процесс создания контейнера для портала
 //ее задача создать div с нужным id и зарендерить его в переданной moundNode, если контейнер уже существует, то ничего не делать
-//по умолчанию moundNode = document.body 
+//по умолчанию moundNode = document.body
 type containerOptions = { id: string; mountNode?: HTMLElement };
 
 const createContainer = (options: containerOptions) => {
