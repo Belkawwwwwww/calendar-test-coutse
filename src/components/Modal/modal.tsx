@@ -12,30 +12,20 @@ type IModalProps = {
   title?: string;
   onClick: () => void;
   onClose: () => void;
- // onChange: (e: any) => void,
+  // onChange: (e: any) => void,
   children: React.ReactNode | React.ReactNode[];
-  disabled: boolean
+  disabled: boolean;
 };
 const MODAL_CONTAINER_ID = "modal-container-id";
 const Modal = (props: IModalProps) => {
   const { title, onClose, children, onClick, disabled } = props;
   const rootRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
-  const [inputValue, setInputValue] = useState("");
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   useEffect(() => {
     createContainer({ id: MODAL_CONTAINER_ID });
     setIsMounted(true);
   }, []);
-
-  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setInputValue(e.target.value);
-  // };
-
-  // useEffect(() => {
-  //   setIsButtonDisabled(inputValue === "");
-  // }, [inputValue]);
 
   useEffect(() => {
     const handleWrapperClick = (e: MouseEvent) => {
@@ -80,7 +70,7 @@ const Modal = (props: IModalProps) => {
           {/*<input value={inputValue}  />*/}
           {children}
           <div className={styles.footer}>
-            <button  disabled={disabled} onClick={onClick}>
+            <button disabled={disabled} onClick={onClick}>
               Создать
             </button>
           </div>

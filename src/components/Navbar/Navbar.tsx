@@ -12,7 +12,6 @@ import Modal from "../Modal/modal";
 import { create } from "../../store/action/createBoard";
 import { isModalOpenSelector, modalSlice } from "../../store/slices/ModalSlice";
 
-
 const Navbar: FC = () => {
   const [nameBoard, setNameBoard] = useState<string>("");
   const [isModalActive, setModalActive] = useState(false);
@@ -21,7 +20,6 @@ const Navbar: FC = () => {
   const navigate = useNavigate();
   const error = useAppSelector(errorUserSelector);
   const isModalOpen = useAppSelector(isModalOpenSelector);
-
 
   const handleModalOpen = () => {
     dispatch(modalSlice.actions.setIsModalOpen(true));
@@ -78,14 +76,13 @@ const Navbar: FC = () => {
                   onClose={handleModalClose}
                   onClick={handleSubmitModal}
                   disabled={!nameBoard}
-                  //onChange={onHandlerModal}
                 >
                   <input
-                      value={nameBoard}
-                      className={styles.inputModal}
-                      type="text"
-                      onChange={onHandlerModal}
-                      required
+                    value={nameBoard}
+                    className={styles.inputModal}
+                    type="text"
+                    onChange={onHandlerModal}
+                    required
                   />
                   {error && (
                     <div
