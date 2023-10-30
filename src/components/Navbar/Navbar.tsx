@@ -98,7 +98,12 @@ const Navbar: FC = () => {
               <label htmlFor="search" className={styles.icon}>
                 <img src="/img/search.svg" alt="" />
               </label>
-              <input className={styles.input} type="text" placeholder="Поиск" />
+              <input
+                className={styles.input}
+                type="text"
+                placeholder="Поиск"
+                id="search"
+              />
               <button
                 onClick={handleSubmit}
                 type="button"

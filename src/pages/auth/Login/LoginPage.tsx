@@ -29,7 +29,7 @@ const LoginPage: FC = () => {
     if (isAuth) {
       navigate("/board");
     }
-  }, [isAuth]);
+  }, [isAuth, navigate]);
 
   const onHandlerUser = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === "username") {
@@ -61,6 +61,7 @@ const LoginPage: FC = () => {
               name="username"
               placeholder="Username"
               type="text"
+              autoComplete="username"
               required
             />
           </div>
@@ -75,6 +76,7 @@ const LoginPage: FC = () => {
               type="password"
               name="password"
               placeholder="Password"
+              autoComplete="current-password"
               required
             />
           </div>

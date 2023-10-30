@@ -1,7 +1,7 @@
 import { AppDispatch } from "../index";
 import { userSlice } from "../slices/UserSlice";
 import ax from "../../utils/axios";
-import {IUser} from "../../models/models";
+import { IUser } from "../../models/models";
 
 export const checkAuth = (user_id: number) => async (dispatch: AppDispatch) => {
   try {
@@ -11,8 +11,9 @@ export const checkAuth = (user_id: number) => async (dispatch: AppDispatch) => {
       data: any;
     }>(`/profile?user_id=${user_id}`);
     console.log(response);
+    const user_name = response.data.data.user_name;
     if (response.data.answercode === 1) {
-      dispatch(userSlice.actions.setUser(response.data.data.user_name))
+      dispatch(userSlice.actions.setUser(user_name));
       dispatch(userSlice.actions.setIsAuth(true));
     } else if (response.data.answercode === 2) {
       dispatch(userSlice.actions.setError(response.data.answer));

@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 import styles from "./Board.module.sass";
-import {useAppSelector} from "../../store/hooks/redux";
-import {userDataSelector} from "../../store/slices/UserSlice";
-
+import { useAppSelector } from "../../store/hooks/redux";
+import { userDataSelector } from "../../store/slices/UserSlice";
 
 const Board: FC = () => {
-  const user = useAppSelector(userDataSelector)
+  const user = useAppSelector(userDataSelector);
+  console.log(user.username);
 
   return (
     <div className={styles.home}>
@@ -14,25 +14,15 @@ const Board: FC = () => {
           <div className={styles.lists}>
             <div className={styles.list}>
               <img src="/img/board.svg" alt="board" />
-              <a href="" className={styles.listA}>
-                Доски
-              </a>
+              <div className={styles.listA}>Доски</div>
             </div>
             <div className={styles.list}>
               <img src="/img/board.svg" alt="board" />
-              <a href="" className={styles.listA}>
-                Шаблоны
-              </a>
+              <div className={styles.listA}>Шаблоны</div>
             </div>
           </div>
           <div>
             <div className={styles.content}>
-              <div className={styles.list}>
-                <div className={styles.title}>Рабочие пространства</div>
-                <button className={styles.button}>
-                  <img src="/img/plus.svg" alt="" />
-                </button>
-              </div>
               <div className={styles.lists}>
                 <div className={styles.list}>
                   <div className={styles.listA}>
@@ -54,33 +44,23 @@ const Board: FC = () => {
                 <div className={styles.header}>
                   <h3>{user.username}</h3>
                   <div className={styles.options}>
-                    <a className={styles.page} href="">
-                      Доски
-                    </a>
-                    <a className={styles.page} href="">
-                      Представления
-                    </a>
-                    <a className={styles.page} href="">
-                      Участники
-                    </a>
-                    <a className={styles.page} href="">
-                      Настройки
-                    </a>
+                    <div className={styles.page}>Доски</div>
+                    <div className={styles.page}>Представления</div>
+                    <div className={styles.page}>Участники</div>
+                    <div className={styles.page}>Настройки</div>
                   </div>
                 </div>
                 <div>
                   <div className={styles.create}>
-                    <a href="" className={styles.createBoard}>
-                      Создать доску
-                    </a>
+                    <div className={styles.createBoard}>
+                      здесь будут созданные доски
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <button className={styles.closeBoard}>
-            Посмотреть закрытые доски
-          </button>
+          <div className={styles.closeBoard}>Посмотреть закрытые доски</div>
         </div>
       </div>
     </div>
