@@ -16,8 +16,8 @@ export const create = (nameboard: string) => async (dispatch: AppDispatch) => {
     console.log(response);
     if (response.data.answercode === 1) {
       dispatch(modalSlice.actions.setIsModalOpen(false));
-      dispatch(userSlice.actions.setError(undefined));
       dispatch(modalSlice.actions.setNameBoard(nameboard));
+      dispatch(userSlice.actions.setError(undefined));
     } else if (response.data.answercode === 10) {
       dispatch(userSlice.actions.setError(response.data.answer));
     } else if (response.data.answercode === 2) {

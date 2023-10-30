@@ -1,7 +1,12 @@
 import React, { FC } from "react";
 import styles from "./Board.module.sass";
+import {useAppSelector} from "../../store/hooks/redux";
+import {userDataSelector} from "../../store/slices/UserSlice";
+
 
 const Board: FC = () => {
+  const user = useAppSelector(userDataSelector)
+
   return (
     <div className={styles.home}>
       <div className={styles.container}>
@@ -31,7 +36,7 @@ const Board: FC = () => {
               <div className={styles.lists}>
                 <div className={styles.list}>
                   <div className={styles.listA}>
-                    Username: рабочее пространство
+                    {user.username}: рабочее пространство
                   </div>
                   <button className={styles.button}>
                     <img className={styles.angle} src="/img/angle.svg" alt="" />
@@ -47,7 +52,7 @@ const Board: FC = () => {
               <h3>ВАШИ РАБОЧИЕ ПРОСТРАНСТВА</h3>
               <div className={styles.section}>
                 <div className={styles.header}>
-                  <h3>Username</h3>
+                  <h3>{user.username}</h3>
                   <div className={styles.options}>
                     <a className={styles.page} href="">
                       Доски
@@ -57,12 +62,6 @@ const Board: FC = () => {
                     </a>
                     <a className={styles.page} href="">
                       Участники
-                    </a>
-                    <a className={styles.page} href="">
-                      Настройки
-                    </a>
-                    <a className={styles.page} href="">
-                      Настройки
                     </a>
                     <a className={styles.page} href="">
                       Настройки

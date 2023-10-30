@@ -1,15 +1,18 @@
 import { AppDispatch } from "../index";
 import { userSlice } from "../slices/UserSlice";
 import ax from "../../utils/axios";
+import {IUser} from "../../models/models";
 
 export const checkAuth = (user_id: number) => async (dispatch: AppDispatch) => {
   try {
     const response = await ax.get<{
       answercode: number;
       answer: string;
+      data: any;
     }>(`/profile?user_id=${user_id}`);
     console.log(response);
     if (response.data.answercode === 1) {
+      dispatch(userSlice.actions.setUser(response.data.data.user_name))
       dispatch(userSlice.actions.setIsAuth(true));
     } else if (response.data.answercode === 2) {
       dispatch(userSlice.actions.setError(response.data.answer));
@@ -23,6 +26,7 @@ export const checkAuth = (user_id: number) => async (dispatch: AppDispatch) => {
 export const login =
   (username: string, password: string) => async (dispatch: AppDispatch) => {
     try {
+      dispatch(userSlice.actions.setLoading(true))
       const response = await ax.get<{
         answercode: number;
         answer: string;
@@ -45,6 +49,8 @@ export const logout = () => async (dispatch: AppDispatch) => {
   localStorage.removeItem("user_id");
   dispatch(userSlice.actions.setIsAuth(false));
   dispatch(userSlice.actions.setError(undefined));
+  dispatch(userSlice.actions.setUser({} as IUser))
+
 };
 export const register =
   (username: string, password: string, passwordConfig: string) =>
@@ -73,10 +79,3 @@ export const register =
     }
   };
 
-// export const initialization = (id: number, user_name: string) => async (dispatch: AppDispatch) => {
-//     try {
-//         const response = await ax.get <{answercode: number; answer: string; data: any}>('/profile?user_id=5')
-//     } catch (e) {
-//
-//     }
-// }
