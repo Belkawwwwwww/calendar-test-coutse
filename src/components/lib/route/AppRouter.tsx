@@ -7,6 +7,7 @@ import { RouteEnum } from "./RouteEnum";
 
 const AppRouter = () => {
   const isAuth = useAppSelector(isAuthSelector);
+
   return (
     <Routes>
       {isAuth ? (
@@ -33,5 +34,6 @@ const AppRouter = () => {
     </Routes>
   );
 };
+
 
 export default AppRouter;

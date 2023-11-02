@@ -12,7 +12,6 @@ type IModalProps = {
   title?: string;
   onClick: () => void;
   onClose: () => void;
-  // onChange: (e: any) => void,
   children: React.ReactNode | React.ReactNode[];
   disabled: boolean;
 };

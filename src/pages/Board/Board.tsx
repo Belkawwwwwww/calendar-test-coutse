@@ -1,11 +1,18 @@
 import React, { FC } from "react";
 import styles from "./Board.module.sass";
-import { useAppSelector } from "../../store/hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import { userDataSelector } from "../../store/slices/UserSlice";
+import { getBoard } from "../../store/action/boardAction";
 
 const Board: FC = () => {
   const user = useAppSelector(userDataSelector);
+  const id = Number(localStorage.getItem("userId"));
+  const dispatch = useAppDispatch();
   console.log(user.username);
+
+  const handleSubmit = () => {
+    dispatch(getBoard(id));
+  };
 
   return (
     <div className={styles.home}>
@@ -14,7 +21,9 @@ const Board: FC = () => {
           <div className={styles.lists}>
             <div className={styles.list}>
               <img src="/img/board.svg" alt="board" />
-              <div className={styles.listA}>Доски</div>
+              <button onClick={handleSubmit} className={styles.listA}>
+                Доски
+              </button>
             </div>
             <div className={styles.list}>
               <img src="/img/board.svg" alt="board" />

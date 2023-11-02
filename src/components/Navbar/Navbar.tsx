@@ -9,7 +9,7 @@ import {
 import { logout } from "../../store/action/userAction";
 import { useNavigate } from "react-router-dom";
 import Modal from "../Modal/modal";
-import { create } from "../../store/action/createBoard";
+import { createBoard } from "../../store/action/boardAction";
 import { isModalOpenSelector, modalSlice } from "../../store/slices/ModalSlice";
 
 const Navbar: FC = () => {
@@ -38,7 +38,7 @@ const Navbar: FC = () => {
 
   const handleSubmitModal = () => {
     if (nameBoard) {
-      dispatch(create(nameBoard));
+      dispatch(createBoard(nameBoard));
     }
   };
 
@@ -96,7 +96,7 @@ const Navbar: FC = () => {
             </div>
             <div className={styles.rightNav}>
               <label htmlFor="search" className={styles.icon}>
-                <img src="/img/search.svg" alt="" />
+                <img src="/img/search.svg" alt="search" />
               </label>
               <input
                 className={styles.input}
