@@ -3,17 +3,17 @@ import { userSlice } from "../slices/UserSlice";
 import ax from "../../utils/axios";
 import { IUser } from "../../models/models";
 
-export const checkAuth = (user_id: number) => async (dispatch: AppDispatch) => {
+export const checkAuth = (userId: number) => async (dispatch: AppDispatch) => {
   try {
     const response = await ax.get<{
       answercode: number;
       answer: string;
       data: any;
-    }>(`/profile?user_id=${user_id}`);
+    }>(`/profile?userId=${userId}`);
     console.log(response);
-    const user_name = response.data.data.user_name;
+    const userName = response.data.data.userName;
     if (response.data.answercode === 1) {
-      dispatch(userSlice.actions.setUser(user_name));
+      dispatch(userSlice.actions.setUser(userName));
       dispatch(userSlice.actions.setIsAuth(true));
     } else if (response.data.answercode === 2) {
       dispatch(userSlice.actions.setError(response.data.answer));
@@ -35,8 +35,9 @@ export const login =
       }>(`/authentication?username=${username}&password=${password}`);
       console.log(response);
       if (response.data.answercode === 1) {
-        localStorage.setItem("user_id", response.data.data.user_id);
-        dispatch(userSlice.actions.setIsAuth(true));
+          localStorage.setItem("userId", response.data.data.userId);
+          dispatch(userSlice.actions.setUser(response.data.data.userName));
+          dispatch(userSlice.actions.setIsAuth(true));
         dispatch(userSlice.actions.setError(undefined));
       } else if (response.data.answercode === 3) {
         dispatch(userSlice.actions.setError(response.data.answer));
@@ -47,8 +48,8 @@ export const login =
   };
 
 export const logout = () => async (dispatch: AppDispatch) => {
-  localStorage.removeItem("user_id");
-  dispatch(userSlice.actions.setIsAuth(false));
+    localStorage.removeItem("userId");
+    dispatch(userSlice.actions.setIsAuth(false));
   dispatch(userSlice.actions.setError(undefined));
   dispatch(userSlice.actions.setUser({} as IUser))
 

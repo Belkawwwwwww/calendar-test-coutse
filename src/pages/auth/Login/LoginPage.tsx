@@ -15,7 +15,6 @@ const LoginPage: FC = () => {
   const error = useAppSelector(errorUserSelector);
   const navigate = useNavigate();
   const isAuth = useAppSelector(isAuthSelector);
-  //const isLoading = useAppSelector(isLoadingUserSelector)
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

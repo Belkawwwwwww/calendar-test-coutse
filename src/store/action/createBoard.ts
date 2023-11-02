@@ -3,20 +3,20 @@ import ax from "../../utils/axios";
 import { userSlice } from "../slices/UserSlice";
 import { modalSlice } from "../slices/ModalSlice";
 
-export const create = (nameboard: string) => async (dispatch: AppDispatch) => {
+export const create = (nameBoard: string) => async (dispatch: AppDispatch) => {
   try {
-    const user_id = localStorage.getItem("user_id");
+    const userId = localStorage.getItem("userId");
     const response = await ax.post<{ answercode: number; answer: string }>(
       "/createBoard",
       {
-        nameboard: nameboard,
-        user_id: user_id,
+        nameBoard: nameBoard,
+        userId: userId,
       },
     );
     console.log(response);
     if (response.data.answercode === 1) {
       dispatch(modalSlice.actions.setIsModalOpen(false));
-      dispatch(modalSlice.actions.setNameBoard(nameboard));
+      //dispatch(modalSlice.actions.setNameBoard(nameBoard));
       dispatch(userSlice.actions.setError(undefined));
     } else if (response.data.answercode === 10) {
       dispatch(userSlice.actions.setError(response.data.answer));

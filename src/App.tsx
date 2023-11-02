@@ -9,7 +9,7 @@ import { checkAuth } from "./store/action/userAction";
 const App: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const id = Number(localStorage.getItem("user_id"));
+  const id = Number(localStorage.getItem("userId"));
 
   useEffect(() => {
     if (id) {
@@ -17,7 +17,7 @@ const App: FC = () => {
     } else {
       navigate("/login");
     }
-  }, [id]);
+  }, [dispatch, navigate, id]);
 
   return (
     <>

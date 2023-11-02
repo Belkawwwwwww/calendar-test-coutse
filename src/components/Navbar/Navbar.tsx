@@ -55,7 +55,7 @@ const Navbar: FC = () => {
   return (
     <div className={styles.navbar}>
       <div className={styles.logo}>
-        <a href="/">Logo</a>
+        <a href="/board">Logo</a>
       </div>
       <div className={styles.links}>
         {!isAuth ? (
