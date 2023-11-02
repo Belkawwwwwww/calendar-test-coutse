@@ -13,7 +13,7 @@ export const checkAuth = (userId: number) => async (dispatch: AppDispatch) => {
     console.log(response);
     const userName = response.data.data.userName;
     if (response.data.answercode === 1) {
-      dispatch(userSlice.actions.setUser(userName));
+      dispatch(userSlice.actions.setUser({username: userName}));
       dispatch(userSlice.actions.setIsAuth(true));
     } else if (response.data.answercode === 2) {
       dispatch(userSlice.actions.setError(response.data.answer));
@@ -36,8 +36,6 @@ export const login =
       console.log(response);
       if (response.data.answercode === 1) {
         localStorage.setItem("userId", response.data.data.userId);
-        //dispatch(userSlice.actions.setUser(username))
-        //dispatch(userSlice.actions.setUser(response.data.data.userName));
         dispatch(userSlice.actions.setIsAuth(true));
         dispatch(userSlice.actions.setError(undefined));
       } else if (response.data.answercode === 3) {
