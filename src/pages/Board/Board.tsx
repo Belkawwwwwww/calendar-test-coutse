@@ -1,22 +1,21 @@
-import React, {FC, useEffect} from "react";
+import React, { FC, useEffect } from "react";
 import styles from "./Board.module.sass";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import { userDataSelector } from "../../store/slices/UserSlice";
 import { getBoard } from "../../store/action/boardAction";
-import {isNameBoardSelector} from "../../store/slices/BoardSlice";
+import { isNameBoardSelector } from "../../store/slices/BoardSlice";
 import Dropdown from "../../components/Dropdown";
 
 const Board: FC = () => {
   const user = useAppSelector(userDataSelector);
-  const nameBoard = useAppSelector(isNameBoardSelector)
+  const nameBoard = useAppSelector(isNameBoardSelector);
   const id = Number(localStorage.getItem("userId"));
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getBoard(id))
-    console.log({nameBoard})
+    dispatch(getBoard(id));
+    console.log({ nameBoard });
   }, [dispatch, id, nameBoard]);
-
 
   return (
     <div className={styles.home}>
@@ -25,9 +24,7 @@ const Board: FC = () => {
           <div className={styles.lists}>
             <div className={styles.list}>
               <img src="/img/board.svg" alt="board" />
-              <div className={styles.listA}>
-                Доски
-              </div>
+              <div className={styles.listA}>Доски</div>
             </div>
             <div className={styles.list}>
               <img src="/img/board.svg" alt="board" />
@@ -39,8 +36,7 @@ const Board: FC = () => {
               <div className={styles.lists}>
                 <div className={styles.list}>
                   <div className={styles.listA}>
-                    {user.username}: <Dropdown options={nameBoard}/>
-
+                    {user.username}: <Dropdown options={nameBoard} />
                   </div>
                   {/*<button className={styles.button}>*/}
                   {/*  <img className={styles.angle} src="/img/angle.svg" alt="" />*/}
@@ -67,6 +63,7 @@ const Board: FC = () => {
                 <div>
                   <div className={styles.create}>
                     <div className={styles.createBoard}>
+                      возможно магическим образом тут будут созданные доски
                     </div>
                   </div>
                 </div>

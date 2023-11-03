@@ -18,8 +18,6 @@ export const createBoard =
       console.log(response);
       if (response.data.answercode === 1) {
         dispatch(modalSlice.actions.setIsModalOpen(false));
-
-        //dispatch(modalSlice.actions.setNameBoard(nameBoard));
         dispatch(boardSlice.actions.setError(undefined));
       } else if (response.data.answercode === 10) {
         dispatch(boardSlice.actions.setError(response.data.answer));
