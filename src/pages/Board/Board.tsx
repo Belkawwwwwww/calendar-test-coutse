@@ -14,8 +14,7 @@ const Board: FC = () => {
 
   useEffect(() => {
     dispatch(getBoard(id));
-    console.log({ nameBoard });
-  }, [dispatch, id, nameBoard]);
+  }, [dispatch, id]);
 
   return (
     <div className={styles.home}>
@@ -36,7 +35,8 @@ const Board: FC = () => {
               <div className={styles.lists}>
                 <div className={styles.list}>
                   <div className={styles.listA}>
-                    {user.username}: <Dropdown options={nameBoard} />
+                    {user.username} : Ваши созданные доски
+                    <Dropdown options={nameBoard} />
                   </div>
                   {/*<button className={styles.button}>*/}
                   {/*  <img className={styles.angle} src="/img/angle.svg" alt="" />*/}
