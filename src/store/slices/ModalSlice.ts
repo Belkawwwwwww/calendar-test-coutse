@@ -3,12 +3,10 @@ import { RootState } from "../index";
 
 export interface ModalSlice {
   isModalOpen: boolean;
-  //nameBoard: string;
 }
 
 const initialState: ModalSlice = {
   isModalOpen: false,
-  //nameBoard: "",
 };
 
 export const modalSlice = createSlice({
@@ -17,18 +15,13 @@ export const modalSlice = createSlice({
   reducers: {
     setIsModalOpen(state, { payload }: PayloadAction<boolean>) {
       state.isModalOpen = payload;
-    },
-    // setNameBoard(state, { payload }: PayloadAction<string>) {
-    //   state.nameBoard = payload;
-    // },
+    }
   },
 });
 
 const _isOpenModal = (state: RootState) => state.modal.isModalOpen;
-//const _nameBoard = (state: RootState) => state.modal.nameBoard;
 
 export const isModalOpenSelector = createSelector(
   [_isOpenModal],
   (state) => state,
 );
-//export const nameBoard = createSelector([_nameBoard], (state) => state);

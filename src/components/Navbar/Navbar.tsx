@@ -13,7 +13,7 @@ import { createBoard } from "../../store/action/boardAction";
 import { isModalOpenSelector, modalSlice } from "../../store/slices/ModalSlice";
 
 const Navbar: FC = () => {
-  const [nameBoard, setNameBoard] = useState<string>("");
+  const [name_Board, setName_Board] = useState<string>("");
   const [isModalActive, setModalActive] = useState(false);
   const dispatch = useAppDispatch();
   const isAuth = useAppSelector(isAuthSelector);
@@ -37,19 +37,20 @@ const Navbar: FC = () => {
   };
 
   const handleSubmitModal = () => {
-    if (nameBoard) {
-      dispatch(createBoard(nameBoard));
+    if (name_Board) {
+      dispatch(createBoard(name_Board));
     }
+    console.log(name_Board);
   };
 
   useEffect(() => {
     if (!isModalOpen) {
-      setNameBoard("");
+      setName_Board("");
       setModalActive(false);
     }
   }, [isModalOpen]);
   const onHandlerModal = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNameBoard(e.target.value);
+    setName_Board(e.target.value);
   };
 
   return (
@@ -75,10 +76,10 @@ const Navbar: FC = () => {
                   title="Название доски"
                   onClose={handleModalClose}
                   onClick={handleSubmitModal}
-                  disabled={!nameBoard}
+                  disabled={!name_Board}
                 >
                   <input
-                    value={nameBoard}
+                    value={name_Board}
                     className={styles.inputModal}
                     type="text"
                     onChange={onHandlerModal}

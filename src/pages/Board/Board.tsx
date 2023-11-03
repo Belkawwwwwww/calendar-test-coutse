@@ -1,17 +1,27 @@
-import React, { FC } from "react";
+import React, {FC, useEffect} from "react";
 import styles from "./Board.module.sass";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import { userDataSelector } from "../../store/slices/UserSlice";
 import { getBoard } from "../../store/action/boardAction";
+import {isNameBoardSelector} from "../../store/slices/BoardSlice";
+import Dropdown from "../../components/Dropdown";
 
 const Board: FC = () => {
   const user = useAppSelector(userDataSelector);
+  const nameBoard = useAppSelector(isNameBoardSelector)
   const id = Number(localStorage.getItem("userId"));
   const dispatch = useAppDispatch();
   console.log(user.username);
+  console.log(nameBoard)
+
+  useEffect(() => {
+    dispatch(getBoard(id))
+  }, [dispatch, id]);
 
   const handleSubmit = () => {
     dispatch(getBoard(id));
+
+
   };
 
   return (
@@ -35,11 +45,12 @@ const Board: FC = () => {
               <div className={styles.lists}>
                 <div className={styles.list}>
                   <div className={styles.listA}>
-                    {user.username}: рабочее пространство
+                    {user.username}: <Dropdown options={nameBoard}/>
+
                   </div>
-                  <button className={styles.button}>
-                    <img className={styles.angle} src="/img/angle.svg" alt="" />
-                  </button>
+                  {/*<button className={styles.button}>*/}
+                  {/*  <img className={styles.angle} src="/img/angle.svg" alt="" />*/}
+                  {/*</button>*/}
                 </div>
               </div>
             </div>
@@ -62,7 +73,6 @@ const Board: FC = () => {
                 <div>
                   <div className={styles.create}>
                     <div className={styles.createBoard}>
-                      здесь будут созданные доски
                     </div>
                   </div>
                 </div>

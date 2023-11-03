@@ -18,14 +18,15 @@ export const createBoard =
       console.log(response);
       if (response.data.answercode === 1) {
         dispatch(modalSlice.actions.setIsModalOpen(false));
+
         //dispatch(modalSlice.actions.setNameBoard(nameBoard));
-        dispatch(userSlice.actions.setError(undefined));
+        dispatch(boardSlice.actions.setError(undefined));
       } else if (response.data.answercode === 10) {
-        dispatch(userSlice.actions.setError(response.data.answer));
+        dispatch(boardSlice.actions.setError(response.data.answer));
       } else if (response.data.answercode === 2) {
-        dispatch(userSlice.actions.setError(response.data.answer));
+        dispatch(boardSlice.actions.setError(response.data.answer));
       } else if (response.data.answercode === 7) {
-        dispatch(userSlice.actions.setError(response.data.answer));
+        dispatch(boardSlice.actions.setError(response.data.answer));
       }
     } catch (e) {
       dispatch(
