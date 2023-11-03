@@ -35,12 +35,11 @@ const Board: FC = () => {
               <div className={styles.lists}>
                 <div className={styles.list}>
                   <div className={styles.listA}>
-                    {user.username} : Ваши созданные доски
+                    {/*<div className={styles.user}>*/}
+                    {/*  {user.username} : Ваши созданные доски*/}
+                    {/*</div>*/}
                     <Dropdown options={nameBoard} />
                   </div>
-                  {/*<button className={styles.button}>*/}
-                  {/*  <img className={styles.angle} src="/img/angle.svg" alt="" />*/}
-                  {/*</button>*/}
                 </div>
               </div>
             </div>
