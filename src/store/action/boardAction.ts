@@ -44,7 +44,10 @@ export const getBoard = (userId: number) => async (dispatch: AppDispatch) => {
     }>(`/getBoard?userId=${userId}`);
     console.log(response);
     if (response.data.answercode === 1) {
-      dispatch(boardSlice.actions.setNameBoard(response.data.data.nameBoard));
+      const nameBoardData = response.data.data.map(
+        (board: any) => board.nameBoard,
+      );
+      dispatch(boardSlice.actions.setNameBoard(nameBoardData));
     } else if (response.data.answercode === 2) {
       dispatch(userSlice.actions.setError(response.data.answer));
     } else if (response.data.answercode === 7) {

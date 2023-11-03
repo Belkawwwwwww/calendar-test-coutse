@@ -11,18 +11,12 @@ const Board: FC = () => {
   const nameBoard = useAppSelector(isNameBoardSelector)
   const id = Number(localStorage.getItem("userId"));
   const dispatch = useAppDispatch();
-  console.log(user.username);
-  console.log(nameBoard)
 
   useEffect(() => {
     dispatch(getBoard(id))
-  }, [dispatch, id]);
+    console.log({nameBoard})
+  }, [dispatch, id, nameBoard]);
 
-  const handleSubmit = () => {
-    dispatch(getBoard(id));
-
-
-  };
 
   return (
     <div className={styles.home}>
@@ -31,9 +25,9 @@ const Board: FC = () => {
           <div className={styles.lists}>
             <div className={styles.list}>
               <img src="/img/board.svg" alt="board" />
-              <button onClick={handleSubmit} className={styles.listA}>
+              <div className={styles.listA}>
                 Доски
-              </button>
+              </div>
             </div>
             <div className={styles.list}>
               <img src="/img/board.svg" alt="board" />
