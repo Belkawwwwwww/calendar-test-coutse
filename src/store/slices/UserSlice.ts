@@ -1,17 +1,17 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../index";
-import {IUser} from "../../models/models";
+import { IUser } from "../../lib/types";
 
 export interface UserSlice {
   isAuth: boolean;
-  user: IUser;
+  user: IUser | null;
   isLoading: boolean;
   error?: string;
 }
 
 const initialState: UserSlice = {
   isAuth: false,
-  user: {} as IUser,
+  user: null,
   isLoading: false,
 };
 
@@ -28,7 +28,7 @@ export const userSlice = createSlice({
     setIsAuth(state, { payload }: PayloadAction<boolean>) {
       state.isAuth = payload;
     },
-    setUser(state, { payload }: PayloadAction<IUser>) {
+    setUser(state, {payload}: PayloadAction<IUser | null>) {
       state.user = payload;
     },
   },

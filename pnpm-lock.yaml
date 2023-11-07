@@ -2682,7 +2682,7 @@ packages:
 
   /@types/redux-thunk/2.1.0_redux@4.2.1:
     resolution: { integrity: sha512-8M+kcrnZQYO3A40d8a1lieBFur/ab8EXHqa2dGMQqsmBaVCbNp3gd8ed/HuSjLoLA63ov/trXaXWlkiKVF4VUw== }
-    deprecated: This is a stub types definition for Redux Thunk (https://github.com/gaearon/redux-thunk). Redux Thunk provides its own type definitions, so you don't need @types/redux-thunk installed!
+    deprecated: This is a stub types definition for Redux Thunk (https://github.com/gaearon/redux-thunk). Redux Thunk provides its own types definitions, so you don't need @types/redux-thunk installed!
     dependencies:
       redux-thunk: 2.4.2_redux@4.2.1
     transitivePeerDependencies:
@@ -9536,7 +9536,7 @@ packages:
       - sockjs-client
       - supports-color
       - ts-node
-      - type-fest
+      - types-fest
       - uglify-js
       - utf-8-validate
       - vue-template-compiler

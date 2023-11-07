@@ -1,10 +1,10 @@
 import React, { JSX } from "react";
 import { RouteEnum } from "./RouteEnum";
-import LoginPage from "../../../pages/auth/Login/LoginPage";
-import RegisterPage from "../../../pages/auth/Register/RegisterPage";
-import Home from "../../../pages/Home/Home";
-import Board from "../../../pages/Board/Board";
-import NotFound from "../../../pages/NotFound";
+import LoginPage from "../../pages/auth/Login/LoginPage";
+import RegisterPage from "../../pages/auth/Register/RegisterPage";
+import Home from "../../pages/Home/Home";
+import Board from "../../pages/Board/Board";
+import NotFound from "../../pages/NotFound";
 
 type Route = {
   path: string;

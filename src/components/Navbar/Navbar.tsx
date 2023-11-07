@@ -1,110 +1,41 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import styles from "./Navbar.module.sass";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
-import {
-  errorUserSelector,
-  isAuthSelector,
-  userSlice,
-} from "../../store/slices/UserSlice";
+import { isAuthSelector } from "../../store/slices/UserSlice";
 import { logout } from "../../store/action/userAction";
-import { useNavigate } from "react-router-dom";
-import Modal from "../Modal/modal";
-import { createBoard } from "../../store/action/boardAction";
-import { isModalOpenSelector, modalSlice } from "../../store/slices/ModalSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { RouteEnum } from "../../lib/route/RouteEnum";
+import Logo from "../Logo/Logo";
+import SearchBar from "../SearchBar/SearchBar";
+import CreateButton from "./CreateButton";
 
 const Navbar: FC = () => {
-  const [nameBoard, setNameBoard] = useState<string>("");
-  const [isModalActive, setModalActive] = useState(false);
   const dispatch = useAppDispatch();
   const isAuth = useAppSelector(isAuthSelector);
   const navigate = useNavigate();
-  const error = useAppSelector(errorUserSelector);
-  const isModalOpen = useAppSelector(isModalOpenSelector);
-
-  const handleModalOpen = () => {
-    dispatch(modalSlice.actions.setIsModalOpen(true));
-    setModalActive(true);
-  };
-  const handleModalClose = () => {
-    setModalActive(false);
-    dispatch(modalSlice.actions.setIsModalOpen(false));
-    dispatch(userSlice.actions.setError(undefined));
-  };
 
   const handleSubmit = () => {
     dispatch(logout());
-    navigate("/login");
-  };
-
-  const handleSubmitModal = () => {
-    if (nameBoard) {
-      dispatch(createBoard(nameBoard));
-    }
-    console.log(nameBoard);
-  };
-
-  useEffect(() => {
-    if (!isModalOpen) {
-      setNameBoard("");
-      setModalActive(false);
-    }
-  }, [isModalOpen]);
-  const onHandlerModal = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNameBoard(e.target.value);
+    navigate(RouteEnum.LOGIN);
   };
 
   return (
-    <div className={styles.navbar}>
-      <div className={styles.logo}>
-        <a href="/board">Logo</a>
-      </div>
+    <div className={styles.header}>
+      <Logo />
       <div className={styles.links}>
         {!isAuth ? (
           <div className={styles.link}>
-            <a href="/login">Login</a>
-            <a href="/registration">Sign up</a>
+            <Link to={RouteEnum.LOGIN}>Login</Link>
+            <Link to={RouteEnum.REGISTRATION}>Sign up</Link>
           </div>
         ) : (
-          <div className={styles.btnBox}>
+          <div>
             <div className={styles.leftNav}>
               <button>Рабочие пространства</button>
-              <button className={styles.btnCreate} onClick={handleModalOpen}>
-                Создать
-              </button>
-              {isModalActive && (
-                <Modal
-                  title="Название доски"
-                  onClose={handleModalClose}
-                  onClick={handleSubmitModal}
-                  disabled={!nameBoard}
-                >
-                  <input
-                    value={nameBoard}
-                    className={styles.inputModal}
-                    type="text"
-                    onChange={onHandlerModal}
-                    required
-                  />
-                  {error && (
-                    <div
-                      style={{ color: "red", margin: "10px", width: "40px" }}
-                    >
-                      {error}
-                    </div>
-                  )}
-                </Modal>
-              )}
+              <CreateButton />
             </div>
             <div className={styles.rightNav}>
-              <label htmlFor="search" className={styles.icon}>
-                <img src="/img/search.svg" alt="search" />
-              </label>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="Поиск"
-                id="search"
-              />
+              <SearchBar />
               <button
                 onClick={handleSubmit}
                 type="button"

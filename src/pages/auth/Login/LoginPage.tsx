@@ -6,7 +6,8 @@ import {
   errorUserSelector,
   isAuthSelector,
 } from "../../../store/slices/UserSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { RouteEnum } from "../../../lib/route/RouteEnum";
 
 const LoginPage: FC = () => {
   const [username, setUsername] = useState<string>("");
@@ -26,9 +27,9 @@ const LoginPage: FC = () => {
   console.log(isAuth);
   useEffect(() => {
     if (isAuth) {
-      navigate("/board");
+      navigate(RouteEnum.BOARD);
     }
-  }, [isAuth, navigate]);
+  }, [isAuth]);  // eslint-disable-line
 
   const onHandlerUser = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === "username") {
@@ -84,9 +85,9 @@ const LoginPage: FC = () => {
           </div>
         </form>
         <div className={styles.subtitle}>
-          <a className={styles.link} href={"/registration"}>
+          <Link className={styles.link} to={RouteEnum.REGISTRATION}>
             Registration
-          </a>
+          </Link>
         </div>
       </div>
     </div>

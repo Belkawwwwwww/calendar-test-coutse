@@ -21,7 +21,6 @@ const Dropdown: FC<DropdownProps> = ({options}) => {
       transform: `rotate(${rotation}deg)`,
     };
 
-
     const handleOptionSelect = (option: string) => {
       setSelectedOption(option);
       setIsOpen(false);
@@ -34,7 +33,7 @@ const Dropdown: FC<DropdownProps> = ({options}) => {
       <div>
         <div className={styles.button} onClick={toggleDropdown}>
           <div className={styles.user}>
-            {user.username} : Ваши созданные доски
+            {user && user.username} : Ваши созданные доски
           </div>
           <div className={styles.angleContainer}>
             <img

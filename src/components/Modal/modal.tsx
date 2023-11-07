@@ -66,7 +66,6 @@ const Modal = (props: IModalProps) => {
             Х
           </button>
           <p className={styles.title}>{title}</p>
-          {/*<input value={inputValue}  />*/}
           {children}
           <div className={styles.footer}>
             <button disabled={disabled} onClick={onClick}>

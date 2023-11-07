@@ -22,7 +22,7 @@ export const FormInput = ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      //required={type === 'checkbox' ? false : true}
+      //required={types === 'checkbox' ? false : true}
     ></input>
   );
 };

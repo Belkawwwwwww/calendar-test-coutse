@@ -1,8 +1,10 @@
-import React, { ChangeEvent, FC, FormEvent, useState } from "react";
+import React, {ChangeEvent, FC, FormEvent, useEffect, useState} from "react";
 import styles from "../Login/Login.module.sass";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
-import { errorUserSelector } from "../../../store/slices/UserSlice";
+import {errorUserSelector, isAuthSelector} from "../../../store/slices/UserSlice";
 import { register } from "../../../store/action/userAction";
+import {Link, useNavigate} from "react-router-dom";
+import { RouteEnum } from "../../../lib/route/RouteEnum";
 
 const Registration: FC = () => {
   const dispatch = useAppDispatch();
@@ -10,6 +12,15 @@ const Registration: FC = () => {
   const [password, setPassword] = useState<string>("");
   const [passwordConfig, setPasswordConfig] = useState<string>("");
   const error = useAppSelector(errorUserSelector);
+  const isAuth = useAppSelector(isAuthSelector);
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate(RouteEnum.BOARD);
+    }
+  }, [isAuth]);  // eslint-disable-line
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (username && password && passwordConfig)
@@ -81,9 +92,9 @@ const Registration: FC = () => {
           </div>
         </form>
         <div className={styles.subtitle}>
-          <a className={styles.link} href={"/login"}>
+          <Link to={RouteEnum.LOGIN} className={styles.link}>
             Log In
-          </a>
+          </Link>
         </div>
       </div>
     </div>

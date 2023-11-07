@@ -16,16 +16,18 @@ export const createBoard =
         },
       );
       console.log(response);
-      if (response.data.answercode === 1) {
-        dispatch(modalSlice.actions.setIsModalOpen(false));
-        dispatch(boardSlice.actions.setError(undefined));
-      } else if (response.data.answercode === 10) {
-        dispatch(boardSlice.actions.setError(response.data.answer));
-      } else if (response.data.answercode === 2) {
-        dispatch(boardSlice.actions.setError(response.data.answer));
-      } else if (response.data.answercode === 7) {
-        dispatch(boardSlice.actions.setError(response.data.answer));
-      }
+      const obj_action: {
+        [key: number]: () => void;
+      } = {
+        1: () => {
+          dispatch(modalSlice.actions.setIsModalOpen(false));
+          dispatch(boardSlice.actions.setError(undefined));
+        },
+        2: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+        7: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+        10: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+      };
+      obj_action[response.data.answercode]?.();
     } catch (e) {
       dispatch(
         userSlice.actions.setError("Произошла ошибка при создании доски"),
@@ -41,18 +43,20 @@ export const getBoard = (userId: number) => async (dispatch: AppDispatch) => {
       data: any;
     }>(`/getBoard?userId=${userId}`);
     console.log(response);
-    if (response.data.answercode === 1) {
-      const nameBoardData = response.data.data.map(
-        (board: any) => board.nameBoard,
-      );
-      dispatch(boardSlice.actions.setNameBoard(nameBoardData));
-    } else if (response.data.answercode === 2) {
-      dispatch(userSlice.actions.setError(response.data.answer));
-    } else if (response.data.answercode === 7) {
-      dispatch(userSlice.actions.setError(response.data.answer));
-    } else if (response.data.answercode === 9) {
-      dispatch(userSlice.actions.setError(response.data.answer));
-    }
+    const obj_action: {
+      [key: number]: () => void;
+    } = {
+      1: () => {
+        const nameBoardData = response.data.data.map(
+          (board: any) => board.nameBoard,
+        );
+        dispatch(boardSlice.actions.setNameBoard(nameBoardData));
+      },
+      2: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+      7: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+      9: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+    };
+    obj_action[response.data.answercode]?.();
   } catch (e) {
     dispatch(
       userSlice.actions.setError("Произошла ошибка при получение доски"),

@@ -2,9 +2,10 @@ import React, { FC, useEffect } from "react";
 import "./styles/App.sass";
 import Navbar from "./components/Navbar/Navbar";
 import { useAppDispatch } from "./store/hooks/redux";
-import AppRouter from "./components/lib/route/AppRouter";
+import AppRouter from "./lib/route/AppRouter";
 import { useNavigate } from "react-router-dom";
 import { checkAuth } from "./store/action/userAction";
+import { RouteEnum } from "./lib/route/RouteEnum";
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
@@ -15,9 +16,17 @@ const App: FC = () => {
     if (id) {
       dispatch(checkAuth(id));
     } else {
-      navigate("/login");
+      navigate(RouteEnum.LOGIN);
     }
-  }, [dispatch, navigate, id]);
+  }, [id]); // eslint-disable-line
+  //
+  // useEffect(() => {
+  //   if (isAuth && location.pathname.includes('/registration')) {
+  //     navigate('/');
+  //   } else if (!isAuth && !location.pathname.includes('/login')) {
+  //     navigate('/login');
+  //   }
+  // }, [isAuth, location, navigate]);
 
   return (
     <>
