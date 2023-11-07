@@ -1,23 +1,32 @@
 .header
   position: relative
-  height: 50px
   border-bottom: 1px solid #e7e7e7
-  display: flex
-  justify-content: space-between
-  align-items: center
-  padding: 8px
-
-  .links
+  .container
+    align-items: center
     display: flex
     justify-content: space-between
-    padding-left: 20px
-    .link
-      a
-        text-decoration: none
-        color: black
-        padding-right: 20px
-        padding-left: 10px
-        float: left
+    max-height: 72px
+    margin: 0 auto
+    padding: 16px 20px 16px 20px
+.links
+  display: flex
+  padding-left: 20px
+  .link
+    a
+      text-decoration: none
+      color: black
+      padding-left: 10px
+      padding-right: 10px
+      &:first-child
+        border-right: 1px solid #e7e7e7
+
+.menu
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  align-items: center
+  justify-content: space-between
+
 
 
 
@@ -26,9 +35,6 @@
     border: none
     background: none
     cursor: pointer
-
-.rightNav
-
 
 .btnCreate
   cursor: pointer

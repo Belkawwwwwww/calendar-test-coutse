@@ -21,32 +21,35 @@ const Navbar: FC = () => {
 
   return (
     <div className={styles.header}>
-      <Logo />
-      <div className={styles.links}>
-        {!isAuth ? (
-          <div className={styles.link}>
-            <Link to={RouteEnum.LOGIN}>Login</Link>
-            <Link to={RouteEnum.REGISTRATION}>Sign up</Link>
-          </div>
-        ) : (
-          <div>
-            <div className={styles.leftNav}>
-              <button>Рабочие пространства</button>
-              <CreateButton />
+        <div className={styles.container}>
+            <Logo />
+            <div className={styles.links}>
+                {!isAuth ? (
+                    <div className={styles.link}>
+                        <Link to={RouteEnum.LOGIN}>Login</Link>
+                        <Link to={RouteEnum.REGISTRATION}>Sign up</Link>
+                    </div>
+
+                ) : (
+                    <div className={styles.menu}>
+                        <div className={styles.leftNav}>
+                            <CreateButton />
+                        </div>
+                        <div className={styles.rightNav}>
+                            <SearchBar />
+                            <button
+                                onClick={handleSubmit}
+                                type="button"
+                                className={styles.btnlogOut}
+                            >
+                                Выйти
+                            </button>
+                        </div>
+                    </div>
+                )}
             </div>
-            <div className={styles.rightNav}>
-              <SearchBar />
-              <button
-                onClick={handleSubmit}
-                type="button"
-                className={styles.btnlogOut}
-              >
-                Выйти
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
+        </div>
+
     </div>
   );
 };
