@@ -44,7 +44,7 @@ const Registration: FC = () => {
       <div className={styles.form}>
         <form action="" className={styles.btnBox} onSubmit={handleSubmit}>
           <h1 className={styles.title}>Registration</h1>
-          {error && <div style={{ color: "red", margin: "10px" }}>{error}</div>}
+          {error ? <div style={{ color: "red", margin: "10px" }}>{error}</div>: null}
           <div className={styles.inputBox}>
             <label className={styles.icon} htmlFor="username">
               <img src="/img/icon-user.svg" alt="user" />

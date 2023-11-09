@@ -38,13 +38,17 @@ export const login =
         data: any;
       }>(`/authentication?username=${username}&password=${password}`);
       console.log(response);
+      const userName = response.data.data.userName;
+
       const obj_action: {
         [key: number]: () => void;
       } = {
         1: () => {
           localStorage.setItem("userId", response.data.data.userId);
+          dispatch(userSlice.actions.setUser({ username: userName }));
           dispatch(userSlice.actions.setIsAuth(true));
           dispatch(userSlice.actions.setError(undefined));
+          dispatch(userSlice.actions.setLoading(false));
         },
         3: () => dispatch(userSlice.actions.setError(response.data.answer)),
         7: () => dispatch(userSlice.actions.setError(response.data.answer)),
@@ -76,12 +80,14 @@ export const register =
         passwordConfig: passwordConfig,
       });
       console.log(response);
+      const userName = response.data.data.userName;
       const obj_action: {
         [key: number]: () => void;
       } = {
         1: () => {
           dispatch(userSlice.actions.setIsAuth(true));
           localStorage.setItem("userId", response.data.data.userId);
+          dispatch(userSlice.actions.setUser({ username: userName }));
         },
         4: () => dispatch(userSlice.actions.setError(response.data.answer)),
         5: () => dispatch(userSlice.actions.setError(response.data.answer)),

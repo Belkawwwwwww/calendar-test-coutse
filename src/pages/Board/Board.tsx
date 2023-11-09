@@ -3,7 +3,7 @@ import styles from "./Board.module.sass";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import { getBoard } from "../../store/action/boardAction";
 import { isNameBoardSelector } from "../../store/slices/BoardSlice";
-import Dropdown from "../../components/Dropdown";
+import Dropdown from "../../components/UI/Dropdown/DropDown";
 
 const Board: FC = () => {
   const nameBoard = useAppSelector(isNameBoardSelector);

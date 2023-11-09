@@ -26,3 +26,5 @@ export const FormInput = ({
     ></input>
   );
 };
+
+export default FormInput;

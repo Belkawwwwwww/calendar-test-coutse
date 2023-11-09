@@ -12,3 +12,5 @@ export const Button = ({ type, text, className, onClick }: Props) => {
     </button>
   );
 };
+
+export default Button;

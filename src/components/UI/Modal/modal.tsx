@@ -5,8 +5,8 @@ import React, {
   useRef,
   useState,
 } from "react";
-import styles from "./modal.module.sass";
-import Portal, { createContainer } from "../portal";
+import styles from "./styles.module.sass";
+import Portal, { createContainer } from "../../portal";
 
 type IModalProps = {
   title?: string;
@@ -16,7 +16,7 @@ type IModalProps = {
   disabled: boolean;
 };
 const MODAL_CONTAINER_ID = "modal-container-id";
-const Modal = (props: IModalProps) => {
+export const Modal = (props: IModalProps) => {
   const { title, onClose, children, onClick, disabled } = props;
   const rootRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
@@ -77,4 +77,5 @@ const Modal = (props: IModalProps) => {
     </Portal>
   ) : null;
 };
-export default Modal;
+
+export default Modal

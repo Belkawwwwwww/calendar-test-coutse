@@ -17,6 +17,7 @@ const LoginPage: FC = () => {
   const navigate = useNavigate();
   const isAuth = useAppSelector(isAuthSelector);
 
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (username && password) {
@@ -49,7 +50,7 @@ const LoginPage: FC = () => {
           onSubmit={handleSubmit}
         >
           <h1 className={styles.title}>User Login</h1>
-          {error && <div style={{ color: "red", margin: "10px" }}>{error}</div>}
+          {error ? <div style={{ color: "red", margin: "10px" }}>{error}</div> : null}
           <div className={styles.inputBox}>
             <label className={styles.icon} htmlFor="username">
               <img src="/img/icon-user.svg" alt="user" />

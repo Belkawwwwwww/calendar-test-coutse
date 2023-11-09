@@ -2,9 +2,9 @@ import React, { JSX } from "react";
 import { RouteEnum } from "./RouteEnum";
 import LoginPage from "../../pages/auth/Login/LoginPage";
 import RegisterPage from "../../pages/auth/Register/RegisterPage";
-import Home from "../../pages/Home/Home";
 import Board from "../../pages/Board/Board";
-import NotFound from "../../pages/NotFound";
+import NotFound from "../../pages/NotFound/NotFound";
+import { Navigate } from "react-router-dom";
 
 type Route = {
   path: string;
@@ -13,10 +13,6 @@ type Route = {
 
 export const publicRoutes: Route[] = [
   {
-    path: RouteEnum.HOME,
-    element: <Home />,
-  },
-  {
     path: RouteEnum.LOGIN,
     element: <LoginPage />,
   },
@@ -24,6 +20,7 @@ export const publicRoutes: Route[] = [
     path: RouteEnum.REGISTRATION,
     element: <RegisterPage />,
   },
+  { path: "*", element: <Navigate to="/login" /> },
 ];
 
 export const privateRoutes: Route[] = [
@@ -31,6 +28,7 @@ export const privateRoutes: Route[] = [
     path: RouteEnum.BOARD,
     element: <Board />,
   },
+  { path: "*", element: <NotFound /> },
 ];
 
 export const anotherRoutes: Route[] = [

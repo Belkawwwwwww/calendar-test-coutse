@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import styles from "./Navbar.module.sass";
-import Modal from "../Modal/modal";
+import styles from "./styles.module.sass";
+import { Modal } from "../UI/Modal/modal";
 import { createBoard } from "../../store/action/boardAction";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import { isModalOpenSelector, modalSlice } from "../../store/slices/ModalSlice";
@@ -45,7 +45,7 @@ const CreateButton = () => {
       <button className={styles.btnCreate} onClick={handleModalOpen}>
         Создать
       </button>
-      {isModalActive && (
+      {isModalActive ? (
         <Modal
           title="Название доски"
           onClose={handleModalClose}
@@ -59,13 +59,13 @@ const CreateButton = () => {
             onChange={onHandlerModal}
             required
           />
-          {error && (
+          {error ? (
             <div style={{ color: "red", margin: "10px", width: "40px" }}>
               {error}
             </div>
-          )}
+          ) : null}
         </Modal>
-      )}
+      ) : null}
     </>
   );
 };

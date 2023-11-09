@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from "./Logo.module.sass";
+import styles from "./styles.module.sass";
 import {Link} from "react-router-dom";
-import {RouteEnum} from "../../lib/route/RouteEnum";
+import {RouteEnum} from "../../../lib/route/RouteEnum";
 
 
 const Logo = () => {

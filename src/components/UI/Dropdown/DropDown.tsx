@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
-import styles from "./index.module.sass";
-import { useAppSelector } from "../../store/hooks/redux";
-import { userDataSelector } from "../../store/slices/UserSlice";
+import styles from "./styles.module.sass";
+import { useAppSelector } from "../../../store/hooks/redux";
+import { userDataSelector } from "../../../store/slices/UserSlice";
 
 interface DropdownProps {
   options: string[];
@@ -33,7 +33,7 @@ const Dropdown: FC<DropdownProps> = ({options}) => {
       <div>
         <div className={styles.button} onClick={toggleDropdown}>
           <div className={styles.user}>
-            {user && user.username} : Ваши созданные доски
+            {user ? user.username : null} : Ваши созданные доски
           </div>
           <div className={styles.angleContainer}>
             <img
@@ -45,9 +45,9 @@ const Dropdown: FC<DropdownProps> = ({options}) => {
             />
           </div>
         </div>
-        {isOpen && (
+        {isOpen ? (
           <div className={styles.board}>
-            {options &&
+            {options ?
               options.map((option) => (
                 <div
                   className={styles.boards}
@@ -56,10 +56,10 @@ const Dropdown: FC<DropdownProps> = ({options}) => {
                 >
                   {option}
                 </div>
-              ))}
+              )): null}
           </div>
-        )}
-        {selectedOption && <p>Selected board: {selectedOption}</p>}
+        ): null}
+        {selectedOption ? <p>Selected board: {selectedOption}</p> : null}
       </div>
     );
 }
