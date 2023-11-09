@@ -5,6 +5,7 @@ import { createBoard } from "../../store/action/boardAction";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import { isModalOpenSelector, modalSlice } from "../../store/slices/ModalSlice";
 import { boardSlice, errorBoardSelector } from "../../store/slices/BoardSlice";
+import { useNavigate } from "react-router-dom";
 
 const CreateButton = () => {
   const [nameBoard, setNameBoard] = useState<string>("");
@@ -12,6 +13,7 @@ const CreateButton = () => {
   const dispatch = useAppDispatch();
   const error = useAppSelector(errorBoardSelector);
   const isModalOpen = useAppSelector(isModalOpenSelector);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!isModalOpen) {
@@ -32,6 +34,7 @@ const CreateButton = () => {
   const handleSubmitModal = () => {
     if (nameBoard) {
       dispatch(createBoard(nameBoard));
+      navigate(`/board/${nameBoard}`);
     }
     console.log(nameBoard);
   };

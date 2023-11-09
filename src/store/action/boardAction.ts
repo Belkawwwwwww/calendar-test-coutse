@@ -41,16 +41,19 @@ export const getBoard = (userId: number) => async (dispatch: AppDispatch) => {
       answercode: number;
       answer: string;
       data: any;
+      id: number;
+      nameBoard: string;
     }>(`/getBoard?userId=${userId}`);
     console.log(response);
     const obj_action: {
       [key: number]: () => void;
     } = {
       1: () => {
-        const nameBoardData = response.data.data.map(
-          (board: any) => board.nameBoard,
-        );
-        dispatch(boardSlice.actions.setNameBoard(nameBoardData));
+        const boardData = response.data.data.map((board: any) => ({
+          id: board.id,
+          nameBoard: board.nameBoard,
+        }));
+        dispatch(boardSlice.actions.setNameBoard(boardData));
       },
       2: () => dispatch(boardSlice.actions.setError(response.data.answer)),
       7: () => dispatch(boardSlice.actions.setError(response.data.answer)),

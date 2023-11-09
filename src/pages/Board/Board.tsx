@@ -3,12 +3,15 @@ import styles from "./Board.module.sass";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import { getBoard } from "../../store/action/boardAction";
 import { isNameBoardSelector } from "../../store/slices/BoardSlice";
-import Dropdown from "../../components/UI/Dropdown/DropDown";
+import { Link } from "react-router-dom";
+import { RouteEnum } from "../../lib/route/RouteEnum";
+import { userDataSelector } from "../../store/slices/UserSlice";
 
 const Board: FC = () => {
   const nameBoard = useAppSelector(isNameBoardSelector);
   const id = Number(localStorage.getItem("userId"));
   const dispatch = useAppDispatch();
+  const user = useAppSelector(userDataSelector);
 
   useEffect(() => {
     dispatch(getBoard(id));
@@ -21,27 +24,32 @@ const Board: FC = () => {
           <div className={styles.lists}>
             <div className={styles.list}>
               <img src="/img/board.svg" alt="board" />
-              <div className={styles.listA}>Доски</div>
-            </div>
-          </div>
-          <div>
-            <div className={styles.content}>
-              <div className={styles.lists}>
-                <div className={styles.list}>
-                  <div className={styles.listA}>
-                    <Dropdown options={nameBoard} />
-                  </div>
-                </div>
-              </div>
+              <Link to={RouteEnum.BOARD} className={styles.listA}>
+                Доски
+              </Link>
             </div>
           </div>
         </div>
         <div className={styles.allBoard}>
           <div className={styles.content}>
-            <h3>ВАШИ РАБОЧИЕ ПРОСТРАНСТВА</h3>
+            <div className={styles.user}>
+              {user ? user.username : null} : Ваши созданные доски
+            </div>
             <div className={styles.section}>
               <div className={styles.create}>
-                <div className={styles.createBoard}></div>
+                {nameBoard ? nameBoard.length > 0 ? (
+                    nameBoard.map((option) => (
+                        <Link
+                            to={`/board/${option.id}`}
+                            className={styles.createBoard}
+                            key={option.id}
+                        >
+                          {option.nameBoard}
+                        </Link>
+                    ))
+                ): (
+                    <div className={styles.createBoard}>Нет доступных досок</div>
+                ): null}
               </div>
             </div>
           </div>

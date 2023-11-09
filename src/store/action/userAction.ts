@@ -1,6 +1,7 @@
 import { AppDispatch } from "../index";
 import { userSlice } from "../slices/UserSlice";
 import ax from "../../utils/axios";
+import {boardSlice} from "../slices/BoardSlice";
 
 export const checkAuth = (userId: number) => async (dispatch: AppDispatch) => {
   try {
@@ -49,6 +50,7 @@ export const login =
           dispatch(userSlice.actions.setIsAuth(true));
           dispatch(userSlice.actions.setError(undefined));
           dispatch(userSlice.actions.setLoading(false));
+          //window.location.pathname = '/';
         },
         3: () => dispatch(userSlice.actions.setError(response.data.answer)),
         7: () => dispatch(userSlice.actions.setError(response.data.answer)),
@@ -64,7 +66,10 @@ export const logout = () => async (dispatch: AppDispatch) => {
   localStorage.removeItem("userId");
   dispatch(userSlice.actions.setIsAuth(false));
   dispatch(userSlice.actions.setError(undefined));
-    dispatch(userSlice.actions.setUser(null));
+  dispatch(userSlice.actions.setUser(null));
+  dispatch(boardSlice.actions.setNameBoard(null))
+  dispatch(boardSlice.actions.setError(undefined));
+
 };
 export const register =
   (username: string, password: string, passwordConfig: string) =>

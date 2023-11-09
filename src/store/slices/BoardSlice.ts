@@ -1,21 +1,22 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../index";
+import { IBoard } from "../../lib/types";
 
 export interface BoardSlice {
-  nameBoard: string[];
+  boards: IBoard[] | null;
   error?: string;
 }
 
 const initialState: BoardSlice = {
-  nameBoard: [],
+  boards: null,
 };
 
 export const boardSlice = createSlice({
   name: "boards",
   initialState,
   reducers: {
-    setNameBoard(state, { payload }: PayloadAction<string[]>) {
-      state.nameBoard = payload;
+    setNameBoard(state, { payload }: PayloadAction<IBoard[] | null>) {
+      state.boards = payload;
     },
     setError(state, { payload }: PayloadAction<string | undefined>) {
       state.error = payload;
@@ -23,12 +24,12 @@ export const boardSlice = createSlice({
   },
 });
 
-const _nameBoard = (state: RootState) => state.boards.nameBoard;
+const _boards = (state: RootState) => state.boards.boards;
 const _error = (state: RootState) => state.boards.error;
 
 export const isNameBoardSelector = createSelector(
-  [_nameBoard],
-  (nameBoard) => nameBoard,
+  [_boards],
+  (boards) => boards,
 );
 export const errorBoardSelector = createSelector([_error], (state) => state);
 

@@ -5,6 +5,7 @@ import RegisterPage from "../../pages/auth/Register/RegisterPage";
 import Board from "../../pages/Board/Board";
 import NotFound from "../../pages/NotFound/NotFound";
 import { Navigate } from "react-router-dom";
+import BoardPage from "../../pages/Board/BoardPage";
 
 type Route = {
   path: string;
@@ -20,7 +21,7 @@ export const publicRoutes: Route[] = [
     path: RouteEnum.REGISTRATION,
     element: <RegisterPage />,
   },
-  { path: "*", element: <Navigate to="/login" /> },
+  { path: RouteEnum.NOTFOUND, element: <Navigate to="/login" /> },
 ];
 
 export const privateRoutes: Route[] = [
@@ -28,7 +29,11 @@ export const privateRoutes: Route[] = [
     path: RouteEnum.BOARD,
     element: <Board />,
   },
-  { path: "*", element: <NotFound /> },
+  {
+    path: `${RouteEnum.BOARD}/:id`,
+    element: <BoardPage />,
+  },
+  { path: RouteEnum.NOTFOUND, element: <NotFound /> },
 ];
 
 export const anotherRoutes: Route[] = [

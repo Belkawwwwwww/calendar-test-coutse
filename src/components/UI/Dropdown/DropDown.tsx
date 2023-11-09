@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 import styles from "./styles.module.sass";
 import { useAppSelector } from "../../../store/hooks/redux";
 import { userDataSelector } from "../../../store/slices/UserSlice";
+import { useNavigate } from "react-router-dom";
 
 interface DropdownProps {
   options: string[];
@@ -12,6 +13,7 @@ const Dropdown: FC<DropdownProps> = ({options}) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const user = useAppSelector(userDataSelector);
     const [rotation, setRotation] = useState(0);
+    const navigate = useNavigate();
 
     const handleClick = () => {
       setRotation(rotation + 180);
@@ -24,6 +26,7 @@ const Dropdown: FC<DropdownProps> = ({options}) => {
     const handleOptionSelect = (option: string) => {
       setSelectedOption(option);
       setIsOpen(false);
+      navigate(`/board/${option}`);
     };
 
     const toggleDropdown = () => {
