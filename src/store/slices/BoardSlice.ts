@@ -27,9 +27,6 @@ export const boardSlice = createSlice({
 const _boards = (state: RootState) => state.boards.boards;
 const _error = (state: RootState) => state.boards.error;
 
-export const isNameBoardSelector = createSelector(
-  [_boards],
-  (boards) => boards,
-);
+export const isBoardSelector = createSelector([_boards], (boards) => boards);
 export const errorBoardSelector = createSelector([_error], (state) => state);
 

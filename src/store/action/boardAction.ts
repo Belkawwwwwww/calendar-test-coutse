@@ -20,6 +20,7 @@ export const createBoard =
         [key: number]: () => void;
       } = {
         1: () => {
+
           dispatch(modalSlice.actions.setIsModalOpen(false));
           dispatch(boardSlice.actions.setError(undefined));
         },
@@ -40,29 +41,32 @@ export const getBoard = (userId: number) => async (dispatch: AppDispatch) => {
     const response = await ax.get<{
       answercode: number;
       answer: string;
-      data: any;
-      id: number;
-      nameBoard: string;
+      data?: any;
     }>(`/getBoard?userId=${userId}`);
     console.log(response);
-    const obj_action: {
-      [key: number]: () => void;
-    } = {
-      1: () => {
-        const boardData = response.data.data.map((board: any) => ({
-          id: board.id,
-          nameBoard: board.nameBoard,
-        }));
-        dispatch(boardSlice.actions.setNameBoard(boardData));
-      },
-      2: () => dispatch(boardSlice.actions.setError(response.data.answer)),
-      7: () => dispatch(boardSlice.actions.setError(response.data.answer)),
-      9: () => dispatch(boardSlice.actions.setError(response.data.answer)),
-    };
-    obj_action[response.data.answercode]?.();
+    const data = response.data?.data
+    if (data) {
+      const obj_action: {
+        [key: number]: () => void;
+      } = {
+        1: () => {
+          const boardData = response.data.data.map(
+              (board: { id: number; nameBoard: string }) => ({
+                id: board.id,
+                nameBoard: board.nameBoard,
+              })
+          );
+          dispatch(boardSlice.actions.setNameBoard(boardData));
+        },
+        2: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+        7: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+        9: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+      };
+      obj_action[response.data.answercode]?.();
+    }
   } catch (e) {
     dispatch(
-      userSlice.actions.setError("Произошла ошибка при получение доски"),
+        userSlice.actions.setError("Произошла ошибка при получение доски"),
     );
   }
 };

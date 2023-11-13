@@ -33,8 +33,10 @@ const CreateButton = () => {
 
   const handleSubmitModal = () => {
     if (nameBoard) {
-      dispatch(createBoard(nameBoard));
-      navigate(`/board/${nameBoard}`);
+      dispatch(createBoard(nameBoard)).then(() => {
+        //dispatch(getBoard(nameBoardId))
+        navigate(`/board/${nameBoard}`);
+      });
     }
     console.log(nameBoard);
   };

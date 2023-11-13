@@ -5,7 +5,7 @@ import RegisterPage from "../../pages/auth/Register/RegisterPage";
 import Board from "../../pages/Board/Board";
 import NotFound from "../../pages/NotFound/NotFound";
 import { Navigate } from "react-router-dom";
-import BoardPage from "../../pages/Board/BoardPage";
+import BoardPage from "../../pages/Boardpage/BoardPage";
 
 type Route = {
   path: string;

@@ -2,20 +2,25 @@ import React, { FC, useEffect } from "react";
 import styles from "./Board.module.sass";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import { getBoard } from "../../store/action/boardAction";
-import { isNameBoardSelector } from "../../store/slices/BoardSlice";
-import { Link } from "react-router-dom";
+import { isBoardSelector } from "../../store/slices/BoardSlice";
+import { Link, useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../lib/route/RouteEnum";
 import { userDataSelector } from "../../store/slices/UserSlice";
 
 const Board: FC = () => {
-  const nameBoard = useAppSelector(isNameBoardSelector);
+  const nameBoard = useAppSelector(isBoardSelector);
   const id = Number(localStorage.getItem("userId"));
   const dispatch = useAppDispatch();
   const user = useAppSelector(userDataSelector);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getBoard(id));
   }, [id]); // eslint-disable-line
+
+  const handleBoardClick = (boardId: number) => {
+    navigate(`/board/${boardId}`)
+  }
 
   return (
     <div className={styles.home}>
@@ -37,19 +42,23 @@ const Board: FC = () => {
             </div>
             <div className={styles.section}>
               <div className={styles.create}>
-                {nameBoard ? nameBoard.length > 0 ? (
+                {nameBoard ? (
+                  nameBoard.length > 0 ? (
                     nameBoard.map((option) => (
-                        <Link
-                            to={`/board/${option.id}`}
-                            className={styles.createBoard}
-                            key={option.id}
-                        >
-                          {option.nameBoard}
-                        </Link>
+                      <div
+                        onClick={() => handleBoardClick(option.id)}
+                        className={styles.createBoard}
+                        key={option.id}
+                      >
+                        {option.nameBoard}
+                      </div>
                     ))
-                ): (
-                    <div className={styles.createBoard}>Нет доступных досок</div>
-                ): null}
+                  ) : (
+                    <div className={styles.createBoard}>
+                      Нет доступных досок
+                    </div>
+                  )
+                ) : null}
               </div>
             </div>
           </div>
