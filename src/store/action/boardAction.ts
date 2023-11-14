@@ -7,20 +7,19 @@ import { boardSlice } from "../slices/BoardSlice";
 export const createBoard =
   (nameBoard: string) => async (dispatch: AppDispatch) => {
     try {
-      const userId = localStorage.getItem("userId");
-      const response = await ax.post<{ answercode: number; answer: string }>(
-        "/createBoard",
-        {
-          nameBoard: nameBoard,
-          userId: userId,
-        },
-      );
+      const userId = Number(localStorage.getItem("userId"));
+      const response = await ax.post<{
+        answercode: number;
+        answer: string;
+      }>("/createBoard", {
+        nameBoard: nameBoard,
+        userId: userId,
+      });
       console.log(response);
       const obj_action: {
         [key: number]: () => void;
       } = {
         1: () => {
-
           dispatch(modalSlice.actions.setIsModalOpen(false));
           dispatch(boardSlice.actions.setError(undefined));
         },
@@ -29,6 +28,7 @@ export const createBoard =
         10: () => dispatch(boardSlice.actions.setError(response.data.answer)),
       };
       obj_action[response.data.answercode]?.();
+      dispatch(getBoard(userId));
     } catch (e) {
       dispatch(
         userSlice.actions.setError("Произошла ошибка при создании доски"),
@@ -70,3 +70,48 @@ export const getBoard = (userId: number) => async (dispatch: AppDispatch) => {
     );
   }
 };
+
+export const deleteBoard =
+  (userId: number, nameBoard: string) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await ax.delete<{
+        answercode: number;
+        answer: string;
+      }>(`/deleteBoard?nameBoard=${nameBoard}&userId=${userId}`);
+      console.log(response);
+      const obj_action: {
+        [key: number]: () => void;
+      } = {
+        1: () => {
+          dispatch(boardSlice.actions.removeBoard(nameBoard));
+          console.log(response);
+        },
+        2: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+        3: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+        9: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+      };
+      obj_action[response.data.answercode]?.();
+    } catch (e) {
+      dispatch(
+        userSlice.actions.setError("Произошла ошибка при удалении доски"),
+      );
+    }
+  };
+
+export const renameBoard = (userId: number, boardNewName: string, boardOldName: string) => async () => {
+  try {
+    const response = await ax.put<{
+      answercode: number;
+      answer: string;
+    }>(`/renameBoard?boardOldName=${boardOldName}&boardNewName=${boardNewName}&userId=${userId}`)
+    const obj_action: {
+      [key: number]: () => void;
+    } = {
+      1: () => {},
+
+    }
+    obj_action[response.data.answercode]?.();
+  } catch (e) {
+
+  }
+}

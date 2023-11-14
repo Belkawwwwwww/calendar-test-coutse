@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const ax = axios.create({
-  baseURL: "https://api.safechron.online",
+  baseURL: "http://alyona.safechron.ru",
   timeout: 360 * 1000,
-  withCredentials: true,
+  withCredentials: false,
 });
 
 ax.interceptors.request.use(

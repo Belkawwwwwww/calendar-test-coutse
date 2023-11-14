@@ -19,8 +19,8 @@ const Board: FC = () => {
   }, [id]); // eslint-disable-line
 
   const handleBoardClick = (boardId: number) => {
-    navigate(`/board/${boardId}`)
-  }
+    navigate(`/board/${boardId}`);
+  };
 
   return (
     <div className={styles.home}>
@@ -42,23 +42,19 @@ const Board: FC = () => {
             </div>
             <div className={styles.section}>
               <div className={styles.create}>
-                {nameBoard ? (
-                  nameBoard.length > 0 ? (
-                    nameBoard.map((option) => (
-                      <div
-                        onClick={() => handleBoardClick(option.id)}
-                        className={styles.createBoard}
-                        key={option.id}
-                      >
-                        {option.nameBoard}
-                      </div>
-                    ))
-                  ) : (
-                    <div className={styles.createBoard}>
-                      Нет доступных досок
+                {!nameBoard || nameBoard.length === 0 ? (
+                  <div className={styles.createBoard}>Нет доступных досок</div>
+                ) : (
+                  nameBoard.map((board) => (
+                    <div
+                      onClick={() => handleBoardClick(board.id)}
+                      className={styles.createBoard}
+                      key={board.id}
+                    >
+                      {board.nameBoard}
                     </div>
-                  )
-                ) : null}
+                  ))
+                )}
               </div>
             </div>
           </div>
