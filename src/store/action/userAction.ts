@@ -1,7 +1,7 @@
 import { AppDispatch } from "../index";
 import { userSlice } from "../slices/UserSlice";
 import ax from "../../utils/axios";
-import {boardSlice} from "../slices/BoardSlice";
+import { boardSlice } from "../slices/BoardSlice";
 
 export const checkAuth = (userId: number) => async (dispatch: AppDispatch) => {
   try {
@@ -40,7 +40,6 @@ export const login =
       }>(`/authentication?username=${username}&password=${password}`);
       console.log(response);
       const userName = response.data.data.userName;
-
       const obj_action: {
         [key: number]: () => void;
       } = {
@@ -50,7 +49,6 @@ export const login =
           dispatch(userSlice.actions.setIsAuth(true));
           dispatch(userSlice.actions.setError(undefined));
           dispatch(userSlice.actions.setLoading(false));
-          //window.location.pathname = '/';
         },
         3: () => dispatch(userSlice.actions.setError(response.data.answer)),
         7: () => dispatch(userSlice.actions.setError(response.data.answer)),

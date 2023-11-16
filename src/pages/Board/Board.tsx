@@ -8,15 +8,15 @@ import { userDataSelector } from "../../store/slices/UserSlice";
 import { isBoardSelector } from "../../store/slices/BoardSlice";
 
 const Board: FC = () => {
-  const id = Number(localStorage.getItem("userId"));
+  //const id = Number(localStorage.getItem("userId"));
   const dispatch = useAppDispatch();
   const user = useAppSelector(userDataSelector);
   const navigate = useNavigate();
   const boards = useAppSelector(isBoardSelector);
 
   useEffect(() => {
-    dispatch(getBoard(id));
-  }, [id]); // eslint-disable-line
+    dispatch(getBoard());
+  }, []); // eslint-disable-line
 
   const handleBoardClick = (boardId: number) => {
     navigate(`/board/${boardId}`);

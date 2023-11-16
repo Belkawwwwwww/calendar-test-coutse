@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Drag from "../../components/DragAndDrop/Drag";
 import { IBoard } from "../../lib/types";
 import { RouteEnum } from "../../lib/route/RouteEnum";
-import RemoveButton from "../../components/removeButton/RemoveButton";
+import RemoveButton from "../../components/Button/RemoveButton";
 
 const BoardPage: FC = () => {
   const user = useAppSelector(userDataSelector);

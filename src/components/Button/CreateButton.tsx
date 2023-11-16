@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import styles from "./styles.module.sass";
+import styles from "../Navbar/styles.module.sass";
 import Modal from "../UI/Modal";
-import { createBoard } from "../../store/action/boardAction";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import { isModalOpenSelector, modalSlice } from "../../store/slices/ModalSlice";
 import { boardSlice, errorBoardSelector } from "../../store/slices/BoardSlice";
+import {createBoard} from "../../store/action/boardAction";
 
 const CreateButton = () => {
   const [nameBoard, setNameBoard] = useState<string>("");
