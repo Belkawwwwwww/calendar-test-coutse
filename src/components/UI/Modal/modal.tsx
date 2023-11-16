@@ -10,14 +10,13 @@ import Portal, { createContainer } from "../../portal";
 
 type IModalProps = {
   title?: string;
-  onClick: () => void;
   onClose: () => void;
   children: React.ReactNode | React.ReactNode[];
-  disabled: boolean;
+  footerButtons?: { name: string; onClick?: () => void; disabled?: boolean }[];
 };
 const MODAL_CONTAINER_ID = "modal-container-id";
 export const Modal = (props: IModalProps) => {
-  const { title, onClose, children, onClick, disabled } = props;
+  const { title, onClose, children, footerButtons } = props;
   const rootRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -69,9 +68,15 @@ export const Modal = (props: IModalProps) => {
           <p className={styles.title}>{title}</p>
           {children}
           <div className={styles.footer}>
-            <button disabled={disabled} onClick={onClick}>
-              Создать
-            </button>
+            {footerButtons?.map((button, index) => (
+              <button
+                key={index}
+                disabled={button.disabled}
+                onClick={button.onClick}
+              >
+                {button.name}
+              </button>
+            ))}
           </div>
         </div>
       </div>

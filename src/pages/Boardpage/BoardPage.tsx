@@ -1,30 +1,24 @@
 import React, { FC, useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
+import { useAppSelector } from "../../store/hooks/redux";
 import { isBoardSelector } from "../../store/slices/BoardSlice";
 import styles from "./styles.module.sass";
 import { userDataSelector } from "../../store/slices/UserSlice";
 import { useNavigate } from "react-router-dom";
 import Drag from "../../components/DragAndDrop/Drag";
-import { deleteBoard } from "../../store/action/boardAction";
 import { IBoard } from "../../lib/types";
 import { RouteEnum } from "../../lib/route/RouteEnum";
+import RemoveButton from "../../components/removeButton/RemoveButton";
 
 const BoardPage: FC = () => {
   const user = useAppSelector(userDataSelector);
   const boards = useAppSelector(isBoardSelector);
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const [selectedBoard, setSelectedBoard] = useState<IBoard | null>(null); // Используется для создания состояния, которое хранит выбранную доску (selectedBoard)
-  const userId = Number(localStorage.getItem("userId"));
 
   const handleBoardClick = (boardId: number) => {
     const selected = boards?.find((board) => board.id === boardId);
     setSelectedBoard(selected || null);
     navigate(`/board/${boardId}`);
-  };
-  const handleDeleteBoard = (boardId: number, userId: number) => {
-    dispatch(deleteBoard(userId, boardId));
-    console.log(boardId);
   };
 
   useEffect(() => {
@@ -74,13 +68,8 @@ const BoardPage: FC = () => {
             </div>
             <div className={styles.board}>
               <div className={styles.delete_board}>Изменить название доски</div>
-              <div
-                className={styles.delete_board}
-                onClick={() =>
-                  handleDeleteBoard(selectedBoard?.id ?? 0, userId ?? 0)
-                }
-              >
-                Удалить доску
+              <div className={styles.delete_board}>
+                <RemoveButton />
               </div>
             </div>
           </div>

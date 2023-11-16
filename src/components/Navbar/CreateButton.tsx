@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.sass";
-import { Modal } from "../UI/Modal/modal";
+import Modal from "../UI/Modal";
 import { createBoard } from "../../store/action/boardAction";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import { isModalOpenSelector, modalSlice } from "../../store/slices/ModalSlice";
@@ -40,6 +40,7 @@ const CreateButton = () => {
   const onHandlerModal = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNameBoard(e.target.value);
   };
+  const isCreateButtonDisabled = nameBoard.length === 0;
 
   return (
     <>
@@ -50,8 +51,13 @@ const CreateButton = () => {
         <Modal
           title="Название доски"
           onClose={handleModalClose}
-          onClick={handleSubmitModal}
-          disabled={!nameBoard}
+          footerButtons={[
+            {
+              name: "Создать",
+              disabled: isCreateButtonDisabled,
+              onClick: handleSubmitModal,
+            },
+          ]}
         >
           <input
             value={nameBoard}

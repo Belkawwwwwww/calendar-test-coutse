@@ -12,7 +12,7 @@ const BurgerMenu: FC<BurgerMenuProps> = ({ header, children }) => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  return <>{isMenuOpen && <div>{children}</div>}</>;
+  return <>{isMenuOpen ? <div>{children}</div> : null}</>;
 };
 
 export default BurgerMenu;

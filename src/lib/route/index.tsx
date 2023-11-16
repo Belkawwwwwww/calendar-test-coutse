@@ -12,6 +12,7 @@ type Route = {
   element: JSX.Element;
 };
 
+
 export const publicRoutes: Route[] = [
   {
     path: RouteEnum.LOGIN,
