@@ -8,11 +8,11 @@ import { RouteEnum } from "../../lib/route/RouteEnum";
 import { userDataSelector } from "../../store/slices/UserSlice";
 
 const Board: FC = () => {
-  const nameBoard = useAppSelector(isBoardSelector);
   const id = Number(localStorage.getItem("userId"));
   const dispatch = useAppDispatch();
   const user = useAppSelector(userDataSelector);
   const navigate = useNavigate();
+  const boards = useAppSelector(isBoardSelector);
 
   useEffect(() => {
     dispatch(getBoard(id));
@@ -42,10 +42,10 @@ const Board: FC = () => {
             </div>
             <div className={styles.section}>
               <div className={styles.create}>
-                {!nameBoard || nameBoard.length === 0 ? (
+                {!boards || boards.length === 0 ? (
                   <div className={styles.createBoard}>Нет доступных досок</div>
                 ) : (
-                  nameBoard.map((board) => (
+                  boards.map((board) => (
                     <div
                       onClick={() => handleBoardClick(board.id)}
                       className={styles.createBoard}

@@ -18,16 +18,13 @@ export const boardSlice = createSlice({
     setNameBoard(state, { payload }: PayloadAction<IBoard[] | null>) {
       state.boards = payload;
     },
-    removeBoard(state, { payload }: PayloadAction<string>) {
+    removeBoard(state, { payload }: PayloadAction<number>) {
       if (state.boards) {
         state.boards = state.boards.filter(
-          (board) => board.nameBoard !== payload,
+          (board) => board.id !== payload,
         );
       }
     },
-    // renameBoard(state, {payload}: PayloadAction<string>) {
-    //
-    // },
     setError(state, { payload }: PayloadAction<string | undefined>) {
       state.error = payload;
     },

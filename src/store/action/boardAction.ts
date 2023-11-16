@@ -11,6 +11,7 @@ export const createBoard =
       const response = await ax.post<{
         answercode: number;
         answer: string;
+        data: any;
       }>("/createBoard", {
         nameBoard: nameBoard,
         userId: userId,
@@ -20,6 +21,15 @@ export const createBoard =
         [key: number]: () => void;
       } = {
         1: () => {
+          // const boardData = response.data.data.map(
+          //     (board: { id: number; nameBoard: string }) => ({
+          //       id: board.id,
+          //       nameBoard: board.nameBoard,
+          //     })
+          // );
+          // const boardId = response.data.data.id;
+
+          //dispatch(boardSlice.actions.setNameBoard(boardId));
           dispatch(modalSlice.actions.setIsModalOpen(false));
           dispatch(boardSlice.actions.setError(undefined));
         },
@@ -72,22 +82,22 @@ export const getBoard = (userId: number) => async (dispatch: AppDispatch) => {
 };
 
 export const deleteBoard =
-  (userId: number, nameBoard: string) => async (dispatch: AppDispatch) => {
+  (userId: number, boardId: number) => async (dispatch: AppDispatch) => {
     try {
       const response = await ax.delete<{
         answercode: number;
         answer: string;
-      }>(`/deleteBoard?nameBoard=${nameBoard}&userId=${userId}`);
+      }>(`/deleteBoard?boardId==${boardId}&userId=${userId}`);
       console.log(response);
       const obj_action: {
         [key: number]: () => void;
       } = {
         1: () => {
-          dispatch(boardSlice.actions.removeBoard(nameBoard));
+          dispatch(boardSlice.actions.removeBoard(boardId));
           console.log(response);
         },
         2: () => dispatch(boardSlice.actions.setError(response.data.answer)),
-        3: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+        7: () => dispatch(boardSlice.actions.setError(response.data.answer)),
         9: () => dispatch(boardSlice.actions.setError(response.data.answer)),
       };
       obj_action[response.data.answercode]?.();
@@ -98,17 +108,19 @@ export const deleteBoard =
     }
   };
 
-export const renameBoard = (userId: number, boardNewName: string, boardOldName: string) => async () => {
+export const renameBoard = (boardId: number, userId: number, boardNewName: string) => async (dispatch: AppDispatch) => {
   try {
     const response = await ax.put<{
       answercode: number;
       answer: string;
-    }>(`/renameBoard?boardOldName=${boardOldName}&boardNewName=${boardNewName}&userId=${userId}`)
+    }>(`/renameBoard?boardId=${boardId}&boardNewName=${boardNewName}&userId=${userId}`)
     const obj_action: {
       [key: number]: () => void;
     } = {
       1: () => {},
-
+      2: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+      7: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+      9: () => dispatch(boardSlice.actions.setError(response.data.answer)),
     }
     obj_action[response.data.answercode]?.();
   } catch (e) {

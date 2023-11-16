@@ -5,8 +5,7 @@ import styles from "./styles.module.sass";
 import { userDataSelector } from "../../store/slices/UserSlice";
 import { useNavigate } from "react-router-dom";
 import Drag from "../../components/DragAndDrop/Drag";
-import {deleteBoard} from "../../store/action/boardAction";
-import {IBoard} from "../../lib/types";
+import { deleteBoard } from "../../store/action/boardAction";
 
 const BoardPage: FC = () => {
   const user = useAppSelector(userDataSelector);
@@ -17,9 +16,8 @@ const BoardPage: FC = () => {
   const handleBoardClick = (boardId: number) => {
     navigate(`/board/${boardId}`);
   };
-  const handleDeleteBoard = (board: IBoard, userId: number) => {
-    const { nameBoard } = board;
-    dispatch(deleteBoard(userId, nameBoard));
+  const handleDeleteBoard = (boardId: number, userId: number) => {
+    dispatch(deleteBoard(userId, boardId));
   };
 
   return (
@@ -32,19 +30,19 @@ const BoardPage: FC = () => {
           <div className={styles.my_board}>Мои доски</div>
           <div className={styles.board_list}>
             {boards ? (
-                boards.length > 0 ? (
-                    boards.map(board => (
-                        <div
-                            onClick={() => handleBoardClick(board.id)}
-                            className={styles.createBoard}
-                            key={board.id}
-                        >
-                          {board.nameBoard}
-                        </div>
-                    ))
-                ) : (
-                    <div className={styles.createBoard}>Нет доступных досок</div>
-                )
+              boards.length > 0 ? (
+                boards.map((board) => (
+                  <div
+                    onClick={() => handleBoardClick(board.id)}
+                    className={styles.createBoard}
+                    key={board.id}
+                  >
+                    {board.nameBoard}
+                  </div>
+                ))
+              ) : (
+                <div className={styles.createBoard}>Нет доступных досок</div>
+              )
             ) : null}
           </div>
         </div>
@@ -57,9 +55,7 @@ const BoardPage: FC = () => {
               <button className={styles.delete_board}>
                 Изменить название доски
               </button>
-              <button className={styles.delete_board}>
-                Удалить доску
-              </button>
+              <button className={styles.delete_board}>Удалить доску</button>
             </div>
           </div>
           <div className={styles.board_canvas}>

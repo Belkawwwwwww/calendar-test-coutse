@@ -20,7 +20,8 @@ export const newFile =
         1: () => {},
         2: () => dispatch(boardSlice.actions.setError(response.data.answer)),
         7: () => dispatch(boardSlice.actions.setError(response.data.answer)),
-        10: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+        9: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+        11: () => dispatch(boardSlice.actions.setError(response.data.answer)),
       };
       obj_action[response.data.answercode]?.();
     } catch (e) {}
