@@ -2,10 +2,10 @@ import React, { FC, useEffect } from "react";
 import styles from "./Board.module.sass";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import { getBoard } from "../../store/action/boardAction";
-import { isBoardSelector } from "../../store/slices/BoardSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../lib/route/RouteEnum";
 import { userDataSelector } from "../../store/slices/UserSlice";
+import { isBoardSelector } from "../../store/slices/BoardSlice";
 
 const Board: FC = () => {
   const id = Number(localStorage.getItem("userId"));

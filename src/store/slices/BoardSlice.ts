@@ -15,7 +15,7 @@ export const boardSlice = createSlice({
   name: "boards",
   initialState,
   reducers: {
-    setNameBoard(state, { payload }: PayloadAction<IBoard[] | null>) {
+    setBoard(state, { payload }: PayloadAction<IBoard[] | null>) {
       state.boards = payload;
     },
     removeBoard(state, { payload }: PayloadAction<number>) {

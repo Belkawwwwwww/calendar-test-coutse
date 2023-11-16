@@ -66,7 +66,7 @@ export const getBoard = (userId: number) => async (dispatch: AppDispatch) => {
                 nameBoard: board.nameBoard,
               })
           );
-          dispatch(boardSlice.actions.setNameBoard(boardData));
+          dispatch(boardSlice.actions.setBoard(boardData));
         },
         2: () => dispatch(boardSlice.actions.setError(response.data.answer)),
         7: () => dispatch(boardSlice.actions.setError(response.data.answer)),
@@ -87,13 +87,14 @@ export const deleteBoard =
       const response = await ax.delete<{
         answercode: number;
         answer: string;
-      }>(`/deleteBoard?boardId==${boardId}&userId=${userId}`);
+      }>(`/deleteBoard?boardId=${boardId}&userId=${userId}`);
       console.log(response);
       const obj_action: {
         [key: number]: () => void;
       } = {
         1: () => {
           dispatch(boardSlice.actions.removeBoard(boardId));
+          console.log(boardId)
           console.log(response);
         },
         2: () => dispatch(boardSlice.actions.setError(response.data.answer)),
