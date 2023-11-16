@@ -20,9 +20,7 @@ export const boardSlice = createSlice({
     },
     removeBoard(state, { payload }: PayloadAction<number>) {
       if (state.boards) {
-        state.boards = state.boards.filter(
-          (board) => board.id !== payload,
-        );
+        state.boards = state.boards.filter((board) => board.id !== payload);
       }
     },
     setError(state, { payload }: PayloadAction<string | undefined>) {
@@ -36,4 +34,3 @@ const _error = (state: RootState) => state.boards.error;
 
 export const isBoardSelector = createSelector([_boards], (boards) => boards);
 export const errorBoardSelector = createSelector([_error], (state) => state);
-

@@ -4,7 +4,7 @@ import Modal from "../UI/Modal";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import { isModalOpenSelector, modalSlice } from "../../store/slices/ModalSlice";
 import { boardSlice, errorBoardSelector } from "../../store/slices/BoardSlice";
-import {createBoard} from "../../store/action/boardAction";
+import { createBoard } from "../../store/action/boardAction";
 
 const CreateButton = () => {
   const [nameBoard, setNameBoard] = useState<string>("");

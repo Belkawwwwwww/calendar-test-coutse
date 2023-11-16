@@ -25,7 +25,6 @@ export const Modal = (props: IModalProps) => {
     setIsMounted(true);
   }, []);
 
-
   useEffect(() => {
     const handleWrapperClick = (e: MouseEvent) => {
       const { target } = e;
@@ -84,4 +83,4 @@ export const Modal = (props: IModalProps) => {
   ) : null;
 };
 
-export default Modal
+export default Modal;

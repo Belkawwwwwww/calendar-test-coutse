@@ -1,9 +1,12 @@
-import React, {ChangeEvent, FC, FormEvent, useEffect, useState} from "react";
+import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import styles from "../Login/Login.module.sass";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
-import {errorUserSelector, isAuthSelector} from "../../../store/slices/UserSlice";
+import {
+  errorUserSelector,
+  isAuthSelector,
+} from "../../../store/slices/UserSlice";
 import { register } from "../../../store/action/userAction";
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../../lib/route/RouteEnum";
 
 const Registration: FC = () => {
@@ -15,12 +18,11 @@ const Registration: FC = () => {
   const isAuth = useAppSelector(isAuthSelector);
   const navigate = useNavigate();
 
-
   useEffect(() => {
     if (isAuth) {
       navigate(RouteEnum.BOARD);
     }
-  }, [isAuth]);  // eslint-disable-line
+  }, [isAuth]); // eslint-disable-line
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (username && password && passwordConfig)
@@ -44,7 +46,9 @@ const Registration: FC = () => {
       <div className={styles.form}>
         <form action="" className={styles.btnBox} onSubmit={handleSubmit}>
           <h1 className={styles.title}>Registration</h1>
-          {error ? <div style={{ color: "red", margin: "10px" }}>{error}</div>: null}
+          {error ? (
+            <div style={{ color: "red", margin: "10px" }}>{error}</div>
+          ) : null}
           <div className={styles.inputBox}>
             <label className={styles.icon} htmlFor="username">
               <img src="/img/icon-user.svg" alt="user" />

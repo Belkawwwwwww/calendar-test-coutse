@@ -15,7 +15,7 @@ export const modalSlice = createSlice({
   reducers: {
     setIsModalOpen(state, { payload }: PayloadAction<boolean>) {
       state.isModalOpen = payload;
-    }
+    },
   },
 });
 

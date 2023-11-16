@@ -28,7 +28,7 @@ export const userSlice = createSlice({
     setIsAuth(state, { payload }: PayloadAction<boolean>) {
       state.isAuth = payload;
     },
-    setUser(state, {payload}: PayloadAction<IUser | null>) {
+    setUser(state, { payload }: PayloadAction<IUser | null>) {
       state.user = payload;
     },
   },
@@ -37,7 +37,7 @@ export const userSlice = createSlice({
 const _isLoading = (state: RootState) => state.user.isLoading;
 const _error = (state: RootState) => state.user.error;
 const _isAuth = (state: RootState) => state.user.isAuth;
-const _user = (state: RootState) => state.user.user
+const _user = (state: RootState) => state.user.user;
 
 export const isLoadingUserSelector = createSelector(
   [_isLoading],
@@ -46,4 +46,3 @@ export const isLoadingUserSelector = createSelector(
 export const errorUserSelector = createSelector([_error], (state) => state);
 export const userDataSelector = createSelector([_user], (state) => state);
 export const isAuthSelector = createSelector([_isAuth], (state) => state);
-

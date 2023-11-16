@@ -15,7 +15,6 @@ const App: FC = () => {
     }
   }, [id]); // eslint-disable-line
 
-
   return (
     <>
       <Navbar />

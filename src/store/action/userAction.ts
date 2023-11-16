@@ -65,9 +65,8 @@ export const logout = () => async (dispatch: AppDispatch) => {
   dispatch(userSlice.actions.setIsAuth(false));
   dispatch(userSlice.actions.setError(undefined));
   dispatch(userSlice.actions.setUser(null));
-  dispatch(boardSlice.actions.setBoard(null))
+  dispatch(boardSlice.actions.setBoard(null));
   dispatch(boardSlice.actions.setError(undefined));
-
 };
 export const register =
   (username: string, password: string, passwordConfig: string) =>
