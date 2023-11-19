@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 import Drag from "../../components/DragAndDrop/Drag";
 import { IBoard } from "../../lib/types";
 import { RouteEnum } from "../../lib/route/RouteEnum";
-import RemoveButton from "../../components/Button/RemoveButton";
+import RemoveButton from "../../components/Button/RemoveBoardButton/RemoveButton";
+import GetFileButton from "../../components/Button/GetCardButton/GetFileButton";
 
 const BoardPage: FC = () => {
   const user = useAppSelector(userDataSelector);
@@ -74,6 +75,7 @@ const BoardPage: FC = () => {
             </div>
           </div>
           <div className={styles.board_canvas}>
+            <GetFileButton />
             <Drag />
           </div>
         </div>

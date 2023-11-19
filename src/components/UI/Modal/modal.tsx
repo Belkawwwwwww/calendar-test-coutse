@@ -13,12 +13,30 @@ type IModalProps = {
   onClose: () => void;
   children: React.ReactNode | React.ReactNode[];
   footerButtons?: { name: string; onClick?: () => void; disabled?: boolean }[];
+  position?: "top" | "bottom" | "left" | "right";
+  customPosition?: {
+    [key: string]: string | number;
+  };
 };
 const MODAL_CONTAINER_ID = "modal-container-id";
 export const Modal = (props: IModalProps) => {
-  const { title, onClose, children, footerButtons } = props;
-  const rootRef = useRef<HTMLDivElement>(null);
+    const {
+      title,
+      onClose,
+      children,
+      footerButtons,
+      position,
+      customPosition,
+    } = props;
+    const rootRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
+
+  const modalStyle = {
+    top: customPosition?.top || (position === "top" ? 0 : undefined),
+    bottom: customPosition?.bottom || (position === "bottom" ? 0 : undefined),
+    left: customPosition?.left || (position === "left" ? 0 : undefined),
+    right: customPosition?.right || (position === "right" ? 0 : undefined),
+  };
 
   useEffect(() => {
     createContainer({ id: MODAL_CONTAINER_ID });
@@ -56,7 +74,7 @@ export const Modal = (props: IModalProps) => {
   return isMounted ? (
     <Portal id={MODAL_CONTAINER_ID}>
       <div className={styles.wrap} ref={rootRef}>
-        <div className={styles.content}>
+        <div className={styles.content} style={modalStyle}>
           <button
             type="button"
             className={styles.closeButton}
@@ -65,7 +83,7 @@ export const Modal = (props: IModalProps) => {
             Х
           </button>
           <p className={styles.title}>{title}</p>
-          {children}
+          <div className={styles.mainContent}>{children}</div>
           <div className={styles.footer}>
             {footerButtons?.map((button, index) => (
               <button

@@ -2,14 +2,11 @@ import { AppDispatch } from "../index";
 import { userSlice } from "../slices/UserSlice";
 import ax from "../../utils/axios";
 import { boardSlice } from "../slices/BoardSlice";
+import { IResponse } from "../../lib/types";
 
 export const checkAuth = (userId: number) => async (dispatch: AppDispatch) => {
   try {
-    const response = await ax.get<{
-      answercode: number;
-      answer: string;
-      data: any;
-    }>(`/profile?userId=${userId}`);
+    const response = await ax.get<IResponse>(`/profile?userId=${userId}`);
     console.log(response);
     const userName = response.data.data.userName;
     const obj_action: {
@@ -33,11 +30,9 @@ export const login =
   (username: string, password: string) => async (dispatch: AppDispatch) => {
     try {
       dispatch(userSlice.actions.setLoading(true));
-      const response = await ax.get<{
-        answercode: number;
-        answer: string;
-        data: any;
-      }>(`/authentication?username=${username}&password=${password}`);
+      const response = await ax.get<IResponse>(
+        `/authentication?username=${username}&password=${password}`,
+      );
       console.log(response);
       const userName = response.data.data.userName;
       const obj_action: {
@@ -72,11 +67,7 @@ export const register =
   (username: string, password: string, passwordConfig: string) =>
   async (dispatch: AppDispatch) => {
     try {
-      const response = await ax.post<{
-        answercode: number;
-        answer: string;
-        data: any;
-      }>("/registration", {
+      const response = await ax.post<IResponse>("/registration", {
         username: username,
         password: password,
         passwordConfig: passwordConfig,

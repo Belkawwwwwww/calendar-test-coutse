@@ -19,7 +19,9 @@ const Board: FC = () => {
   }, []); // eslint-disable-line
 
   const handleBoardClick = (boardId: number) => {
-    navigate(`/board/${boardId}`);
+    if (boardId) {
+      navigate(`/board/${boardId}`);
+    }
   };
 
   return (

@@ -1,13 +1,11 @@
 .wrap
   position: fixed
   width: 100%
+  height: 100%
   top: 0
-  left: 0
   display: flex
   align-items: center
   justify-content: right
-  padding-top: 53px
-  padding-right: 270px
 
 .content
   border-radius: 12px
@@ -40,17 +38,24 @@
   line-height: 20px
   color: black
 
-.footer
+.mainContent
   display: flex
   flex-direction: column
+
+.footer
+  display: flex
+  //flex-direction: column
+  justify-content: space-around
   padding-top: 15px
 
   button
+    width: 100%
+
     border: 1px solid #e9e9e9
     padding-top: 5px
     padding-bottom: 5px
     background-color: #e9e9e9
+    border-radius: 3px
 
-    &:first-child
-      border-radius: 3px
-      margin-bottom: 10px
+    &:last-child
+      margin-left: 5px

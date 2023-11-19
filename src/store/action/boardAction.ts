@@ -3,24 +3,22 @@ import ax from "../../utils/axios";
 import { userSlice } from "../slices/UserSlice";
 import { modalSlice } from "../slices/ModalSlice";
 import { boardSlice } from "../slices/BoardSlice";
+import { IResponse } from "../../lib/types";
 
 export const createBoard =
   (nameBoard: string) => async (dispatch: AppDispatch) => {
     try {
       const userId = Number(localStorage.getItem("userId"));
-      const response = await ax.post<{
-        answercode: number;
-        answer: string;
-        data: any;
-      }>("/createBoard", {
+      const response = await ax.post<IResponse>("/createBoard", {
         nameBoard: nameBoard,
         userId: userId,
       });
-      console.log(response);
       const obj_action: {
         [key: number]: () => void;
       } = {
         1: () => {
+          // dispatch(boardSlice.actions.setBoard([{ id: boardId, nameBoard }]));
+          // console.log(response.data.data.board);
           dispatch(modalSlice.actions.setIsModalOpen(false));
           dispatch(boardSlice.actions.setError(undefined));
         },
@@ -40,11 +38,7 @@ export const createBoard =
 export const getBoard = () => async (dispatch: AppDispatch) => {
   try {
     const userId = Number(localStorage.getItem("userId"));
-    const response = await ax.get<{
-      answercode: number;
-      answer: string;
-      data?: any;
-    }>(`/getBoard?userId=${userId}`);
+    const response = await ax.get<IResponse>(`/getBoard?userId=${userId}`);
     console.log(response);
     const data = response.data?.data;
     if (data) {
@@ -53,8 +47,8 @@ export const getBoard = () => async (dispatch: AppDispatch) => {
       } = {
         1: () => {
           const boardData = response.data.data.map(
-            (board: { id: number; nameBoard: string }) => ({
-              id: board.id,
+            (board: { boardId: number; nameBoard: string }) => ({
+              id: board.boardId,
               nameBoard: board.nameBoard,
             }),
           );
@@ -77,10 +71,9 @@ export const deleteBoard =
   (boardId: number) => async (dispatch: AppDispatch) => {
     try {
       const userId = Number(localStorage.getItem("userId"));
-      const response = await ax.delete<{
-        answercode: number;
-        answer: string;
-      }>(`/deleteBoard?boardId=${boardId}&userId=${userId}`);
+      const response = await ax.delete<IResponse>(
+        `/deleteBoard?boardId=${boardId}&userId=${userId}`,
+      );
       console.log(response);
       const obj_action: {
         [key: number]: () => void;
@@ -106,10 +99,7 @@ export const renameBoard =
   (boardId: number, boardNewName: string) => async (dispatch: AppDispatch) => {
     try {
       const userId = Number(localStorage.getItem("userId"));
-      const response = await ax.put<{
-        answercode: number;
-        answer: string;
-      }>(
+      const response = await ax.put<IResponse>(
         `/renameBoard?boardId=${boardId}&boardNewName=${boardNewName}&userId=${userId}`,
       );
       const obj_action: {

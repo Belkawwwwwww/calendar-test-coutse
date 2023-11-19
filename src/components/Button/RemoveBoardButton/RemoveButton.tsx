@@ -1,11 +1,11 @@
 import React, { FC, useState } from "react";
-import Modal from "../UI/Modal";
-import { modalSlice } from "../../store/slices/ModalSlice";
-import { boardSlice, isBoardSelector } from "../../store/slices/BoardSlice";
-import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
-import { deleteBoard } from "../../store/action/boardAction";
+import Modal from "../../UI/Modal";
+import { modalSlice } from "../../../store/slices/ModalSlice";
+import { boardSlice, isBoardSelector } from "../../../store/slices/BoardSlice";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
+import { deleteBoard } from "../../../store/action/boardAction";
 import { useNavigate } from "react-router-dom";
-import { RouteEnum } from "../../lib/route/RouteEnum";
+import { RouteEnum } from "../../../lib/route/RouteEnum";
 
 const RemoveButton: FC = () => {
   const [isModalActive, setModalActive] = useState(false);
