@@ -8,7 +8,6 @@ import { userDataSelector } from "../../store/slices/UserSlice";
 import { isBoardSelector } from "../../store/slices/BoardSlice";
 
 const Board: FC = () => {
-  //const id = Number(localStorage.getItem("userId"));
   const dispatch = useAppDispatch();
   const user = useAppSelector(userDataSelector);
   const navigate = useNavigate();

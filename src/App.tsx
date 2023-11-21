@@ -12,6 +12,7 @@ const App: FC = () => {
   useEffect(() => {
     if (id) {
       dispatch(checkAuth(id));
+      console.log(checkAuth);
     }
   }, [id]); // eslint-disable-line
 
