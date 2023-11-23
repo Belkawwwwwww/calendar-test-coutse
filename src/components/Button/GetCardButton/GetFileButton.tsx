@@ -7,6 +7,7 @@ import {
 } from "../../../store/slices/ModalSlice";
 import { boardSlice } from "../../../store/slices/BoardSlice";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
+import {createCard} from "../../../store/action/cardActions";
 
 const GetFileButton: FC = () => {
   const [nameCard, setNameCard] = useState<string>("");
@@ -62,7 +63,7 @@ const GetFileButton: FC = () => {
                 onClick: handleModalClose,
               },
             ]}
-            customPosition={{ top: "0px", right: "100px" }}
+            customPosition={{ top: "20px", right: "1000px" }}
           >
             <input
               placeholder="Ввести заголовок списка"

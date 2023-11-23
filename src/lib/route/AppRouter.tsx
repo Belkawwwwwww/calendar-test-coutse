@@ -6,10 +6,15 @@ import { anotherRoutes, privateRoutes, publicRoutes } from "./index";
 
 const AppRouter = () => {
   const isAuth = useAppSelector(isAuthSelector);
+  const id = Number(localStorage.getItem("userId"));
+  //
+  // if (!id) {
+  //   return <Navigate to={RouteEnum.LOGIN} />;
+  // }
 
   return (
     <Routes>
-      {isAuth ? (
+      {isAuth || id ? (
         <>
           {privateRoutes.map((route) => (
             <Route path={route.path} element={route.element} key={route.path} />

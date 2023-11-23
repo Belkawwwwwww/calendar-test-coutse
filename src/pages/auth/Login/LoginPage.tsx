@@ -21,13 +21,13 @@ const LoginPage: FC = () => {
     e.preventDefault();
     if (username && password) {
       dispatch(login(username, password));
-      console.log(isAuth);
     }
   };
-  console.log(isAuth);
+
   useEffect(() => {
     if (isAuth) {
       navigate(RouteEnum.BOARD);
+      console.log("isAuth");
     }
   }, [isAuth]); // eslint-disable-line
 
@@ -44,7 +44,7 @@ const LoginPage: FC = () => {
       <div className={styles.form}>
         <form
           method="post"
-          action=""
+          action="#"
           className={styles.btnBox}
           onSubmit={handleSubmit}
         >

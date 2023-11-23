@@ -64,7 +64,7 @@ const CreateButton = () => {
               onClick: handleSubmitModal,
             },
           ]}
-          customPosition={{ top: "0px", right: "0px" }}
+          customPosition={{ top: "-90px", right: "270px" }}
         >
           <input
             value={nameBoard}

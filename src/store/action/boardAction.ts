@@ -17,7 +17,6 @@ export const createBoard =
         [key: number]: () => void;
       } = {
         1: () => {
-          localStorage.setItem("boarId", response.data.data.boardId);
           dispatch(modalSlice.actions.setIsModalOpen(false));
           dispatch(boardSlice.actions.setError(undefined));
         },

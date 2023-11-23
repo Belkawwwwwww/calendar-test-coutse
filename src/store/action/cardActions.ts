@@ -7,9 +7,11 @@ export const createCard =
   (boardId: number, nameCard: string, content: any) =>
   async (dispatch: AppDispatch) => {
     try {
-      const response = await ax.post<IResponse>("/createFile", {
+      const userId = Number(localStorage.getItem("userId"));
+      const response = await ax.post<IResponse>("/createСard", {
         boardId: boardId,
         nameCard: nameCard,
+        userId: userId
       });
       const obj_action: {
         [key: number]: () => void;

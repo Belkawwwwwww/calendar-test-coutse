@@ -46,6 +46,7 @@ const RemoveButton: FC = () => {
             },
             { name: "Отменить", disabled: false, onClick: handleModalClose },
           ]}
+          customPosition={{ top: "-35px", right: "0px" }}
         >
           <div></div>
         </Modal>

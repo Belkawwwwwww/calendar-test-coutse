@@ -6,6 +6,7 @@ import Board from "../../pages/Board/Board";
 import NotFound from "../../pages/NotFound/NotFound";
 import { Navigate } from "react-router-dom";
 import BoardPage from "../../pages/Boardpage/BoardPage";
+import Home from "../../pages/Home/Home";
 
 type Route = {
   path: string;
@@ -32,6 +33,10 @@ export const privateRoutes: Route[] = [
   {
     path: `${RouteEnum.BOARD}/:id`,
     element: <BoardPage />,
+  },
+  {
+    path: RouteEnum.HOME,
+    element: <Home/>
   },
   { path: RouteEnum.NOTFOUND, element: <NotFound /> },
 ];

@@ -37,7 +37,7 @@ const BoardPage: FC = () => {
           {user ? user.username : null} : рабочее пространство
         </div>
         <div className={styles.board_list}>
-          <div className={styles.my_board}>Мои доски</div>
+          <div className={styles.my_board}>Мои доски: </div>
           <div className={styles.board_list}>
             {boards ? (
               boards.length > 0 ? (
