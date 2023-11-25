@@ -1,6 +1,5 @@
-import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ICards } from "../../lib/types";
-import { RootState } from "../index";
 
 export interface CardSlice {
   cards: ICards[] | null;
@@ -21,6 +20,6 @@ export const cardSlice = createSlice({
   },
 });
 
-const _cards = (state: RootState) => state.cards.cards;
+// const _cards = (state: RootState) => state.cards.cards;
 
-export const isCardsSelector = createSelector([_cards], (state) => state);
+// export const isCardsSelector = createSelector([_cards], (state) => state);

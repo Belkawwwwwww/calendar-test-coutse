@@ -1,46 +1,56 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../Navbar/styles.module.sass";
 import Modal from "../../UI/Modal";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
-import {
-  isModalOpenSelector,
-  modalSlice,
-} from "../../../store/slices/ModalSlice";
-import {
-  boardSlice,
-  errorBoardSelector,
-} from "../../../store/slices/BoardSlice";
-import { createBoard } from "../../../store/action/boardAction";
+import ax from "../../../utils/axios";
+import { IResponse } from "../../../lib/types";
+import { useNavigate } from "react-router-dom";
+import { RouteEnum } from "../../../lib/route/RouteEnum";
 
 const CreateButton = () => {
   const [nameBoard, setNameBoard] = useState<string>("");
   const [isModalActive, setModalActive] = useState(false);
-  const dispatch = useAppDispatch();
-  const error = useAppSelector(errorBoardSelector);
-  const isModalOpen = useAppSelector(isModalOpenSelector);
+  const [error, setError] = useState<string | undefined>(undefined);
+  const userId = Number(localStorage.getItem("userId"));
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isModalOpen) {
+    if (!isModalActive) {
       setNameBoard("");
       setModalActive(false);
+      setError(undefined);
     }
-  }, [isModalOpen]);
+  }, [isModalActive]);
   const handleModalOpen = () => {
-    dispatch(modalSlice.actions.setIsModalOpen(true));
     setModalActive(true);
   };
   const handleModalClose = () => {
     setModalActive(false);
-    dispatch(modalSlice.actions.setIsModalOpen(false));
-    dispatch(boardSlice.actions.setError(undefined));
   };
 
-  const handleSubmitModal = () => {
+  const handleSubmitModal = async () => {
     if (nameBoard) {
-      dispatch(createBoard(nameBoard));
-      // navigate(`/board/${nameBoard}`);
+      try {
+        const response = await ax.post<IResponse>("/createBoard", {
+          nameBoard,
+          userId,
+        });
+        console.log(response.data);
+        const boardId = response.data.data.boardId;
+
+        if (boardId) {
+          navigate(`/board/${boardId}`);
+          handleModalClose();
+          setNameBoard("");
+          console.log(boardId, nameBoard);
+        } else {
+          navigate(RouteEnum.BOARD);
+        }
+      } catch (error) {
+        setError("Произошла ошибка при создании доски");
+
+        console.log(error);
+      }
     }
-    console.log(nameBoard);
   };
 
   const onHandlerModal = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,7 +74,7 @@ const CreateButton = () => {
               onClick: handleSubmitModal,
             },
           ]}
-          customPosition={{ top: "-90px", right: "270px" }}
+          customPosition={{ top: "-100px", right: "270px" }}
         >
           <input
             value={nameBoard}
@@ -73,15 +83,16 @@ const CreateButton = () => {
             onChange={onHandlerModal}
             required
           />
-          {error ? (
+          {error && (
             <div style={{ color: "red", margin: "10px", width: "40px" }}>
               {error}
             </div>
-          ) : null}
+          )}
         </Modal>
       ) : null}
     </>
   );
 };
+
 
 export default CreateButton;

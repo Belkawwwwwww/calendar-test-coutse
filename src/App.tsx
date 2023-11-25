@@ -7,13 +7,13 @@ import { checkAuth } from "./store/action/userAction";
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
-  const id = Number(localStorage.getItem("userId"));
+  const userId = Number(localStorage.getItem("userId"));
 
   useEffect(() => {
-    if (id) {
-      dispatch(checkAuth(id));
+    if (userId) {
+      dispatch(checkAuth(userId));
     }
-  }, [id]); // eslint-disable-line
+  }, [userId]); // eslint-disable-line
 
   return (
     <>

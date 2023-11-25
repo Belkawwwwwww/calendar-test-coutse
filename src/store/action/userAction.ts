@@ -1,7 +1,6 @@
 import { AppDispatch } from "../index";
 import { userSlice } from "../slices/UserSlice";
 import ax from "../../utils/axios";
-import { boardSlice } from "../slices/BoardSlice";
 import { IResponse } from "../../lib/types";
 
 export const checkAuth = (userId: number) => async (dispatch: AppDispatch) => {
@@ -60,8 +59,8 @@ export const logout = () => async (dispatch: AppDispatch) => {
   dispatch(userSlice.actions.setIsAuth(false));
   dispatch(userSlice.actions.setError(undefined));
   dispatch(userSlice.actions.setUser(null));
-  dispatch(boardSlice.actions.setBoard(null));
-  dispatch(boardSlice.actions.setError(undefined));
+  //dispatch(boardSlice.actions.setBoard(null));
+  //dispatch(boardSlice.actions.setError(undefined));
 };
 export const register =
   (username: string, password: string, passwordConfig: string) =>

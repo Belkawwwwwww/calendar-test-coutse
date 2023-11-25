@@ -1,25 +1,29 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styles from "./Board.module.sass";
-import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
-import { getBoard } from "../../store/action/boardAction";
-import { Link, useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../store/hooks/redux";
+import { Link } from "react-router-dom";
 import { RouteEnum } from "../../lib/route/RouteEnum";
 import { userDataSelector } from "../../store/slices/UserSlice";
-import { isBoardSelector } from "../../store/slices/BoardSlice";
+import ax from "../../utils/axios";
+import { IBoard, IResponse } from "../../lib/types";
 
 const Board: FC = () => {
-  const dispatch = useAppDispatch();
   const user = useAppSelector(userDataSelector);
-  const navigate = useNavigate();
-  const boards = useAppSelector(isBoardSelector);
+  const userId = Number(localStorage.getItem("userId"));
+  const [boards, setBoards] = useState<IBoard[]>([]);
 
   useEffect(() => {
-    dispatch(getBoard());
+    getBoard();
   }, []); // eslint-disable-line
 
-  const handleBoardClick = (boardId: number) => {
-    if (boardId) {
-      navigate(`/board/${boardId}`);
+  const getBoard = async () => {
+    try {
+      const response = await ax.get<IResponse>(`/getBoard?userId=${userId}`);
+      console.log(response.data);
+      setBoards(response.data.data);
+      console.log(response.data.data);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -44,17 +48,26 @@ const Board: FC = () => {
             <div className={styles.section}>
               <div className={styles.create}>
                 {!boards || boards.length === 0 ? (
-                  <div className={styles.createBoard}>Нет доступных досок</div>
+                  <div className={styles.createBoard}></div>
                 ) : (
-                  boards.map((board) => (
-                    <div
-                      onClick={() => handleBoardClick(board.id)}
-                      className={styles.createBoard}
-                      key={board.id}
-                    >
-                      {board.nameBoard}
-                    </div>
-                  ))
+                  boards.map((board) => {
+                    if (board.boardId) {
+                      return (
+                        <Link
+                          key={board.boardId}
+                          to={`/board/${board.boardId}`}
+                          className={styles.createBoard}
+                        >
+                          {board.nameBoard}
+                        </Link>
+                      );
+                    }
+                    return (
+                      <div key={board.boardId} className={styles.createBoard}>
+                        {board.nameBoard}
+                      </div>
+                    );
+                  })
                 )}
               </div>
             </div>

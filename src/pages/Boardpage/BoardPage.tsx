@@ -1,34 +1,32 @@
 import React, { FC, useEffect, useState } from "react";
 import { useAppSelector } from "../../store/hooks/redux";
-import { isBoardSelector } from "../../store/slices/BoardSlice";
 import styles from "./styles.module.sass";
 import { userDataSelector } from "../../store/slices/UserSlice";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Drag from "../../components/DragAndDrop/Drag";
-import { IBoard } from "../../lib/types";
-import { RouteEnum } from "../../lib/route/RouteEnum";
 import RemoveButton from "../../components/Button/RemoveBoardButton/RemoveButton";
 import GetFileButton from "../../components/Button/GetCardButton/GetFileButton";
+import { IBoard, IResponse } from "../../lib/types";
+import ax from "../../utils/axios";
 
 const BoardPage: FC = () => {
   const user = useAppSelector(userDataSelector);
-  const boards = useAppSelector(isBoardSelector);
-  const navigate = useNavigate();
-  const [selectedBoard, setSelectedBoard] = useState<IBoard | null>(null); // Используется для создания состояния, которое хранит выбранную доску (selectedBoard)
-
-  const handleBoardClick = (boardId: number) => {
-    const selected = boards?.find((board) => board.id === boardId);
-    setSelectedBoard(selected || null);
-    navigate(`/board/${boardId}`);
-  };
+  const userId = Number(localStorage.getItem("userId"));
+  const [boards, setBoards] = useState<IBoard[]>([]);
 
   useEffect(() => {
-    if (boards && boards.length > 0) {
-      setSelectedBoard(boards[0]);
-    } else {
-      navigate(RouteEnum.BOARD);
+    getBoard();
+  }, []); // eslint-disable-line
+  const getBoard = async () => {
+    try {
+      const response = await ax.get<IResponse>(`/getBoard?userId=${userId}`);
+      console.log(response.data);
+      setBoards(response.data.data);
+      console.log(response.data.data);
+    } catch (error) {
+      console.log(error);
     }
-  }, [boards]); // eslint-disable-line
+  };
 
   return (
     <div className={styles.main_content}>
@@ -42,13 +40,13 @@ const BoardPage: FC = () => {
             {boards ? (
               boards.length > 0 ? (
                 boards.map((board) => (
-                  <div
-                    onClick={() => handleBoardClick(board.id)}
+                  <Link
+                    to={`/board/${board.boardId}`}
                     className={styles.createBoard}
-                    key={board.id}
+                    key={board.boardId}
                   >
                     {board.nameBoard}
-                  </div>
+                  </Link>
                 ))
               ) : (
                 <div className={styles.createBoard}>Нет доступных досок</div>
@@ -60,22 +58,28 @@ const BoardPage: FC = () => {
       <div className={styles.content_wrapper}>
         <div className={styles.board_content}>
           <div className={styles.header}>
-            <div className={styles.menu}>
-              {selectedBoard ? (
-                <div className={styles.createBoard}>
-                  {selectedBoard.nameBoard}
-                </div>
-              ) : null}
-            </div>
+            <div className={styles.menu}></div>
             <div className={styles.board}>
               <div className={styles.delete_board}>Изменить название доски</div>
               <div className={styles.delete_board}>
-                <RemoveButton />
+                {boards.map((board) => (
+                  <RemoveButton
+                    key={board.boardId}
+                    boardId={board.boardId}
+                    nameBoard={board.nameBoard}
+                  />
+                ))}
               </div>
             </div>
           </div>
           <div className={styles.board_canvas}>
-            <GetFileButton />
+            {boards.map((board) => (
+              <GetFileButton
+                key={board.boardId}
+                boardId={board.boardId}
+                nameBoard={board.nameBoard}
+              />
+            ))}
             <Drag />
           </div>
         </div>

@@ -1,19 +1,19 @@
-import React, { JSX } from "react";
+import React from "react";
+import { Navigate } from "react-router-dom";
 import { RouteEnum } from "./RouteEnum";
 import LoginPage from "../../pages/auth/Login/LoginPage";
 import RegisterPage from "../../pages/auth/Register/RegisterPage";
 import Board from "../../pages/Board/Board";
 import NotFound from "../../pages/NotFound/NotFound";
-import { Navigate } from "react-router-dom";
 import BoardPage from "../../pages/Boardpage/BoardPage";
 import Home from "../../pages/Home/Home";
 
-type Route = {
+type IRoute = {
   path: string;
-  element: JSX.Element;
+  element: React.ReactNode;
 };
 
-export const publicRoutes: Route[] = [
+export const publicRoutes: IRoute[] = [
   {
     path: RouteEnum.LOGIN,
     element: <LoginPage />,
@@ -25,7 +25,7 @@ export const publicRoutes: Route[] = [
   { path: RouteEnum.NOTFOUND, element: <Navigate to="/login" /> },
 ];
 
-export const privateRoutes: Route[] = [
+export const privateRoutes: IRoute[] = [
   {
     path: RouteEnum.BOARD,
     element: <Board />,
@@ -36,12 +36,12 @@ export const privateRoutes: Route[] = [
   },
   {
     path: RouteEnum.HOME,
-    element: <Home/>
+    element: <Home />,
   },
   { path: RouteEnum.NOTFOUND, element: <NotFound /> },
 ];
 
-export const anotherRoutes: Route[] = [
+export const anotherRoutes: IRoute[] = [
   {
     path: RouteEnum.NOTFOUND,
     element: <NotFound />,

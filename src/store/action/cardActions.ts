@@ -1,6 +1,5 @@
 import { AppDispatch } from "../index";
 import ax from "../../utils/axios";
-import { boardSlice } from "../slices/BoardSlice";
 import { IResponse } from "../../lib/types";
 
 export const createCard =
@@ -11,16 +10,16 @@ export const createCard =
       const response = await ax.post<IResponse>("/createСard", {
         boardId: boardId,
         nameCard: nameCard,
-        userId: userId
+        userId: userId,
       });
       const obj_action: {
         [key: number]: () => void;
       } = {
         1: () => {},
-        2: () => dispatch(boardSlice.actions.setError(response.data.answer)),
-        7: () => dispatch(boardSlice.actions.setError(response.data.answer)),
-        9: () => dispatch(boardSlice.actions.setError(response.data.answer)),
-        11: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+        // 2: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+        //7: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+        //9: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+        //11: () => dispatch(boardSlice.actions.setError(response.data.answer)),
       };
       obj_action[response.data.answercode]?.();
     } catch (e) {}

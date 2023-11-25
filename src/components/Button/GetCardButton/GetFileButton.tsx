@@ -1,45 +1,51 @@
 import React, { FC, useEffect, useState } from "react";
-import Modal from "../../UI/Modal";
 import styles from "./styles.module.sass";
-import {
-  isModalOpenSelector,
-  modalSlice,
-} from "../../../store/slices/ModalSlice";
-import { boardSlice } from "../../../store/slices/BoardSlice";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
-import {createCard} from "../../../store/action/cardActions";
+import { IResponse } from "../../../lib/types";
+import ax from "../../../utils/axios";
+import Modal from "../../UI/Modal";
 
-const GetFileButton: FC = () => {
+interface GetFileButtonProps {
+  boardId: number;
+  nameBoard: string;
+}
+
+const GetFileButton: FC<GetFileButtonProps> = ({ boardId, nameBoard }) => {
   const [nameCard, setNameCard] = useState<string>("");
   const [isModalActive, setModalActive] = useState(false);
-  const dispatch = useAppDispatch();
-  const isModalOpen = useAppSelector(isModalOpenSelector);
+  const [error, setError] = useState<string | undefined>(undefined);
+  const userId = Number(localStorage.getItem("userId"));
 
   useEffect(() => {
-    if (!isModalOpen) {
+    if (!isModalActive) {
       setNameCard("");
       setModalActive(false);
+      setError(undefined);
     }
-  }, [isModalOpen]);
+  }, [isModalActive]);
   const handleModalOpen = () => {
-    dispatch(modalSlice.actions.setIsModalOpen(true));
     setModalActive(true);
   };
 
   const handleModalClose = () => {
     setModalActive(false);
-    dispatch(modalSlice.actions.setIsModalOpen(false));
-    dispatch(boardSlice.actions.setError(undefined));
   };
+
+  const handleSubmitModal = async () => {
+    if (nameCard) {
+      try {
+        const response = await ax.post<IResponse>("/createCard", {
+          boardId,
+          nameCard,
+          userId,
+        });
+        console.log(response.data);
+      } catch (e) {}
+    }
+  };
+
   const isCreateButtonDisabled = nameCard.length === 0;
   const onHandlerModal = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNameCard(e.target.value);
-  };
-
-  const handleSubmitModal = () => {
-    if (nameCard) {
-      //dispatch(createCard())
-    }
   };
 
   return (

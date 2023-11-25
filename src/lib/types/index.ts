@@ -3,7 +3,7 @@ export interface IUser {
 }
 
 export interface IBoard {
-  id: number;
+  boardId: number;
   nameBoard: string;
 }
 
