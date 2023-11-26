@@ -1,32 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styles from "../../Navbar/styles.module.sass";
 import Modal from "../../UI/Modal";
 import ax from "../../../utils/axios";
 import { IResponse } from "../../../lib/types";
 import { useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../../lib/route/RouteEnum";
+import useModalOpenClose from "../../../store/hooks/custom-hooks/useModalOpenClose";
 
-const CreateButton = () => {
+const CreateButton: FC = () => {
   const [nameBoard, setNameBoard] = useState<string>("");
-  const [isModalActive, setModalActive] = useState(false);
   const [error, setError] = useState<string | undefined>(undefined);
   const userId = Number(localStorage.getItem("userId"));
   const navigate = useNavigate();
-
+  const { isModalActive, handleModalOpen, handleModalClose } =
+    useModalOpenClose();
   useEffect(() => {
     if (!isModalActive) {
       setNameBoard("");
-      setModalActive(false);
       setError(undefined);
     }
   }, [isModalActive]);
-  const handleModalOpen = () => {
-    setModalActive(true);
-  };
-  const handleModalClose = () => {
-    setModalActive(false);
-  };
-
   const handleSubmitModal = async () => {
     if (nameBoard) {
       try {
@@ -37,7 +30,7 @@ const CreateButton = () => {
         console.log(response.data);
         const boardId = response.data.data.boardId;
 
-        if (boardId) {
+        if (boardId && response.data.answercode === 1) {
           navigate(`/board/${boardId}`);
           handleModalClose();
           setNameBoard("");

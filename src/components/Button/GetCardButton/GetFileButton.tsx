@@ -3,6 +3,7 @@ import styles from "./styles.module.sass";
 import { IResponse } from "../../../lib/types";
 import ax from "../../../utils/axios";
 import Modal from "../../UI/Modal";
+import useModalOpenClose from "../../../store/hooks/custom-hooks/useModalOpenClose";
 
 interface GetFileButtonProps {
   boardId: number;
@@ -11,25 +12,16 @@ interface GetFileButtonProps {
 
 const GetFileButton: FC<GetFileButtonProps> = ({ boardId, nameBoard }) => {
   const [nameCard, setNameCard] = useState<string>("");
-  const [isModalActive, setModalActive] = useState(false);
   const [error, setError] = useState<string | undefined>(undefined);
   const userId = Number(localStorage.getItem("userId"));
-
+  const { isModalActive, handleModalOpen, handleModalClose } =
+    useModalOpenClose();
   useEffect(() => {
     if (!isModalActive) {
       setNameCard("");
-      setModalActive(false);
       setError(undefined);
     }
   }, [isModalActive]);
-  const handleModalOpen = () => {
-    setModalActive(true);
-  };
-
-  const handleModalClose = () => {
-    setModalActive(false);
-  };
-
   const handleSubmitModal = async () => {
     if (nameCard) {
       try {

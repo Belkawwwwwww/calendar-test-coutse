@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import styles from "./Board.module.sass";
 import { useAppSelector } from "../../store/hooks/redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../lib/route/RouteEnum";
 import { userDataSelector } from "../../store/slices/UserSlice";
 import ax from "../../utils/axios";
@@ -11,10 +11,23 @@ const Board: FC = () => {
   const user = useAppSelector(userDataSelector);
   const userId = Number(localStorage.getItem("userId"));
   const [boards, setBoards] = useState<IBoard[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getBoard();
   }, []); // eslint-disable-line
+
+  const handleSubmit = (boardId: number) => {
+    const existingBoard = boards.find((board) => board.boardId === boardId);
+    if (existingBoard) {
+      // перенаправление на доску по существующему boardId
+      navigate(`${RouteEnum.BOARD}/${boardId}`);
+      console.log("BoardId:", boardId);
+    } else {
+      // перенаправление на страницу Доски, если boardId не найден
+      navigate(RouteEnum.NOTFOUND);
+    }
+  };
 
   const getBoard = async () => {
     try {
@@ -53,13 +66,13 @@ const Board: FC = () => {
                   boards.map((board) => {
                     if (board.boardId) {
                       return (
-                        <Link
+                        <div
                           key={board.boardId}
-                          to={`/board/${board.boardId}`}
                           className={styles.createBoard}
+                          onClick={() => handleSubmit(board.boardId)}
                         >
                           {board.nameBoard}
-                        </Link>
+                        </div>
                       );
                     }
                     return (
