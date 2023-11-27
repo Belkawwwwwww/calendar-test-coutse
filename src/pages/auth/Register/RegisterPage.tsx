@@ -42,10 +42,18 @@ const Registration: FC = () => {
   };
 
   return (
-    <div className={styles.content}>
+    <div
+      className={styles.content}
+      style={{
+        backgroundImage: `url("/img/fon1.png")`,
+        backgroundSize: "cover",
+      }}
+    >
       <div className={styles.form}>
         <form action="" className={styles.btnBox} onSubmit={handleSubmit}>
-          <h1 className={styles.title}>Registration</h1>
+          <div className={styles.title}>
+            <h1 className={styles.title}>REGISTRATION</h1>
+          </div>
           {error ? (
             <div style={{ color: "red", margin: "10px" }}>{error}</div>
           ) : null}

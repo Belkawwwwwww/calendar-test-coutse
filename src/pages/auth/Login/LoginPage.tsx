@@ -18,7 +18,6 @@ const LoginPage: FC = () => {
   const isAuth = useAppSelector(isAuthSelector);
   const [isAnimationDone, setIsAnimationDone] = useState(false);
 
-
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (username && password) {
@@ -46,13 +45,14 @@ const LoginPage: FC = () => {
     }
   }, []);
 
-
-
   return (
-    <div className={styles.content}>
-      {/*<div className={styles.loginImg}>*/}
-      {/*  <img className={styles.women} src="/img/woman.svg" alt=""/>*/}
-      {/*</div>*/}
+    <div
+      className={styles.content}
+      style={{
+        backgroundImage: `url("/img/fon1.png")`,
+        backgroundSize: "cover",
+      }}
+    >
       <div className={styles.form}>
         <form
           method="post"
@@ -60,7 +60,7 @@ const LoginPage: FC = () => {
           className={styles.btnBox}
           onSubmit={handleSubmit}
         >
-          <h1 className={styles.title}>User Login</h1>
+          <h1 className={styles.title}>USER LOGIN</h1>
           {error ? (
             <div style={{ color: "red", margin: "10px" }}>{error}</div>
           ) : null}

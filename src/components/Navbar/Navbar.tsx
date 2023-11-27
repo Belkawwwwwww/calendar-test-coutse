@@ -24,8 +24,21 @@ const Navbar: FC = () => {
         <div className={styles.links}>
           {!isAuth ? (
             <div className={styles.link}>
-              <Link to={RouteEnum.LOGIN}>Login</Link>
-              <Link to={RouteEnum.REGISTRATION}>Sign up</Link>
+              <div className={styles.menuLog}>
+                <img
+                  className={styles.accountLogo}
+                  src="/img/account.svg"
+                  alt=""
+                />
+                <div className={styles.dropdownContent}>
+                  <Link className={styles.menuLink} to={RouteEnum.LOGIN}>
+                    Login
+                  </Link>
+                  <Link className={styles.menuLink} to={RouteEnum.REGISTRATION}>
+                    Sign up
+                  </Link>
+                </div>
+              </div>
             </div>
           ) : (
             <div className={styles.menu}>

@@ -1,22 +1,21 @@
 .content
-  //background-image: url("../../../../public/img/2023-09-07 22.20.13.jpg")
-  //background-size: 50%
-  //background-repeat: no-repeat
   display: flex
   flex-direction: column
   justify-content: center
-  align-items: center
   height: 100vh
-
+  align-items: center
+  position: relative
   .form
-    padding: 0 50px 102px 50px
+    padding: 0 50px 40px 50px
+    background-color: rgba(255, 255, 255, 0.7)
+    border-radius: 50px
 
     form
       width: 350px
 
     .title
       line-height: 45px
-      font-weight: normal
+      font-weight: 700
       font-size: 30px
       color: #000000
       display: block
@@ -28,12 +27,15 @@
       box-sizing: border-box
 
       input
-        border-radius: 7px
         border: none
-        background-color: #E8E8E8
         padding: 14px 45px
         width: 100%
         outline: none
+        background: transparent
+        border-bottom: 1.5px solid black
+
+      ::placeholder
+        color: black
 
     .icon
       position: absolute
@@ -45,18 +47,18 @@
         height: 20px
 
     button
-      background: linear-gradient(120deg, #efcb0a, #e85475 45%, #981fbf)
-      border-radius: 35px
+      background: #D9A139
+      border: 2px solid black
       font-weight: 500
+      border-radius: 10px
       font-size: 17px
       line-height: 26px
-      color: #ffffff
+      color: #000000
       width: 100%
       padding-top: 14px
       padding-bottom: 14px
       text-align: center
       cursor: pointer
-      border: none
       margin-top: 10px
 
   .subtitle
@@ -65,7 +67,7 @@
 
     .link
       font-weight: 400
-      font-size: 16px
+      font-size: 17px
       line-height: 24px
-      color: #888888
+      color: #000000
       cursor: pointer

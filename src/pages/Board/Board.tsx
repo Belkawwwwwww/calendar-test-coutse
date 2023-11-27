@@ -20,11 +20,9 @@ const Board: FC = () => {
   const handleSubmit = (boardId: number) => {
     const existingBoard = boards.find((board) => board.boardId === boardId);
     if (existingBoard) {
-      // перенаправление на доску по существующему boardId
       navigate(`${RouteEnum.BOARD}/${boardId}`);
       console.log("BoardId:", boardId);
     } else {
-      // перенаправление на страницу Доски, если boardId не найден
       navigate(RouteEnum.NOTFOUND);
     }
   };

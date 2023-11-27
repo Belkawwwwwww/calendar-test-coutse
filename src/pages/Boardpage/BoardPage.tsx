@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useLayoutEffect, useState } from "react";
 import { useAppSelector } from "../../store/hooks/redux";
 import styles from "./styles.module.sass";
 import { userDataSelector } from "../../store/slices/UserSlice";
@@ -17,25 +17,43 @@ const BoardPage: FC = () => {
   const params = useParams();
   const { boardId } = params;
 
-  useEffect(() => {
-    console.log("Board ID:", boardId);
-    const existingBoard = boards.find((board) => board.boardId === Number(boardId));
-    if (!existingBoard) {
-      navigate(RouteEnum.BOARD);
-    }
-    getBoard();
-  }, [boardId]); // eslint-disable-line
-
-  const getBoard = async () => {
-    try {
+  useLayoutEffect(() => {
+    const getBoard = async (): Promise<IBoard[]> => {
       const response = await ax.get<IResponse>(`/getBoard?userId=${userId}`);
-      console.log(response.data);
-      setBoards(response.data.data);
-      console.log(response.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+      return response.data.data;
+    };
+    getBoard().then((data) => {
+      setBoards(data);
+      const existingBoard = data.filter((board) => {
+        const numbBoardId = Number(boardId);
+        return board.boardId === numbBoardId;
+      });
+      if (!existingBoard.length) {
+        navigate(RouteEnum.BOARD);
+      }
+    });
+  }, [boardId]); // eslint-disable-line
+  // useEffect(() => {
+  //   console.log("Board ID:", boardId);
+  //   const existingBoard = boards.find(
+  //     (board) => board.boardId === Number(boardId),
+  //   );
+  //   if (!existingBoard) {
+  //     navigate(RouteEnum.BOARD);
+  //   }
+  //   getBoard();
+  // }, [boardId]); // eslint-disable-line
+
+  // const getBoard = async () => {
+  //   try {
+  //     const response = await ax.get<IResponse>(`/getBoard?userId=${userId}`);
+  //     console.log(response.data);
+  //     setBoards(response.data.data);
+  //     console.log(response.data.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   const handleDeleteBoard = (boardId: number) => {
     setBoards((prevBoards) => {
       if (prevBoards.length === 1) {
