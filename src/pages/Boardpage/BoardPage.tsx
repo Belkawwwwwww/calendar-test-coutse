@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from "react";
 import { useAppSelector } from "../../store/hooks/redux";
 import styles from "./styles.module.sass";
 import { userDataSelector } from "../../store/slices/UserSlice";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import RemoveButton from "../../components/Button/RemoveBoardButton/RemoveButton";
 import GetFileButton from "../../components/Button/GetCardButton/GetFileButton";
 import { IBoard, IResponse } from "../../lib/types";
@@ -13,15 +13,19 @@ const BoardPage: FC = () => {
   const user = useAppSelector(userDataSelector);
   const userId = Number(localStorage.getItem("userId"));
   const [boards, setBoards] = useState<IBoard[]>([]);
-  const location = useLocation();
   const navigate = useNavigate();
   const params = useParams();
   const { boardId } = params;
 
   useEffect(() => {
     console.log("Board ID:", boardId);
+    const existingBoard = boards.find((board) => board.boardId === Number(boardId));
+    if (!existingBoard) {
+      navigate(RouteEnum.BOARD);
+    }
     getBoard();
-  }, [location.key]); // eslint-disable-line
+  }, [boardId]); // eslint-disable-line
+
   const getBoard = async () => {
     try {
       const response = await ax.get<IResponse>(`/getBoard?userId=${userId}`);

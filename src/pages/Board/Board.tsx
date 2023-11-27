@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import styles from "./Board.module.sass";
 import { useAppSelector } from "../../store/hooks/redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../lib/route/RouteEnum";
 import { userDataSelector } from "../../store/slices/UserSlice";
 import ax from "../../utils/axios";
@@ -48,7 +48,6 @@ const Board: FC = () => {
     }
     return color;
   };
-
 
   return (
     <div className={styles.home}>
