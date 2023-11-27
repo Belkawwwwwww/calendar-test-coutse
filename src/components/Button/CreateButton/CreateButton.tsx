@@ -35,6 +35,7 @@ const CreateButton: FC = () => {
           handleModalClose();
           setNameBoard("");
           console.log(boardId, nameBoard);
+        } else if (response.data.answercode === 7) {
         } else {
           navigate(RouteEnum.BOARD);
         }

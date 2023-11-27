@@ -16,6 +16,7 @@ const GetFileButton: FC<GetFileButtonProps> = ({ boardId, nameBoard }) => {
   const userId = Number(localStorage.getItem("userId"));
   const { isModalActive, handleModalOpen, handleModalClose } =
     useModalOpenClose();
+
   useEffect(() => {
     if (!isModalActive) {
       setNameCard("");

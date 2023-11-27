@@ -3,7 +3,6 @@ import { useAppSelector } from "../../store/hooks/redux";
 import styles from "./styles.module.sass";
 import { userDataSelector } from "../../store/slices/UserSlice";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import Drag from "../../components/DragAndDrop/Drag";
 import RemoveButton from "../../components/Button/RemoveBoardButton/RemoveButton";
 import GetFileButton from "../../components/Button/GetCardButton/GetFileButton";
 import { IBoard, IResponse } from "../../lib/types";
@@ -34,12 +33,12 @@ const BoardPage: FC = () => {
     }
   };
   const handleDeleteBoard = (boardId: number) => {
-    setBoards((prevBoards) =>
-      prevBoards.filter((board) => board.boardId !== boardId),
-    );
-    if (boards.length === 1) {
-      navigate(RouteEnum.BOARD);
-    }
+    setBoards((prevBoards) => {
+      if (prevBoards.length === 1) {
+        navigate(RouteEnum.BOARD);
+      }
+      return prevBoards.filter((board) => board.boardId !== boardId);
+    });
   };
 
   return (
@@ -95,7 +94,7 @@ const BoardPage: FC = () => {
                 nameBoard={board.nameBoard}
               />
             ))}
-            <Drag />
+            {/*<Drag />*/}
           </div>
         </div>
       </div>

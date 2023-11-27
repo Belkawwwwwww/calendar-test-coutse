@@ -31,7 +31,7 @@ export const privateRoutes: IRoute[] = [
     element: <Board />,
   },
   {
-    path: `${RouteEnum.BOARD}/:id`,
+    path: `${RouteEnum.BOARD}/:boardId`,
     element: <BoardPage />,
   },
   {

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import ax from "../../../utils/axios";
 import { IResponse } from "../../../lib/types";
 import useModalOpenClose from "../../../store/hooks/custom-hooks/useModalOpenClose";
+import { RouteEnum } from "../../../lib/route/RouteEnum";
 
 interface RemoveButtonProps {
   boardId: number;
@@ -28,6 +29,7 @@ const RemoveButton: FC<RemoveButtonProps> = ({
       );
       if (response.data.answercode === 1) {
         onDeleteBoard(boardId);
+        navigate(RouteEnum.BOARD);
       }
     } catch (e) {
       console.log(e);

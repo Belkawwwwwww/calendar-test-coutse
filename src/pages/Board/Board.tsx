@@ -40,19 +40,19 @@ const Board: FC = () => {
     }
   };
 
+  const getRandomColor = () => {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
+
+
   return (
     <div className={styles.home}>
       <div className={styles.container}>
-        <div className={styles.leftNavbar}>
-          <div className={styles.lists}>
-            <div className={styles.list}>
-              <img src="/img/board.svg" alt="board" />
-              <Link to={RouteEnum.BOARD} className={styles.listA}>
-                Доски
-              </Link>
-            </div>
-          </div>
-        </div>
         <div className={styles.allBoard}>
           <div className={styles.content}>
             <div className={styles.user}>
@@ -70,6 +70,7 @@ const Board: FC = () => {
                           key={board.boardId}
                           className={styles.createBoard}
                           onClick={() => handleSubmit(board.boardId)}
+                          style={{ backgroundColor: getRandomColor() }}
                         >
                           {board.nameBoard}
                         </div>

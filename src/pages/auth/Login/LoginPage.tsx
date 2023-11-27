@@ -16,6 +16,8 @@ const LoginPage: FC = () => {
   const error = useAppSelector(errorUserSelector);
   const navigate = useNavigate();
   const isAuth = useAppSelector(isAuthSelector);
+  const [isAnimationDone, setIsAnimationDone] = useState(false);
+
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,9 +40,19 @@ const LoginPage: FC = () => {
       setPassword(e.target.value);
     }
   };
+  useEffect(() => {
+    if (!isAnimationDone) {
+      setIsAnimationDone(true);
+    }
+  }, []);
+
+
 
   return (
     <div className={styles.content}>
+      {/*<div className={styles.loginImg}>*/}
+      {/*  <img className={styles.women} src="/img/woman.svg" alt=""/>*/}
+      {/*</div>*/}
       <div className={styles.form}>
         <form
           method="post"
