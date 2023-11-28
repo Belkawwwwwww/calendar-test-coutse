@@ -18,7 +18,7 @@ const Navbar: FC = () => {
   };
 
   return (
-    <div className={styles.header}>
+    <div className={`${styles.header} ${isAuth ? styles.auth : styles.unauth}`}>
       <div className={styles.container}>
         <Logo />
         <div className={styles.links}>

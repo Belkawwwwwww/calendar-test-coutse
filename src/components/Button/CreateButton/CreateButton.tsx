@@ -27,6 +27,7 @@ const CreateButton: FC = () => {
           nameBoard,
           userId,
         });
+
         console.log(response.data);
         const boardId = response.data.data.boardId;
 
