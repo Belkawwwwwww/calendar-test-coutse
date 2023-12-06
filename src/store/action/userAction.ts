@@ -5,7 +5,7 @@ import { IResponse } from "../../lib/types";
 
 export const checkAuth = (userId: number) => async (dispatch: AppDispatch) => {
   try {
-    const response = await ax.get<IResponse>(`/profile?userId=${userId}`);
+    const response = await ax.get<IResponse>(`/profile`);
     console.log(response);
     const userName = response.data.data.userName;
     const obj_action: {
@@ -15,11 +15,11 @@ export const checkAuth = (userId: number) => async (dispatch: AppDispatch) => {
         dispatch(userSlice.actions.setUser({ username: userName }));
         dispatch(userSlice.actions.setIsAuth(true));
       },
-      2: () => dispatch(userSlice.actions.setError(response.data.answer)),
-      7: () => dispatch(userSlice.actions.setError(response.data.answer)),
-      8: () => dispatch(userSlice.actions.setError(response.data.answer)),
+      // 2: () => dispatch(userSlice.actions.setError(response.data.answer)),
+      // 7: () => dispatch(userSlice.actions.setError(response.data.answer)),
+      // 8: () => dispatch(userSlice.actions.setError(response.data.answer)),
     };
-    obj_action[response.data.answercode]?.();
+    //obj_action[response.data.answercode]?.();
   } catch (e) {
     localStorage.removeItem("userId");
     dispatch(userSlice.actions.setError("Произошла ошибка"));
@@ -29,9 +29,10 @@ export const login =
   (username: string, password: string) => async (dispatch: AppDispatch) => {
     try {
       dispatch(userSlice.actions.setLoading(true));
-      const response = await ax.get<IResponse>(
-        `/authentication?username=${username}&password=${password}`,
-      );
+      const response = await ax.post("/authentication", {
+        username: username,
+        password: password,
+      });
       console.log(response);
       const userName = response.data.data.userName;
       const obj_action: {
@@ -63,13 +64,13 @@ export const logout = () => async (dispatch: AppDispatch) => {
   //dispatch(boardSlice.actions.setError(undefined));
 };
 export const register =
-  (username: string, password: string, passwordConfig: string) =>
+  (username: string, password: string, password_confirm: string) =>
   async (dispatch: AppDispatch) => {
     try {
       const response = await ax.post<IResponse>("/registration", {
         username: username,
         password: password,
-        passwordConfig: passwordConfig,
+        password_confirm: password_confirm,
       });
       console.log(response);
       const userName = response.data.data.userName;
@@ -81,11 +82,11 @@ export const register =
           localStorage.setItem("userId", response.data.data.userId);
           dispatch(userSlice.actions.setUser({ username: userName }));
         },
-        4: () => dispatch(userSlice.actions.setError(response.data.answer)),
-        5: () => dispatch(userSlice.actions.setError(response.data.answer)),
-        7: () => dispatch(userSlice.actions.setError(response.data.answer)),
+        // 4: () => dispatch(userSlice.actions.setError(response.data.answer)),
+        // 5: () => dispatch(userSlice.actions.setError(response.data.answer)),
+        // 7: () => dispatch(userSlice.actions.setError(response.data.answer)),
       };
-      obj_action[response.data.answercode]?.();
+      // obj_action[response.data.answercode]?.();
     } catch (e) {
       dispatch(userSlice.actions.setError("Произошла ошибка при регистрации"));
     }

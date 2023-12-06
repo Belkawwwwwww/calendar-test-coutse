@@ -61,10 +61,10 @@ const LoginPage: FC = () => {
           onSubmit={handleSubmit}
         >
           <h1 className={styles.title}>USER LOGIN</h1>
-          {error ? (
-            <div style={{ color: "red", margin: "10px" }}>{error}</div>
-          ) : null}
           <div className={styles.inputBox}>
+            {error ? (
+                <div style={{ color: "black", margin: "10px", textAlign:"center"}}>{error}</div>
+            ) : null}
             <label className={styles.icon} htmlFor="username">
               <img src="/img/icon-user.svg" alt="user" />
             </label>

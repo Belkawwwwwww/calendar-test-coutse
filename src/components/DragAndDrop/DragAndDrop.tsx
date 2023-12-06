@@ -1,81 +1,88 @@
-import React, { FC, useState } from "react";
-import styles from "./style.module.sass";
-
+import React, {useState} from 'react';
+import {ICards, IResponseData} from "../../lib/types";
+import styles from "./dr.module.sass";
 interface Item {
   id: number;
-  content: string;
-
-  board: string;
+  title: string;
 }
+interface Cards {
+  cardId: number;
+  title: string;
+  items: Item[];
+  boardId: number
+  nameCard: string
 
-interface Board {
-  id: string;
-  name: string;
 }
+const DragAndDrop = () => {
+  const [cards, setCards] = useState<IResponseData>({});
+  const [currentBoard, setCurrentBoard] = useState<Cards | null>(null);
+  const [currentItem, setCurrentItem] = useState<Item | null>(null);
 
-const DragAndDrop: FC = () => {
-  const [boards, setBoards] = useState<Board[]>([
-    { id: "board1", name: "Board 1" },
-    { id: "board2", name: "Board 2" },
-    { id: "board3", name: "Board 3" },
-  ]);
-
-  const [items, setItems] = useState<Item[]>([
-    { id: 1, content: "Item 1", board: "board1" },
-    { id: 2, content: "Item 2", board: "board1" },
-    { id: 3, content: "Item 3", board: "board2" },
-  ]);
-
-  const handleDragStart = (
-    e: React.DragEvent<HTMLDivElement>,
-    itemId: number,
-  ) => {
-    e.dataTransfer!.setData("item", String(itemId));
-  };
-
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+  const dragOverHandler = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
+    if (e.currentTarget.className === styles.item) {
+      e.currentTarget.classList.add(styles.itemShadow);
+    }
   };
 
-  const handleDrop = (
-    e: React.DragEvent<HTMLDivElement>,
-    targetBoardId: string,
+  const dragLeaveHandler = (e: React.DragEvent<HTMLDivElement>) => {
+    e.currentTarget.classList.remove(styles.itemShadow);
+  };
+  const dragStartHandler = (
+      e: React.DragEvent<HTMLDivElement>,
+      cards: Cards,
+      item: Item,
   ) => {
-    const sourceItemId = Number(e.dataTransfer!.getData("item"));
-
-    const updatedItems = items.map((item) => {
-      if (item.id === sourceItemId) {
-        return { ...item, board: targetBoardId };
-      }
-      return item;
-    });
-
-    setItems(updatedItems);
+    setCurrentBoard(cards);
+    setCurrentItem(item);
+  };
+  const dragEndHandler = (e: React.DragEvent<HTMLDivElement>) => {
+    e.currentTarget.classList.remove(styles.itemShadow);
   };
 
+  const dropHandler = (
+      e: React.DragEvent<HTMLDivElement>,
+      cards: Cards,
+      item: Item,
+  ) => {
+    e.preventDefault();
+    const sourceIndex = currentBoard!.items.findIndex(
+        (i) => i.id === currentItem!.id,
+    );
+    const targetIndex = cards.items.findIndex((i) => i.id === item.id);
+
+    currentBoard!.items[sourceIndex] = item;
+    cards.items[targetIndex] = currentItem!;
+
+    setCards((prevCards) => ({ ...prevCards }));
+  };
+
+  const dropCardHandler = (
+      e: React.DragEvent<HTMLDivElement>,
+      board: Cards,
+  ) => {
+    if (currentItem) {
+      const sourceIndex = currentBoard!.items.findIndex(
+          (i) => i.id === currentItem!.id,
+      );
+      currentBoard!.items.splice(sourceIndex, 1);
+      board.items.push(currentItem!);
+
+      setCards((prevCards) => ({ ...prevCards }));
+    }
+  };
   return (
-    <div className={styles.app}>
-      {boards.map((board) => (
-        <div key={board.id} className={styles.board}>
-          <div className={styles.board_title}>{board.name}</div>
-          {items
-            .filter((item) => item.board === board.id)
-            .map((item) => (
-              <div
-                className={styles.item}
-                key={item.id}
-                draggable
-                onDragStart={(e) => handleDragStart(e, item.id)}
-                onDragOver={handleDragOver}
-                onDrop={(e) => handleDrop(e, board.id)}
-              >
-                {item.content}
-              </div>
-            ))}
+        <div className={styles.app}>
+          {Object.values(cards).map((boardData: Cards[]) =>
+              boardData.map((card: Cards) => (
+                  <div key={card.cardId}>
+                    <div>Card ID: {card.cardId}</div>
+                    <div className={styles.btnGetFile}>Name: {card.nameCard}</div>
+                  </div>
+              )),
+          )}
         </div>
-      ))}
-    </div>
-  );
+    );
 };
 
 export default DragAndDrop;

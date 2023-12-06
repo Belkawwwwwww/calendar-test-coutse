@@ -13,7 +13,7 @@ type IModalProps = {
   onClose: () => void;
   children: React.ReactNode | React.ReactNode[];
   footerButtons?: { name: string; onClick?: () => void; disabled?: boolean }[];
-  position?: "top" | "bottom" | "left" | "right";
+  position?: "top" | "bottom" | "left" | "right" | "width";
   customPosition?: {
     [key: string]: string | number;
   };

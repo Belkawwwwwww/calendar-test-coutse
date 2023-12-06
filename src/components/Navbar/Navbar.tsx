@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { RouteEnum } from "../../lib/route/RouteEnum";
 import Logo from "../UI/Logo/Logo";
 import SearchBar from "../UI/SearchBar/SearchBar";
-import CreateButton from "../Button/CreateButton/CreateButton";
+import CreateBoardButton from "../Button/CreateBoardButton/CreateBoardButton";
 
 const Navbar: FC = () => {
   const dispatch = useAppDispatch();
@@ -43,7 +43,7 @@ const Navbar: FC = () => {
           ) : (
             <div className={styles.menu}>
               <div className={styles.leftNav}>
-                <CreateButton />
+                <CreateBoardButton />
               </div>
               <div className={styles.rightNav}>
                 <SearchBar />

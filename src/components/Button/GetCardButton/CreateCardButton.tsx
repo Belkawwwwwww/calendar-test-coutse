@@ -7,10 +7,10 @@ import useModalOpenClose from "../../../store/hooks/custom-hooks/useModalOpenClo
 
 interface GetFileButtonProps {
   boardId: number;
-  nameBoard: string;
+  //updateCards: (newCard: any) => void;
 }
 
-const GetFileButton: FC<GetFileButtonProps> = ({ boardId, nameBoard }) => {
+const CreateCardButton: FC<GetFileButtonProps> = ({ boardId,  }) => {
   const [nameCard, setNameCard] = useState<string>("");
   const [error, setError] = useState<string | undefined>(undefined);
   const userId = Number(localStorage.getItem("userId"));
@@ -26,12 +26,27 @@ const GetFileButton: FC<GetFileButtonProps> = ({ boardId, nameBoard }) => {
   const handleSubmitModal = async () => {
     if (nameCard) {
       try {
-        const response = await ax.post<IResponse>("/createCard", {
+        const response = await ax.post<IResponse>("/createСard", {
           boardId,
           nameCard,
           userId,
         });
         console.log(response.data);
+        const cardId = response.data.data.cardId;
+        if (cardId && response.data.answercode === 1) {
+          handleModalClose();
+          setNameCard("");
+          // updateCards({ cardId, boardId, nameCard });
+
+          console.log(
+            "boardId:",
+            boardId,
+            "nameCard:",
+            nameCard,
+            "cardId",
+            cardId,
+          );
+        }
       } catch (e) {}
     }
   };
@@ -62,10 +77,10 @@ const GetFileButton: FC<GetFileButtonProps> = ({ boardId, nameBoard }) => {
                 onClick: handleModalClose,
               },
             ]}
-            customPosition={{ top: "20px", right: "1000px" }}
+            customPosition={{ top: "-62px", right: "947px" }}
           >
             <input
-              placeholder="Ввести заголовок списка"
+              placeholder="Название карточки"
               value={nameCard}
               className={styles.inputModal}
               type="text"
@@ -79,4 +94,4 @@ const GetFileButton: FC<GetFileButtonProps> = ({ boardId, nameBoard }) => {
   );
 };
 
-export default GetFileButton;
+export default CreateCardButton;

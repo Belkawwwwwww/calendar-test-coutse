@@ -5,12 +5,19 @@ export interface IUser {
 export interface IBoard {
   boardId: number;
   nameBoard: string;
+  //cards: ICards[]
 }
 
 export interface IResponse {
-  answercode: number;
-  answer: string;
+  statusCode: number;
+  message: string;
   data?: any;
 }
-
-export interface ICards {}
+export interface IResponseData {
+  [boardId: number]: ICards[];
+}
+export interface ICards {
+  boardId: number
+  cardId: number;
+  nameCard: string
+}

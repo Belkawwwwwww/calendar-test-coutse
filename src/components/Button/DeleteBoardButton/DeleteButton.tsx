@@ -12,7 +12,7 @@ interface RemoveButtonProps {
   onDeleteBoard: (boardId: number) => void;
 }
 
-const RemoveButton: FC<RemoveButtonProps> = ({
+const DeleteButton: FC<RemoveButtonProps> = ({
   boardId,
   nameBoard,
   onDeleteBoard,
@@ -51,7 +51,7 @@ const RemoveButton: FC<RemoveButtonProps> = ({
             },
             { name: "Отменить", disabled: false, onClick: handleModalClose },
           ]}
-          customPosition={{ top: "-35px", right: "0px" }}
+          customPosition={{ top: "-89px", right: "5px" }}
         >
           <div></div>
         </Modal>
@@ -59,4 +59,4 @@ const RemoveButton: FC<RemoveButtonProps> = ({
     </>
   );
 };
-export default RemoveButton;
+export default DeleteButton;

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../../lib/route/RouteEnum";
 import useModalOpenClose from "../../../store/hooks/custom-hooks/useModalOpenClose";
 
-const CreateButton: FC = () => {
+const CreateBoardButton: FC = () => {
   const [nameBoard, setNameBoard] = useState<string>("");
   const [error, setError] = useState<string | undefined>(undefined);
   const userId = Number(localStorage.getItem("userId"));
@@ -69,7 +69,7 @@ const CreateButton: FC = () => {
               onClick: handleSubmitModal,
             },
           ]}
-          customPosition={{ top: "-100px", right: "270px" }}
+          customPosition={{ top: "-140px", right: "270px" }}
         >
           <input
             value={nameBoard}
@@ -90,4 +90,4 @@ const CreateButton: FC = () => {
 };
 
 
-export default CreateButton;
+export default CreateBoardButton;

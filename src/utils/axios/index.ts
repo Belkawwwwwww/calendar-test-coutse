@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const ax = axios.create({
-  baseURL: "http://alyona.safechron.ru",
+  baseURL: "http://localhost:5001",
   timeout: 360 * 1000,
   withCredentials: false,
 });

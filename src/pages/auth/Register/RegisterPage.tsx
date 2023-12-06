@@ -13,7 +13,7 @@ const Registration: FC = () => {
   const dispatch = useAppDispatch();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [passwordConfig, setPasswordConfig] = useState<string>("");
+  const [passwordConfirm, setPasswordConfirm] = useState<string>("");
   const error = useAppSelector(errorUserSelector);
   const isAuth = useAppSelector(isAuthSelector);
   const navigate = useNavigate();
@@ -25,8 +25,8 @@ const Registration: FC = () => {
   }, [isAuth]); // eslint-disable-line
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (username && password && passwordConfig)
-      dispatch(register(username, password, passwordConfig));
+    if (username && password && passwordConfirm)
+      dispatch(register(username, password, passwordConfirm));
   };
 
   const onHandlerUser = (e: ChangeEvent<HTMLInputElement>) => {
@@ -36,8 +36,8 @@ const Registration: FC = () => {
     if (e.target.name === "password") {
       setPassword(e.target.value);
     }
-    if (e.target.name === "passwordConfig") {
-      setPasswordConfig(e.target.value);
+    if (e.target.name === "passwordConfirm") {
+      setPasswordConfirm(e.target.value);
     }
   };
 
@@ -54,10 +54,10 @@ const Registration: FC = () => {
           <div className={styles.title}>
             <h1 className={styles.title}>REGISTRATION</h1>
           </div>
-          {error ? (
-            <div style={{ color: "red", margin: "10px" }}>{error}</div>
-          ) : null}
           <div className={styles.inputBox}>
+            {error ? (
+                <div style={{ color: "black", margin: "10px", textAlign:"center"}}>{error}</div>
+            ) : null}
             <label className={styles.icon} htmlFor="username">
               <img src="/img/icon-user.svg" alt="user" />
             </label>
@@ -90,10 +90,10 @@ const Registration: FC = () => {
               <img src="/img/icon-password.svg" alt="password" />
             </label>
             <input
-              value={passwordConfig}
+              value={passwordConfirm}
               onChange={onHandlerUser}
               type="password"
-              name="passwordConfig"
+              name="passwordConfirm"
               id="psw-2"
               placeholder="Confirm Password"
               required
