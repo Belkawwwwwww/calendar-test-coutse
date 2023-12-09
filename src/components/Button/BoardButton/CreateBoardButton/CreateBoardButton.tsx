@@ -1,11 +1,11 @@
 import React, { FC, useEffect, useState } from "react";
-import styles from "../../Navbar/styles.module.sass";
-import Modal from "../../UI/Modal";
-import ax from "../../../utils/axios";
-import { IBoard, IResponse } from "../../../lib/types";
+import styles from "../../../Navbar/styles.module.sass";
+import Modal from "../../../UI/Modal";
+import ax from "../../../../utils/axios";
+import { IBoard, IResponse } from "../../../../lib/types";
 import { useNavigate } from "react-router-dom";
-import useModalOpenClose from "../../../store/hooks/custom-hooks/useModalOpenClose";
-import { RouteEnum } from "../../../lib/route/RouteEnum";
+import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpenClose";
+import { RouteEnum } from "../../../../lib/route/RouteEnum";
 
 const CreateBoardButton: FC = () => {
   const [nameBoard, setNameBoard] = useState<string>("");
@@ -65,7 +65,7 @@ const CreateBoardButton: FC = () => {
               onClick: handleSubmitModal,
             },
           ]}
-          customPosition={{ top: "-140px", right: "270px" }}
+          customPosition={{ top: "-265px", right: "270px" }}
         >
           <input
             value={nameBoard}

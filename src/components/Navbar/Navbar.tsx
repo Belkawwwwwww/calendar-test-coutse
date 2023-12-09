@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { RouteEnum } from "../../lib/route/RouteEnum";
 import Logo from "../UI/Logo/Logo";
 import SearchBar from "../UI/SearchBar/SearchBar";
-import CreateBoardButton from "../Button/CreateBoardButton/CreateBoardButton";
+import CreateBoardButton from "../Button/BoardButton/CreateBoardButton/CreateBoardButton";
 
 const Navbar: FC = () => {
   const dispatch = useAppDispatch();

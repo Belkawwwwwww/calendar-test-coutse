@@ -1,10 +1,10 @@
 import React, { FC } from "react";
-import Modal from "../../UI/Modal";
+import Modal from "../../../UI/Modal";
 import { useNavigate } from "react-router-dom";
-import ax from "../../../utils/axios";
-import { IResponse } from "../../../lib/types";
-import useModalOpenClose from "../../../store/hooks/custom-hooks/useModalOpenClose";
-import { RouteEnum } from "../../../lib/route/RouteEnum";
+import ax from "../../../../utils/axios";
+import { IResponse } from "../../../../lib/types";
+import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpenClose";
+import { RouteEnum } from "../../../../lib/route/RouteEnum";
 
 interface DeleteButtonProps {
   boardId: number;
@@ -50,7 +50,7 @@ const DeleteButton: FC<DeleteButtonProps> = ({
             },
             { name: "Отменить", disabled: false, onClick: handleModalClose },
           ]}
-          customPosition={{ top: "-89px", right: "5px" }}
+          customPosition={{ top: "-216px", right: "10px" }}
         ></Modal>
       ) : null}
     </>

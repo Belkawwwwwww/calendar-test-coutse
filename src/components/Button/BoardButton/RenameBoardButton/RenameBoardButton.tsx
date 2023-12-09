@@ -1,9 +1,9 @@
 import React, { FC, useState } from "react";
-import ax from "../../../utils/axios";
-import useModalOpenClose from "../../../store/hooks/custom-hooks/useModalOpenClose";
-import Modal from "../../UI/Modal";
-import styles from "../../Navbar/styles.module.sass";
-import { IBoard } from "../../../lib/types";
+import ax from "../../../../utils/axios";
+import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpenClose";
+import Modal from "../../../UI/Modal";
+import styles from "../../../Navbar/styles.module.sass";
+import { IBoard } from "../../../../lib/types";
 
 interface RenameButtonProps {
   boardId: number;
@@ -59,7 +59,7 @@ const RenameBoardButton: FC<RenameButtonProps> = ({ boardId, setBoards }) => {
             },
             { name: "Отменить", disabled: false, onClick: handleModalClose },
           ]}
-          customPosition={{ top: "-89px", right: "5px" }}
+          customPosition={{ top: "-200px", right: "150px" }}
         >
           <input
             value={newBoardName}

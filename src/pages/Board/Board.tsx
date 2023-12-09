@@ -15,7 +15,6 @@ const Board: FC = () => {
   useEffect(() => {
     getBoard();
   }, []); // eslint-disable-line
-
   const handleSubmit = (boardId: number) => {
     const existingBoard = boards.filter((board) => board.id === boardId);
     if (existingBoard.length) {

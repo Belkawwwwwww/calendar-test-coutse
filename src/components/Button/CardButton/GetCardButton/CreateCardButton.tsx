@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from "react";
 import styles from "./styles.module.sass";
-import { ICard, IResponse } from "../../../lib/types";
-import ax from "../../../utils/axios";
-import Modal from "../../UI/Modal";
-import useModalOpenClose from "../../../store/hooks/custom-hooks/useModalOpenClose";
+import { ICard, IResponse } from "../../../../lib/types";
+import ax from "../../../../utils/axios";
+import Modal from "../../../UI/Modal";
+import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpenClose";
 
 interface GetFileButtonProps {
   boardId: number;
@@ -67,7 +67,7 @@ const CreateCardButton: FC<GetFileButtonProps> = ({ boardId, updateCards }) => {
                 onClick: handleModalClose,
               },
             ]}
-            customPosition={{ top: "-102px", right: "947px" }}
+            customPosition={{ top: "-220px", right: "980px" }}
           >
             <input
               placeholder="Название карточки"

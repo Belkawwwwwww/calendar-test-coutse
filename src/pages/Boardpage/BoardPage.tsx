@@ -3,12 +3,12 @@ import { useAppSelector } from "../../store/hooks/redux";
 import styles from "./styles.module.sass";
 import { userDataSelector } from "../../store/slices/UserSlice";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import DeleteButton from "../../components/Button/DeleteBoardButton/DeleteButton";
-import CreateCardButton from "../../components/Button/GetCardButton/CreateCardButton";
+import DeleteButton from "../../components/Button/BoardButton/DeleteBoardButton/DeleteButton";
+import CreateCardButton from "../../components/Button/CardButton/GetCardButton/CreateCardButton";
 import { IBoard, ICard, IResponse } from "../../lib/types";
 import ax from "../../utils/axios";
 import { RouteEnum } from "../../lib/route/RouteEnum";
-import RenameBoardButton from "../../components/Button/RenameBoardButton/RenameBoardButton";
+import RenameBoardButton from "../../components/Button/BoardButton/RenameBoardButton/RenameBoardButton";
 
 const BoardPage: FC = () => {
   const user = useAppSelector(userDataSelector);
@@ -20,11 +20,13 @@ const BoardPage: FC = () => {
     "https://framerusercontent.com/images/lUWZ2z9geAGbpdf0JvpDsbZM3ww.gif";
 
   useLayoutEffect(() => {
+    console.log("Открыта доска с id:", boardId);
+
     const getBoard = async (): Promise<IBoard[]> => {
       try {
+        console.log("Отправка запроса на получение доски с boardId:", boardId);
+
         const responseBoard = await ax.get<IResponse>("/getBoard");
-        console.log(responseBoard.data);
-        console.log(responseBoard.data.data);
         return responseBoard.data.data || [];
       } catch (error) {
         console.log(error);
@@ -34,7 +36,6 @@ const BoardPage: FC = () => {
     const getCard = async (): Promise<ICard[]> => {
       try {
         const responseCard = await ax.get<IResponse>("/getCard");
-        console.log(responseCard.data);
         return responseCard.data.data || [];
       } catch (error) {
         console.log(error);
@@ -43,11 +44,20 @@ const BoardPage: FC = () => {
     };
     Promise.all([getBoard(), getCard()]) //асинхронная отправка двух запросов одновременно
       .then(([boardData, cardData]) => {
+        console.log("Данные о доске:", boardData);
+
         setBoards(boardData);
         setCards(cardData);
-        const existingBoard = boardData.filter(
-          (board) => board.id === Number(boardId),
+        const existingBoard = boardData.filter((board) => {
+          const numbBoardId = Number(boardId);
+          return board.id === numbBoardId;
+        });
+
+        console.log(
+          "Сравниваемые id досок:",
+          existingBoard.map((board) => board.id),
         );
+
         if (!existingBoard.length) {
           navigate(RouteEnum.BOARD);
         }
@@ -181,6 +191,7 @@ const BoardPage: FC = () => {
                   }
                   return null;
                 })}
+              {/*<Drag />*/}
             </div>
           </div>
         </div>
