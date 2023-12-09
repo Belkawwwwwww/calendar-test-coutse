@@ -6,28 +6,27 @@ import { IResponse } from "../../../lib/types";
 import useModalOpenClose from "../../../store/hooks/custom-hooks/useModalOpenClose";
 import { RouteEnum } from "../../../lib/route/RouteEnum";
 
-interface RemoveButtonProps {
+interface DeleteButtonProps {
   boardId: number;
   nameBoard: string;
   onDeleteBoard: (boardId: number) => void;
 }
 
-const DeleteButton: FC<RemoveButtonProps> = ({
+const DeleteButton: FC<DeleteButtonProps> = ({
   boardId,
   nameBoard,
   onDeleteBoard,
 }) => {
   const navigate = useNavigate();
-  const userId = Number(localStorage.getItem("userId"));
   const { isModalActive, handleModalOpen, handleModalClose } =
     useModalOpenClose();
 
   const handleDeleteButton = async () => {
     try {
       const response = await ax.delete<IResponse>(
-        `/deleteBoard?boardId=${boardId}&userId=${userId}`,
+        `/deleteBoard?boardId=${boardId}`,
       );
-      if (response.data.answercode === 1) {
+      if (response.data.statusCode === 200) {
         onDeleteBoard(boardId);
         navigate(RouteEnum.BOARD);
       }
@@ -52,9 +51,7 @@ const DeleteButton: FC<RemoveButtonProps> = ({
             { name: "Отменить", disabled: false, onClick: handleModalClose },
           ]}
           customPosition={{ top: "-89px", right: "5px" }}
-        >
-          <div></div>
-        </Modal>
+        ></Modal>
       ) : null}
     </>
   );

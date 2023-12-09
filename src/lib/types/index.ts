@@ -3,21 +3,28 @@ export interface IUser {
 }
 
 export interface IBoard {
-  boardId: number;
-  nameBoard: string;
-  //cards: ICards[]
+  id: number;
+  user_id: number;
+  name_board: string;
+  created: string;
+  updated: string;
+  deletedAt: string | null;
 }
 
-export interface IResponse {
+export interface IResponse<T = never> {
   statusCode: number;
-  message: string;
-  data?: any;
+  message?: string;
+  data?: T;
 }
-export interface IResponseData {
-  [boardId: number]: ICards[];
+
+export interface ICard {
+  id: number;
+  user_id: number;
+  board_id: number;
+  card_name: string;
+  deletedAt: string | null;
+  created: string;
+  updated: string;
+  content: string | null;
 }
-export interface ICards {
-  boardId: number
-  cardId: number;
-  nameCard: string
-}
+

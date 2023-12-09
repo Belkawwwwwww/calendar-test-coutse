@@ -5,17 +5,15 @@ import { userDataSelector } from "../../store/slices/UserSlice";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import DeleteButton from "../../components/Button/DeleteBoardButton/DeleteButton";
 import CreateCardButton from "../../components/Button/GetCardButton/CreateCardButton";
-import { IBoard, ICards, IResponse, IResponseData } from "../../lib/types";
+import { IBoard, ICard, IResponse } from "../../lib/types";
 import ax from "../../utils/axios";
 import { RouteEnum } from "../../lib/route/RouteEnum";
-import DragAndDrop from "../../components/DragAndDrop/DragAndDrop";
+import RenameBoardButton from "../../components/Button/RenameBoardButton/RenameBoardButton";
 
 const BoardPage: FC = () => {
   const user = useAppSelector(userDataSelector);
-  const userId = Number(localStorage.getItem("userId"));
   const [boards, setBoards] = useState<IBoard[]>([]);
-  const [cards, setCards] = useState<IResponseData>({});
-
+  const [cards, setCards] = useState<ICard[]>([]);
   const navigate = useNavigate();
   const { boardId } = useParams<{ boardId: string }>();
   const gif =
@@ -23,35 +21,41 @@ const BoardPage: FC = () => {
 
   useLayoutEffect(() => {
     const getBoard = async (): Promise<IBoard[]> => {
-      const responseBoard = await ax.get<IResponse>(
-        `/getBoard?userId=${userId}`,
-      );
-      console.log(responseBoard.data);
-
-      return responseBoard.data.data;
-    };
-
-    getBoard().then((data) => {
-      setBoards(data);
-      const existingBoard = data.filter((board) => {
-        const numbBoardId = Number(boardId);
-        return board.boardId === numbBoardId;
-      });
-      if (!existingBoard.length) {
-        navigate(RouteEnum.BOARD);
+      try {
+        const responseBoard = await ax.get<IResponse>("/getBoard");
+        console.log(responseBoard.data);
+        console.log(responseBoard.data.data);
+        return responseBoard.data.data || [];
+      } catch (error) {
+        console.log(error);
+        return [];
       }
-    });
-
-    const getCard = async () => {
-      const responseCard = await ax.get<IResponse>(
-        `/getCard?boardId=${boardId}&userId=${userId}`,
-      );
-
-      return responseCard.data.data;
     };
-    getCard().then((data) => {
-      setCards(data);
-    });
+    const getCard = async (): Promise<ICard[]> => {
+      try {
+        const responseCard = await ax.get<IResponse>("/getCard");
+        console.log(responseCard.data);
+        return responseCard.data.data || [];
+      } catch (error) {
+        console.log(error);
+        return [];
+      }
+    };
+    Promise.all([getBoard(), getCard()]) //асинхронная отправка двух запросов одновременно
+      .then(([boardData, cardData]) => {
+        setBoards(boardData);
+        setCards(cardData);
+        const existingBoard = boardData.filter(
+          (board) => board.id === Number(boardId),
+        );
+        if (!existingBoard.length) {
+          navigate(RouteEnum.BOARD);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        navigate(RouteEnum.BOARD);
+      });
   }, [boardId]); // eslint-disable-line
 
   const handleDeleteBoard = (boardId: number) => {
@@ -59,15 +63,12 @@ const BoardPage: FC = () => {
       if (prevBoards.length === 1) {
         navigate(RouteEnum.BOARD);
       }
-      return prevBoards.filter((board) => board.boardId !== boardId);
+      return prevBoards.filter((board) => board.id !== boardId);
     });
   };
-
-  // const updateCards = (newCard: any) => {
-  //   setCards((prevCards) => {
-  //     return { ...prevCards, ...newCard };
-  //   });
-  // };
+  const handleUpdateCards = (newCard: ICard) => {
+    setCards((prevCards) => [...prevCards, newCard]);
+  };
 
   const getRandomColor = () => {
     const pastelColors = [
@@ -98,12 +99,12 @@ const BoardPage: FC = () => {
               boards.length > 0 ? (
                 boards.map((board) => (
                   <Link
-                    to={`/board/${board.boardId}`}
+                    to={`/board/${board.id}`}
                     className={styles.createBoard}
-                    key={board.boardId}
+                    key={board.id}
                     style={{ backgroundColor: getRandomColor() }}
                   >
-                    {board.nameBoard}
+                    {board.name_board}
                   </Link>
                 ))
               ) : (
@@ -119,15 +120,29 @@ const BoardPage: FC = () => {
             <div>{user ? user.username : null}</div>
             <div className={styles.menu}></div>
             <div className={styles.board}>
-              <div className={styles.delete_board}>Изменить название доски</div>
               <div className={styles.delete_board}>
                 {boards?.map((board) => {
-                  if (board.boardId === Number(boardId)) {
+                  if (board.id === Number(boardId)) {
+                    return (
+                      <RenameBoardButton
+                        key={board.id}
+                        boardId={board.id}
+                        setBoards={setBoards}
+                      />
+                    );
+                  } else {
+                    return null;
+                  }
+                })}
+              </div>
+              <div className={styles.delete_board}>
+                {boards?.map((board) => {
+                  if (board.id === Number(boardId)) {
                     return (
                       <DeleteButton
-                        key={board.boardId}
-                        boardId={board.boardId}
-                        nameBoard={board.nameBoard}
+                        key={board.id}
+                        boardId={board.id}
+                        nameBoard={board.name_board}
                         onDeleteBoard={handleDeleteBoard}
                       />
                     );
@@ -138,35 +153,36 @@ const BoardPage: FC = () => {
               </div>
             </div>
           </div>
-         <div className={styles.board_canvas}>
-           <div className={styles.createCard}>
-             {boards?.map((board) => {
-               if (board.boardId === Number(boardId)) {
-                 return (
-                     <CreateCardButton
-                         key={board.boardId}
-                         boardId={board.boardId}
-                     />
-                 );
-               } else {
-                 return null;
-               }
-             })}
-           </div>
-           <div className={styles.cards}>
-             {Object.values(cards).map((boardData: ICards[]) =>
-                 boardData.map((card: ICards) => (
-                     <div key={card.cardId}>
-                       <div>Card ID: {card.cardId}</div>
-                       <div className={styles.btnGetFile}>Name: {card.nameCard}</div>
-                     </div>
-                 )),
-             )}
-
-
-             {/*<DragAndDrop />*/}
-           </div>
-         </div>
+          <div className={styles.board_canvas}>
+            <div className={styles.createCard}>
+              {boards?.map((board) => {
+                if (board.id === Number(boardId)) {
+                  return (
+                    <CreateCardButton
+                      key={board.id}
+                      boardId={board.id}
+                      updateCards={handleUpdateCards}
+                    />
+                  );
+                } else {
+                  return null;
+                }
+              })}
+            </div>
+            <div className={styles.cards}>
+              {cards &&
+                cards.map((card) => {
+                  if (card.id && card.board_id === Number(boardId)) {
+                    return (
+                      <div className={styles.btnGetFile} key={card.id}>
+                        {card.card_name}
+                      </div>
+                    );
+                  }
+                  return null;
+                })}
+            </div>
+          </div>
         </div>
       </div>
     </div>

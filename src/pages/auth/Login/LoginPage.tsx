@@ -28,7 +28,6 @@ const LoginPage: FC = () => {
   useEffect(() => {
     if (isAuth) {
       navigate(RouteEnum.BOARD);
-      console.log("isAuth");
     }
   }, [isAuth]); // eslint-disable-line
 
@@ -43,7 +42,7 @@ const LoginPage: FC = () => {
     if (!isAnimationDone) {
       setIsAnimationDone(true);
     }
-  }, []);
+  }, []);// eslint-disable-line
 
   return (
     <div
@@ -63,7 +62,11 @@ const LoginPage: FC = () => {
           <h1 className={styles.title}>USER LOGIN</h1>
           <div className={styles.inputBox}>
             {error ? (
-                <div style={{ color: "black", margin: "10px", textAlign:"center"}}>{error}</div>
+              <div
+                style={{ color: "black", margin: "10px", textAlign: "center" }}
+              >
+                {error}
+              </div>
             ) : null}
             <label className={styles.icon} htmlFor="username">
               <img src="/img/icon-user.svg" alt="user" />

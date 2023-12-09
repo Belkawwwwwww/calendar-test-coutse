@@ -2,10 +2,10 @@ import React, { FC, useEffect, useState } from "react";
 import styles from "../../Navbar/styles.module.sass";
 import Modal from "../../UI/Modal";
 import ax from "../../../utils/axios";
-import { IResponse } from "../../../lib/types";
+import { IBoard, IResponse } from "../../../lib/types";
 import { useNavigate } from "react-router-dom";
-import { RouteEnum } from "../../../lib/route/RouteEnum";
 import useModalOpenClose from "../../../store/hooks/custom-hooks/useModalOpenClose";
+import { RouteEnum } from "../../../lib/route/RouteEnum";
 
 const CreateBoardButton: FC = () => {
   const [nameBoard, setNameBoard] = useState<string>("");
@@ -23,20 +23,16 @@ const CreateBoardButton: FC = () => {
   const handleSubmitModal = async () => {
     if (nameBoard) {
       try {
-        const response = await ax.post<IResponse>("/createBoard", {
+        const response = await ax.post<IResponse<IBoard>>(`/createBoard`, {
           nameBoard,
           userId,
         });
-
-        console.log(response.data);
-        const boardId = response.data.data.boardId;
-
-        if (boardId && response.data.answercode === 1) {
+        console.log(response.data.data?.id);
+        const boardId = response.data.data?.id;
+        if (boardId && response.status) {
           navigate(`/board/${boardId}`);
           handleModalClose();
           setNameBoard("");
-          console.log(boardId, nameBoard);
-        } else if (response.data.answercode === 7) {
         } else {
           navigate(RouteEnum.BOARD);
         }

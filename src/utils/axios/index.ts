@@ -3,7 +3,7 @@ import axios from "axios";
 const ax = axios.create({
   baseURL: "http://localhost:5001",
   timeout: 360 * 1000,
-  withCredentials: false,
+  withCredentials: true,
 });
 
 ax.interceptors.request.use(

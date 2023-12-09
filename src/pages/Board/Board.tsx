@@ -9,7 +9,6 @@ import { IBoard, IResponse } from "../../lib/types";
 
 const Board: FC = () => {
   const user = useAppSelector(userDataSelector);
-  const userId = Number(localStorage.getItem("userId"));
   const [boards, setBoards] = useState<IBoard[]>([]);
   const navigate = useNavigate();
 
@@ -18,26 +17,22 @@ const Board: FC = () => {
   }, []); // eslint-disable-line
 
   const handleSubmit = (boardId: number) => {
-    const existingBoard = boards.find((board) => board.boardId === boardId);
-    if (existingBoard) {
+    const existingBoard = boards.filter((board) => board.id === boardId);
+    if (existingBoard.length) {
       navigate(`${RouteEnum.BOARD}/${boardId}`);
       console.log("BoardId:", boardId);
     } else {
       navigate(RouteEnum.NOTFOUND);
     }
   };
-
   const getBoard = async () => {
     try {
-      const response = await ax.get<IResponse>(`/getBoard?userId=${userId}`);
-      console.log(response.data);
-      setBoards(response.data.data);
-      console.log(response.data.data);
+      const response = await ax.get<IResponse>(`/getBoard`);
+      setBoards(response.data.data || []);
     } catch (error) {
       console.log(error);
     }
   };
-
   const getRandomColor = () => {
     const letters = "0123456789ABCDEF";
     let color = "#";
@@ -46,7 +41,6 @@ const Board: FC = () => {
     }
     return color;
   };
-
   return (
     <div className={styles.home}>
       <div className={styles.container}>
@@ -58,26 +52,27 @@ const Board: FC = () => {
             <div className={styles.section}>
               <div className={styles.create}>
                 {!boards || boards.length === 0 ? (
-                  <div className={styles.createBoard} style={{color: "black"}}>Нет созданных досок</div>
+                  <div
+                    className={styles.createBoard}
+                    style={{ color: "black" }}
+                  >
+                    Нет созданных досок
+                  </div>
                 ) : (
                   boards.map((board) => {
-                    if (board.boardId) {
+                    if (board.id) {
                       return (
                         <div
-                          key={board.boardId}
+                          key={board.id}
                           className={styles.createBoard}
-                          onClick={() => handleSubmit(board.boardId)}
+                          onClick={() => handleSubmit(board.id)}
                           style={{ backgroundColor: getRandomColor() }}
                         >
-                          {board.nameBoard}
+                          {board.name_board}
                         </div>
                       );
                     }
-                    return (
-                      <div key={board.boardId} className={styles.createBoard}>
-                        {board.nameBoard}
-                      </div>
-                    );
+                    return null;
                   })
                 )}
               </div>
