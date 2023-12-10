@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import styles from "./Login.module.sass";
-import { login } from "../../../store/action/userAction";
+import {isLoggedIn, login} from "../../../store/action/userAction";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
 import {
   errorUserSelector,
@@ -26,10 +26,10 @@ const LoginPage: FC = () => {
   };
 
   useEffect(() => {
-    if (isAuth) {
+    if (isLoggedIn()) {
       navigate(RouteEnum.BOARD);
     }
-  }, [isAuth]); // eslint-disable-line
+  }, [isLoggedIn()]); // eslint-disable-line
 
   const onHandlerUser = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === "username") {

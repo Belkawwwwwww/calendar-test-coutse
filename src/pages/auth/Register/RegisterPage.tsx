@@ -5,7 +5,7 @@ import {
   errorUserSelector,
   isAuthSelector,
 } from "../../../store/slices/UserSlice";
-import { register } from "../../../store/action/userAction";
+import {isLoggedIn, register} from "../../../store/action/userAction";
 import { Link, useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../../lib/route/RouteEnum";
 
@@ -19,10 +19,10 @@ const Registration: FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuth) {
+    if (isLoggedIn()) {
       navigate(RouteEnum.BOARD);
     }
-  }, [isAuth]); // eslint-disable-line
+  }, [isLoggedIn()]); // eslint-disable-line
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (username && password && passwordConfirm)

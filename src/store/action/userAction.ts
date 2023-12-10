@@ -3,6 +3,7 @@ import { userSlice } from "../slices/UserSlice";
 import ax from "../../utils/axios";
 import { IResponse } from "../../lib/types";
 
+
 interface User {
   id: number;
   created: string;
@@ -10,6 +11,9 @@ interface User {
   deletedAt: string | null;
   username: string;
 }
+export const isLoggedIn = () => {
+  return !!sessionStorage.getItem("username");
+};
 
 export const login =
   (username: string, password: string) => async (dispatch: AppDispatch) => {
@@ -19,9 +23,11 @@ export const login =
         username: username,
         password: password,
       });
+
       if (response.data.statusCode !== 200) {
         dispatch(userSlice.actions.setError(response.data.message));
       } else {
+        sessionStorage.setItem("username", username);
         dispatch(userSlice.actions.setUser({ username }));
         dispatch(userSlice.actions.setIsAuth(true));
       }
@@ -63,12 +69,11 @@ export const checkAuth = () => async (dispatch: AppDispatch) => {
   }
 };
 
-
 export const logout = () => async (dispatch: AppDispatch) => {
   try {
+    sessionStorage.removeItem("username")
     dispatch(userSlice.actions.setIsAuth(false));
     dispatch(userSlice.actions.setUser(null));
-    localStorage.removeItem("userId");
     await ax.post("/logout");
   } catch (e) {
     dispatch(userSlice.actions.setError("Произошла ошибка"));
