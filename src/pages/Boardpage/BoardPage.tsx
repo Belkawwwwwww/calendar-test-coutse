@@ -42,6 +42,7 @@ const BoardPage: FC = () => {
         return [];
       }
     };
+
     Promise.all([getBoard(), getCard()]) //асинхронная отправка двух запросов одновременно
       .then(([boardData, cardData]) => {
         console.log("Данные о доске:", boardData);
