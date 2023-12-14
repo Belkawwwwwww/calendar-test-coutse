@@ -14,6 +14,7 @@ const RenameBoardButton: FC<RenameButtonProps> = ({ boardId, setBoards }) => {
   const [newBoardName, setNewBoardName] = useState("");
   const { isModalActive, handleModalOpen, handleModalClose } =
     useModalOpenClose();
+
   const handleRenameBoard = async () => {
     if (newBoardName.trim() !== "") {
       try {

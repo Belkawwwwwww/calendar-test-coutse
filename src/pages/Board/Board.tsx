@@ -1,37 +1,30 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect } from "react";
 import styles from "./Board.module.sass";
-import { useAppSelector } from "../../store/hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import { useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../lib/route/RouteEnum";
 import { userDataSelector } from "../../store/slices/UserSlice";
-import ax from "../../utils/axios";
-import { IBoard, IResponse } from "../../lib/types";
+import { getBoard } from "../../store/action/BoardAction";
+import { isBoardsSelector } from "../../store/slices/BoardSlice";
 
 const Board: FC = () => {
   const user = useAppSelector(userDataSelector);
-  const [boards, setBoards] = useState<IBoard[]>([]);
+  const boards = useAppSelector(isBoardsSelector);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    getBoard();
+    dispatch(getBoard());
   }, []); // eslint-disable-line
   const handleSubmit = (boardId: number) => {
     const existingBoard = boards.filter((board) => board.id === boardId);
     if (existingBoard.length) {
       navigate(`${RouteEnum.BOARD}/${boardId}`);
-      console.log("BoardId:", boardId);
     } else {
       navigate(RouteEnum.NOTFOUND);
     }
   };
-  const getBoard = async () => {
-    try {
-      const response = await ax.get<IResponse>(`/getBoard`);
-      setBoards(response.data.data || []);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   const getRandomColor = () => {
     const letters = "0123456789ABCDEF";
     let color = "#";
@@ -51,28 +44,18 @@ const Board: FC = () => {
             <div className={styles.section}>
               <div className={styles.create}>
                 {!boards || boards.length === 0 ? (
-                  <div
-                    className={styles.createBoard}
-                    style={{ color: "black" }}
-                  >
-                    Нет созданных досок
-                  </div>
+                  <div className={styles.createBoard}>Нет доступных досок</div>
                 ) : (
-                  boards.map((board) => {
-                    if (board.id) {
-                      return (
-                        <div
-                          key={board.id}
-                          className={styles.createBoard}
-                          onClick={() => handleSubmit(board.id)}
-                          style={{ backgroundColor: getRandomColor() }}
-                        >
-                          {board.name_board}
-                        </div>
-                      );
-                    }
-                    return null;
-                  })
+                  boards.map((board) => (
+                    <div
+                      onClick={() => handleSubmit(board.id)}
+                      className={styles.createBoard}
+                      key={board.id}
+                      style={{ backgroundColor: getRandomColor() }}
+                    >
+                      {board.name_board}
+                    </div>
+                  ))
                 )}
               </div>
             </div>

@@ -3,7 +3,6 @@ import { userSlice } from "../slices/UserSlice";
 import ax from "../../utils/axios";
 import { IResponse } from "../../lib/types";
 
-
 interface User {
   id: number;
   created: string;
@@ -65,7 +64,7 @@ export const checkAuth = () => async (dispatch: AppDispatch) => {
     }
   } catch (e) {
     localStorage.removeItem("userId");
-    dispatch(userSlice.actions.setError("Произошла ошибка"));
+    // dispatch(userSlice.actions.setError("Произошла ошибка"));
   }
 };
 

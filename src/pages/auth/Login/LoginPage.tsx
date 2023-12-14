@@ -1,11 +1,8 @@
 import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import styles from "./Login.module.sass";
-import {isLoggedIn, login} from "../../../store/action/userAction";
+import { isLoggedIn, login } from "../../../store/action/userAction";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
-import {
-  errorUserSelector,
-  isAuthSelector,
-} from "../../../store/slices/UserSlice";
+import { errorUserSelector } from "../../../store/slices/UserSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../../lib/route/RouteEnum";
 
@@ -15,7 +12,6 @@ const LoginPage: FC = () => {
   const dispatch = useAppDispatch();
   const error = useAppSelector(errorUserSelector);
   const navigate = useNavigate();
-  const isAuth = useAppSelector(isAuthSelector);
   const [isAnimationDone, setIsAnimationDone] = useState(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -42,7 +38,7 @@ const LoginPage: FC = () => {
     if (!isAnimationDone) {
       setIsAnimationDone(true);
     }
-  }, []);// eslint-disable-line
+  }, []); // eslint-disable-line
 
   return (
     <div

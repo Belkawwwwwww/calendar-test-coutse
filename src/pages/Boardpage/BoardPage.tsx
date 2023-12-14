@@ -1,73 +1,39 @@
-import React, { FC, useLayoutEffect, useState } from "react";
-import { useAppSelector } from "../../store/hooks/redux";
+import React, { FC, useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import styles from "./styles.module.sass";
 import { userDataSelector } from "../../store/slices/UserSlice";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import DeleteButton from "../../components/Button/BoardButton/DeleteBoardButton/DeleteButton";
 import CreateCardButton from "../../components/Button/CardButton/GetCardButton/CreateCardButton";
-import { IBoard, ICard, IResponse } from "../../lib/types";
-import ax from "../../utils/axios";
+import { IBoard, ICard } from "../../lib/types";
 import { RouteEnum } from "../../lib/route/RouteEnum";
 import RenameBoardButton from "../../components/Button/BoardButton/RenameBoardButton/RenameBoardButton";
+import { getBoard } from "../../store/action/BoardAction";
+import { isBoardsSelector } from "../../store/slices/BoardSlice";
 
 const BoardPage: FC = () => {
+  const boards = useAppSelector(isBoardsSelector);
+  const dispatch = useAppDispatch();
   const user = useAppSelector(userDataSelector);
-  const [boards, setBoards] = useState<IBoard[]>([]);
+  const [board, setBoards] = useState<IBoard[]>([]);
   const [cards, setCards] = useState<ICard[]>([]);
   const navigate = useNavigate();
   const { boardId } = useParams<{ boardId: string }>();
+
   const gif =
     "https://framerusercontent.com/images/lUWZ2z9geAGbpdf0JvpDsbZM3ww.gif";
 
-  useLayoutEffect(() => {
-    console.log("Открыта доска с id:", boardId);
-
-    const getBoard = async (): Promise<IBoard[]> => {
-      try {
-        console.log("Отправка запроса на получение доски с boardId:", boardId);
-
-        const responseBoard = await ax.get<IResponse>("/getBoard");
-        return responseBoard.data.data || [];
-      } catch (error) {
-        console.log(error);
-        return [];
-      }
-    };
-    const getCard = async (): Promise<ICard[]> => {
-      try {
-        const responseCard = await ax.get<IResponse>("/getCard");
-        return responseCard.data.data || [];
-      } catch (error) {
-        console.log(error);
-        return [];
-      }
-    };
-
-    Promise.all([getBoard(), getCard()]) //асинхронная отправка двух запросов одновременно
-      .then(([boardData, cardData]) => {
-        console.log("Данные о доске:", boardData);
-
-        setBoards(boardData);
-        setCards(cardData);
-        const existingBoard = boardData.filter((board) => {
-          const numbBoardId = Number(boardId);
-          return board.id === numbBoardId;
-        });
-
-        console.log(
-          "Сравниваемые id досок:",
-          existingBoard.map((board) => board.id),
-        );
-
-        if (!existingBoard.length) {
-          navigate(RouteEnum.BOARD);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        navigate(RouteEnum.BOARD);
+  useEffect(() => {
+    dispatch(getBoard()).then((data) => {
+      const existingBoard = data.filter((board) => {
+        const numBoardId = Number(boardId);
+        return board.id === numBoardId;
       });
-  }, [boardId]); // eslint-disable-line
+      if (!existingBoard.length) {
+        navigate(RouteEnum.BOARD);
+      }
+    });
+  }, []); // eslint-disable-line
 
   const handleDeleteBoard = (boardId: number) => {
     setBoards((prevBoards) => {
@@ -106,22 +72,20 @@ const BoardPage: FC = () => {
             Мои доски:{" "}
           </Link>
           <div className={styles.board_list}>
-            {boards ? (
-              boards.length > 0 ? (
-                boards.map((board) => (
-                  <Link
-                    to={`/board/${board.id}`}
-                    className={styles.createBoard}
-                    key={board.id}
-                    style={{ backgroundColor: getRandomColor() }}
-                  >
-                    {board.name_board}
-                  </Link>
-                ))
-              ) : (
-                <div className={styles.createBoard}>Нет досок</div>
-              )
-            ) : null}
+            {!boards || boards.length === 0 ? (
+              <div className={styles.createBoard}>Нет досок</div>
+            ) : (
+              boards.map((board) => (
+                <Link
+                  to={`/board/${board.id}`}
+                  className={styles.createBoard}
+                  key={board.id}
+                  style={{ backgroundColor: getRandomColor() }}
+                >
+                  {board.name_board}
+                </Link>
+              ))
+            )}
           </div>
         </div>
       </div>

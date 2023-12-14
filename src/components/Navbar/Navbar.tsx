@@ -1,13 +1,13 @@
 import React, { FC } from "react";
 import styles from "./styles.module.sass";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
-import { isAuthSelector } from "../../store/slices/UserSlice";
-import {isLoggedIn, logout} from "../../store/action/userAction";
+import { isLoggedIn, logout } from "../../store/action/userAction";
 import { Link } from "react-router-dom";
 import { RouteEnum } from "../../lib/route/RouteEnum";
 import Logo from "../UI/Logo/Logo";
 import SearchBar from "../UI/SearchBar/SearchBar";
 import CreateBoardButton from "../Button/BoardButton/CreateBoardButton/CreateBoardButton";
+import { isAuthSelector } from "../../store/slices/UserSlice";
 
 const Navbar: FC = () => {
   const dispatch = useAppDispatch();
@@ -18,7 +18,11 @@ const Navbar: FC = () => {
   };
 
   return (
-    <div className={`${styles.header} ${isLoggedIn() ? styles.auth : styles.unauth}`}>
+    <div
+      className={`${styles.header} ${
+        isLoggedIn() || isAuth ? styles.auth : styles.unauth
+      }`}
+    >
       <div className={styles.container}>
         <Logo />
         <div className={styles.links}>
