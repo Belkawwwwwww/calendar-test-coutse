@@ -64,7 +64,6 @@ export const checkAuth = () => async (dispatch: AppDispatch) => {
     }
   } catch (e) {
     localStorage.removeItem("userId");
-    // dispatch(userSlice.actions.setError("Произошла ошибка"));
   }
 };
 
@@ -83,25 +82,19 @@ export const register =
   (username: string, password: string, password_confirm: string) =>
   async (dispatch: AppDispatch) => {
     try {
-      const response = await ax.post<IResponse<User>>(`/registration`, {
+      const response = await ax.post<IResponse>("/registration", {
         username: username,
         password: password,
         password_confirm: password_confirm,
       });
       console.log(response);
-      const obj_action: {
-        [key: number]: () => void;
-      } = {
-        200: () => {
-          dispatch(userSlice.actions.setIsAuth(true));
-          // localStorage.setItem("userId", response.data.data.userId);
-          dispatch(userSlice.actions.setUser({ username }));
-        },
-        // 4: () => dispatch(userSlice.actions.setError(response.data.answer)),
-        // 5: () => dispatch(userSlice.actions.setError(response.data.answer)),
-        // 7: () => dispatch(userSlice.actions.setError(response.data.answer)),
-      };
-      obj_action[response.data.statusCode]?.();
+      if (response.data.statusCode !== 200) {
+        dispatch(userSlice.actions.setError(response.data.message));
+      } else {
+        sessionStorage.setItem("username", username);
+        dispatch(userSlice.actions.setUser({ username }));
+        dispatch(userSlice.actions.setIsAuth(true));
+      }
     } catch (e) {
       dispatch(userSlice.actions.setError("Произошла ошибка при регистрации"));
     }

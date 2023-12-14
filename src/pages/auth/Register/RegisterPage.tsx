@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import styles from "../Login/Login.module.sass";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
-import { errorUserSelector } from "../../../store/slices/UserSlice";
+import {errorUserSelector, isAuthSelector} from "../../../store/slices/UserSlice";
 import { isLoggedIn, register } from "../../../store/action/userAction";
 import { Link, useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../../lib/route/RouteEnum";
@@ -13,13 +13,14 @@ const Registration: FC = () => {
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
   const error = useAppSelector(errorUserSelector);
   const navigate = useNavigate();
-  // const isAuth = useAppSelector(isAuthSelector);
+  const isAuth = useAppSelector(isAuthSelector);
 
   useEffect(() => {
-    if (isLoggedIn()) {
+    if (isLoggedIn() || isAuth
+    ) {
       navigate(RouteEnum.BOARD);
     }
-  }, [isLoggedIn()]); // eslint-disable-line
+  }, [isLoggedIn(), isAuth]); // eslint-disable-line
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (username && password && passwordConfirm)

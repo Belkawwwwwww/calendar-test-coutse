@@ -9,7 +9,7 @@ import { boardSlice } from "../slices/BoardSlice";
 export const createBoard =
   (nameBoard: string) => async (dispatch: AppDispatch) => {
     try {
-      const response = await ax.post<IResponse<IBoard>>("/createBoard", {
+      const response = await ax.post<IResponse<IBoard>>(`/createBoard`, {
         nameBoard: nameBoard,
       });
       const boardId = response.data.data?.id;

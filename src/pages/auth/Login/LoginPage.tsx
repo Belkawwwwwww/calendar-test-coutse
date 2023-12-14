@@ -2,7 +2,10 @@ import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import styles from "./Login.module.sass";
 import { isLoggedIn, login } from "../../../store/action/userAction";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
-import { errorUserSelector } from "../../../store/slices/UserSlice";
+import {
+  errorUserSelector,
+  isAuthSelector,
+} from "../../../store/slices/UserSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../../lib/route/RouteEnum";
 
@@ -13,6 +16,13 @@ const LoginPage: FC = () => {
   const error = useAppSelector(errorUserSelector);
   const navigate = useNavigate();
   const [isAnimationDone, setIsAnimationDone] = useState(false);
+  const isAuth = useAppSelector(isAuthSelector);
+
+  useEffect(() => {
+    if (isLoggedIn() || isAuth) {
+      navigate(RouteEnum.BOARD);
+    }
+  }, [isLoggedIn(), isAuth]); // eslint-disable-line
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,12 +30,6 @@ const LoginPage: FC = () => {
       dispatch(login(username, password));
     }
   };
-
-  useEffect(() => {
-    if (isLoggedIn()) {
-      navigate(RouteEnum.BOARD);
-    }
-  }, [isLoggedIn()]); // eslint-disable-line
 
   const onHandlerUser = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === "username") {

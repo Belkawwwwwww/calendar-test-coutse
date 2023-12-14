@@ -25,22 +25,16 @@ export const boardSlice = createSlice({
         state.boards = [payload];
       }
     },
-    // deleteBoard(state, {payload}: PayloadAction<number>) {
-    //   if (state.boards) {
-    //     state.boards = state.boards.filter((board) => board.id !== payload)
+    // renameBoard(
+    //   state,
+    //   action: PayloadAction<{ boardId: number; newName: string }>,
+    // ) {
+    //   const { boardId, newName } = action.payload;
+    //   const board = state.boards?.find((board) => board.id === boardId);
+    //   if (board) {
+    //     board.name_board = newName;
     //   }
     // },
-
-    renameBoard(
-      state,
-      action: PayloadAction<{ boardId: number; newName: string }>,
-    ) {
-      const { boardId, newName } = action.payload;
-      const board = state.boards?.find((board) => board.id === boardId);
-      if (board) {
-        board.name_board = newName;
-      }
-    },
     setError(state, { payload }: PayloadAction<string | undefined>) {
       state.error = payload;
     },

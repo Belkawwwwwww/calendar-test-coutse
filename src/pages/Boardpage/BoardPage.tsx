@@ -10,13 +10,16 @@ import { RouteEnum } from "../../lib/route/RouteEnum";
 import RenameBoardButton from "../../components/Button/BoardButton/RenameBoardButton/RenameBoardButton";
 import { getBoard } from "../../store/action/BoardAction";
 import { isBoardsSelector } from "../../store/slices/BoardSlice";
+import { getCard } from "../../store/action/CardAction";
+import { isCardSelector } from "../../store/slices/CardSlice";
 
 const BoardPage: FC = () => {
   const boards = useAppSelector(isBoardsSelector);
   const dispatch = useAppDispatch();
   const user = useAppSelector(userDataSelector);
   const [board, setBoards] = useState<IBoard[]>([]);
-  const [cards, setCards] = useState<ICard[]>([]);
+  const cards = useAppSelector(isCardSelector);
+  // const [cards, setCards] = useState<ICard[]>([]);
   const navigate = useNavigate();
   const { boardId } = useParams<{ boardId: string }>();
 
@@ -24,15 +27,19 @@ const BoardPage: FC = () => {
     "https://framerusercontent.com/images/lUWZ2z9geAGbpdf0JvpDsbZM3ww.gif";
 
   useEffect(() => {
-    dispatch(getBoard()).then((data) => {
-      const existingBoard = data.filter((board) => {
-        const numBoardId = Number(boardId);
-        return board.id === numBoardId;
-      });
-      if (!existingBoard.length) {
-        navigate(RouteEnum.BOARD);
-      }
-    });
+    if (boardId) {
+      const numBoardId = Number(boardId);
+      dispatch(getBoard())
+        .then((data) => {
+          const existingBoard = data.filter((board) => board.id === numBoardId);
+          if (!existingBoard.length) {
+            navigate(RouteEnum.BOARD);
+          }
+        })
+        .then(() => {
+          dispatch(getCard());
+        });
+    }
   }, []); // eslint-disable-line
 
   const handleDeleteBoard = (boardId: number) => {
@@ -44,7 +51,7 @@ const BoardPage: FC = () => {
     });
   };
   const handleUpdateCards = (newCard: ICard) => {
-    setCards((prevCards) => [...prevCards, newCard]);
+    // setCards((prevCards) => [...prevCards, newCard]);
   };
 
   const getRandomColor = () => {
