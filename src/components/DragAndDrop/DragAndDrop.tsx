@@ -78,7 +78,7 @@ const DragAndDrop = () => {
     //   {Object.values(cards).map((boardData: Cards[]) =>
     //       boardData.map((card: Cards) => (
     //           <div key={card.cardId}>
-    //             <div>Card ID: {card.cardId}</div>
+    //             <div>BoardComponent ID: {card.cardId}</div>
     //             <div className={styles.btnGetFile}>Name: {card.nameCard}</div>
     //           </div>
     //       )),

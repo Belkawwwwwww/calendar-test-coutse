@@ -26,10 +26,10 @@ const DeleteButton: FC<DeleteButtonProps> = ({
       const response = await ax.delete<IResponse>(
         `/deleteBoard?boardId=${boardId}`,
       );
-      if (response.data.statusCode === 200) {
-        onDeleteBoard(boardId);
-        navigate(RouteEnum.BOARD);
-      }
+        if (response.status) {
+          onDeleteBoard(boardId);
+          navigate(RouteEnum.BOARD);
+        }
     } catch (e) {
       console.log(e);
     }
