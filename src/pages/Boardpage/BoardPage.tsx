@@ -97,44 +97,44 @@ const BoardPage: FC = () => {
         </div>
       </div>
       <div className={styles.content_wrapper}>
-        <div className={styles.board_content}>
-          <div className={styles.header}>
-            <div>{user ? user.username : null}</div>
-            <div className={styles.menu}></div>
-            <div className={styles.board}>
-              <div className={styles.delete_board}>
-                {boards?.map((board) => {
-                  if (board.id === Number(boardId)) {
-                    return (
-                      <RenameBoardButton
-                        key={board.id}
-                        boardId={board.id}
-                        setBoards={setBoards}
-                      />
-                    );
-                  } else {
-                    return null;
-                  }
-                })}
-              </div>
-              <div className={styles.delete_board}>
-                {boards?.map((board) => {
-                  if (board.id === Number(boardId)) {
-                    return (
-                      <DeleteButton
-                        key={board.id}
-                        boardId={board.id}
-                        nameBoard={board.name_board}
-                        onDeleteBoard={handleDeleteBoard}
-                      />
-                    );
-                  } else {
-                    return null;
-                  }
-                })}
-              </div>
+        <div className={styles.header}>
+          <div>{user ? user.username : null}</div>
+          <div className={styles.menu}></div>
+          <div className={styles.board}>
+            <div className={styles.delete_board}>
+              {boards?.map((board) => {
+                if (board.id === Number(boardId)) {
+                  return (
+                    <RenameBoardButton
+                      key={board.id}
+                      boardId={board.id}
+                      setBoards={setBoards}
+                    />
+                  );
+                } else {
+                  return null;
+                }
+              })}
+            </div>
+            <div className={styles.delete_board}>
+              {boards?.map((board) => {
+                if (board.id === Number(boardId)) {
+                  return (
+                    <DeleteButton
+                      key={board.id}
+                      boardId={board.id}
+                      nameBoard={board.name_board}
+                      onDeleteBoard={handleDeleteBoard}
+                    />
+                  );
+                } else {
+                  return null;
+                }
+              })}
             </div>
           </div>
+        </div>
+        <div className={styles.board_content}>
           <div className={styles.board_canvas}>
             <div className={styles.createCard}>
               {boards?.map((board) => {
@@ -151,19 +151,42 @@ const BoardPage: FC = () => {
                 }
               })}
             </div>
-            <div className={styles.cards}>
-              {cards &&
-                cards.map((card) => {
-                  if (card.id && card.board_id === Number(boardId)) {
-                    return (
-                      <div className={styles.btnGetFile} key={card.id}>
-                        {card.card_name}
-                      </div>
-                    );
-                  }
-                  return null;
-                })}
-              {/*<Drag />*/}
+            <div className={styles.cardsContainer}>
+              <div className={styles.cards}>
+                {cards &&
+                  cards.map((card) => {
+                    if (card.id && card.board_id === Number(boardId)) {
+                      return (
+                        <div className={styles.btnGetFile} key={card.id}>
+                          <div>
+                            <div className={styles.contentCard}>
+                              <div className={styles.contentHeaderCard}>
+                                {card.card_name}
+                              </div>
+                              <div>
+                                <img
+                                  className={styles.dotsCard}
+                                  src="/img/dots.svg"
+                                  alt="..."
+                                />
+                              </div>
+                            </div>
+                            <div className={styles.footerCard}>
+                              <img
+                                className={styles.plusCard}
+                                src="/img/Plus.svg"
+                                alt="+"
+                              />
+                              <div>Добавить карточку</div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
+                {/*<Drag />*/}
+              </div>
             </div>
           </div>
         </div>

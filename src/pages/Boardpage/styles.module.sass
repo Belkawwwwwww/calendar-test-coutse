@@ -10,7 +10,7 @@
   flex-direction: column
   //background-color: #e9e9e9
   height: 100%
-  width: 200px
+  min-width: 160px
 
 .username
   display: flex
@@ -26,6 +26,7 @@
 
 .board_list
   margin-top: 6px
+  padding: 2px 0
 
   .my_board
     display: flex
@@ -33,9 +34,6 @@
     align-items: center
     padding: 4px 0 4px 0
     color: black
-
-.board_list
-  padding: 2px 0
 
 .createBoard
   display: flex
@@ -55,7 +53,7 @@
 .content_wrapper
   display: flex
   flex-direction: column
-  width: calc(100% - 23px)
+  width: 100%
   border-left: 1px solid #e7e7e7
 
 
@@ -72,29 +70,53 @@
   padding-right: 10px
   display: flex
   align-items: flex-start
-
-.delete_board
-  cursor: pointer
-
-  &:first-child
-    padding-right: 10px
-
-
 .menu
   position: relative
   display: flex
   align-items: flex-start
   margin-left: auto
+.delete_board
+  cursor: pointer
+  &:first-child
+    padding-right: 10px
+
+.board_canvas
+  overflow: hidden
+  padding: 20px 10px 10px 20px
 .btnGetFile
-  width: 270px
-  height: 45px
+  min-width: 270px
+  max-height: 100%
   border-radius: 12px
   padding: 12px
   cursor: pointer
   margin-right: 10px
   background-color: #e9e9e9 !important
   border: none
-.board_canvas
-  padding: 20px 10px 10px 20px
+
+.cardsContainer
+  height: 100vh
+  width: 100%
+  overflow-x: scroll
 .cards
   display: flex
+  width: 1200px
+.contentCard
+  justify-content: space-between
+  display: flex
+  margin-bottom: 10px
+  .dotsCard
+    width: 12px
+    height: 12px
+.footerCard
+  width: 100%
+  align-items: center
+  display: flex
+  padding: 5px 0 4px 0
+  border-radius: 8px
+.footerCard:hover
+  background-color: #dfe1e6
+.plusCard
+  padding-right: 6px
+  width: 23px
+  height: 24px
+

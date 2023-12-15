@@ -22,14 +22,21 @@ export const login =
         username: username,
         password: password,
       });
+      const obj_action: {
+        [key: number]: () => void;
+      } = {
+        200: () => {
+          sessionStorage.setItem("username", username);
+          dispatch(userSlice.actions.setUser({ username }));
+          dispatch(userSlice.actions.setIsAuth(true));
+        },
+        401: () => dispatch(userSlice.actions.setError("Пользователь не существует")),
+        // 403: () => dispatch(userSlice.actions.setError(response.data.message)),
+        // 404: () => dispatch(userSlice.actions.setError(response.data.message)),
+        // 500: () => dispatch(userSlice.actions.setError(response.data.message)),
+      };
+      obj_action[response.data.statusCode]?.();
 
-      if (response.data.statusCode !== 200) {
-        dispatch(userSlice.actions.setError(response.data.message));
-      } else {
-        sessionStorage.setItem("username", username);
-        dispatch(userSlice.actions.setUser({ username }));
-        dispatch(userSlice.actions.setIsAuth(true));
-      }
     } catch (e) {
       dispatch(userSlice.actions.setError("Некорректный логин или пароль"));
     }
@@ -49,10 +56,10 @@ export const checkAuth = () => async (dispatch: AppDispatch) => {
           dispatch(userSlice.actions.setIsAuth(true));
           dispatch(userSlice.actions.setUser({ username: userName }));
         },
-        401: () => dispatch(userSlice.actions.setError(response.data.message)),
-        403: () => dispatch(userSlice.actions.setError(response.data.message)),
-        404: () => dispatch(userSlice.actions.setError(response.data.message)),
-        500: () => dispatch(userSlice.actions.setError(response.data.message)),
+        // 401: () => dispatch(userSlice.actions.setError(response.data.message)),
+        // 403: () => dispatch(userSlice.actions.setError(response.data.message)),
+        // 404: () => dispatch(userSlice.actions.setError(response.data.message)),
+        // 500: () => dispatch(userSlice.actions.setError(response.data.message)),
       };
       obj_action[response.data.statusCode]?.();
     } else {
@@ -89,7 +96,7 @@ export const register =
       });
       console.log(response);
       if (response.data.statusCode !== 200) {
-        dispatch(userSlice.actions.setError(response.data.message));
+        // dispatch(userSlice.actions.setError(response.data.message));
       } else {
         sessionStorage.setItem("username", username);
         dispatch(userSlice.actions.setUser({ username }));

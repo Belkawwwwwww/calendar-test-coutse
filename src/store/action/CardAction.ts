@@ -24,7 +24,6 @@ export const getCard =
       const response = await ax.get<IResponse<ICard[]>>(
         `/getCard`,
       );
-      console.log(response.data.data);
       const obj_action: {
         [key: number]: () => void;
       } = {

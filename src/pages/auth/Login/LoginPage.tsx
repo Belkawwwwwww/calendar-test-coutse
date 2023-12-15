@@ -18,16 +18,13 @@ const LoginPage: FC = () => {
   const [isAnimationDone, setIsAnimationDone] = useState(false);
   const isAuth = useAppSelector(isAuthSelector);
 
-  useEffect(() => {
-    if (isLoggedIn() || isAuth) {
-      navigate(RouteEnum.BOARD);
-    }
-  }, [isLoggedIn(), isAuth]); // eslint-disable-line
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (username && password) {
-      dispatch(login(username, password));
+    if (username.trim() !== "" || password.trim() !== "") {
+      await dispatch(login(username, password));
+      if (isLoggedIn() || isAuth) {
+        navigate(RouteEnum.BOARD);
+      }
     }
   };
 
