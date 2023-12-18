@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import styles from "./styles.module.sass";
 import { userDataSelector } from "../../store/slices/UserSlice";
-import { useNavigate, useParams } from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import { IBoard, ICard } from "../../lib/types";
 import { RouteEnum } from "../../lib/route/RouteEnum";
 import { getBoard } from "../../store/action/BoardAction";
@@ -12,14 +12,19 @@ import RenameBoard from "../../components/BoardComponent/RenameBoard";
 import DeleteBoard from "../../components/BoardComponent/DeleteBoard";
 import CreateCard from "../../components/CardComponent/CreateCard";
 import CardList from "../../components/CardComponent/CardList";
+import {isCardSelector} from "../../store/slices/CardSlice";
 
 const BoardPage: FC = () => {
+  const cards = useAppSelector(isCardSelector);
+
   const dispatch = useAppDispatch();
   const user = useAppSelector(userDataSelector);
   const [board, setBoards] = useState<IBoard[]>([]);
   const [card, setCards] = useState<ICard[]>([]);
   const navigate = useNavigate();
   const { boardId } = useParams<{ boardId: string }>();
+  const location = useLocation();
+
 
   const gif =
     "https://framerusercontent.com/images/lUWZ2z9geAGbpdf0JvpDsbZM3ww.gif";
@@ -35,10 +40,20 @@ const BoardPage: FC = () => {
           }
         })
         .then(() => {
-          dispatch(getCard());
+          dispatch(getCard(Number(boardId)));
         });
     }
   }, []); // eslint-disable-line
+
+
+  useEffect(() => {
+    if (cards) {
+      setCards(cards);
+    }
+  }, [cards]);
+
+
+
 
   return (
     <div className={styles.main_content}>
@@ -54,7 +69,7 @@ const BoardPage: FC = () => {
           <div className={styles.menu}></div>
           <div className={styles.board}>
             <RenameBoard boardId={Number(boardId)} setBoards={setBoards} />
-            <DeleteBoard boardId={Number(boardId)} setBoards={setBoards} />
+            <DeleteBoard boardId={Number(boardId)} setBoards={setBoards} setCards={setCards} />
           </div>
         </div>
         <div className={styles.board_content}>

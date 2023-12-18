@@ -10,12 +10,14 @@ interface DeleteButtonProps {
   boardId: number;
   nameBoard: string;
   onDeleteBoard: (boardId: number) => void;
+  onDeleteCards: (boardId: number) => void;
 }
 
 const DeleteButton: FC<DeleteButtonProps> = ({
   boardId,
   nameBoard,
   onDeleteBoard,
+  onDeleteCards,
 }) => {
   const navigate = useNavigate();
   const { isModalActive, handleModalOpen, handleModalClose } =
@@ -26,10 +28,11 @@ const DeleteButton: FC<DeleteButtonProps> = ({
       const response = await ax.delete<IResponse>(
         `/deleteBoard?boardId=${boardId}`,
       );
-        if (response.status) {
-          onDeleteBoard(boardId);
-          navigate(RouteEnum.BOARD);
-        }
+      if (response.status) {
+        onDeleteBoard(boardId);
+        onDeleteCards(boardId);
+        navigate(RouteEnum.BOARD);
+      }
     } catch (e) {
       console.log(e);
     }

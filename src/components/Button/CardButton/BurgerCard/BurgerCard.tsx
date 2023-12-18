@@ -27,13 +27,14 @@ const BurgerCard: FC<DeleteCardButtonProps> = ({
         `/deleteCard?cardId=${cardId}&boarId=${boardId}`,
       );
       if (response.status) {
-        onDeleteCard(cardId);
+        onDeleteCard(cardId); // Вызов функции onDeleteCard для обновления списка карточек
         handleModalClose();
       }
     } catch (e) {
       console.log(e);
     }
   };
+
   return (
     <>
       <div>
