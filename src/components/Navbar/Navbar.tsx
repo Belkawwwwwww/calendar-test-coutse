@@ -13,9 +13,17 @@ const Navbar: FC = () => {
   const dispatch = useAppDispatch();
   const isAuth = useAppSelector(isAuthSelector);
 
+
   const handleSubmit = () => {
-    dispatch(logout());
+    dispatch(logout())
+        .then(() => {
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.error("Произошла ошибка при выходе из аккаунта:", error);
+        });
   };
+
 
   return (
     <div
