@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
 import styles from "./styles.module.sass";
-import { ICard } from "../../../../lib/types";
 import Modal from "../../../UI/Modal";
 import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpenClose";
 import { useAppDispatch } from "../../../../store/hooks/redux";
@@ -8,10 +7,9 @@ import { createCard } from "../../../../store/action/CardAction";
 
 interface GetFileButtonProps {
   boardId: number;
-  updateCards: (card: ICard) => void;
 }
 
-const CreateCardButton: FC<GetFileButtonProps> = ({ boardId, updateCards }) => {
+const CreateCardButton: FC<GetFileButtonProps> = ({ boardId }) => {
   const dispatch = useAppDispatch();
   const [nameCard, setNameCard] = useState<string>("");
   const [error, setError] = useState<string | undefined>(undefined);

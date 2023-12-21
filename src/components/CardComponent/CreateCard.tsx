@@ -1,32 +1,21 @@
-import React, { Dispatch, FC, SetStateAction } from "react";
+import React, { FC } from "react";
 import styles from "../../pages/Boardpage/styles.module.sass";
 import CreateCardButton from "../Button/CardButton/GetCardButton/CreateCardButton";
 import { useAppSelector } from "../../store/hooks/redux";
 import { isBoardsSelector } from "../../store/slices/BoardSlice";
-import { ICard } from "../../lib/types";
 
 interface CreateCardProps {
   boardId: number;
-  setCards: Dispatch<SetStateAction<ICard[]>>;
 }
 
-const CreateCard: FC<CreateCardProps> = ({ boardId, setCards }) => {
+const CreateCard: FC<CreateCardProps> = ({ boardId }) => {
   const boards = useAppSelector(isBoardsSelector);
-  const handleUpdateCards = (newCard: ICard) => {
-    setCards((prevCards) => [...prevCards, newCard]);
-  };
 
   return (
     <div className={styles.createCard}>
       {boards?.map((board) => {
         if (board.id === Number(boardId)) {
-          return (
-            <CreateCardButton
-              key={board.id}
-              boardId={board.id}
-              updateCards={handleUpdateCards}
-            />
-          );
+          return <CreateCardButton key={board.id} boardId={board.id} />;
         } else {
           return null;
         }

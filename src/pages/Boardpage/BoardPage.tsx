@@ -1,59 +1,32 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import styles from "./styles.module.sass";
 import { userDataSelector } from "../../store/slices/UserSlice";
-import {useLocation, useNavigate, useParams} from "react-router-dom";
-import { IBoard, ICard } from "../../lib/types";
-import { RouteEnum } from "../../lib/route/RouteEnum";
-import { getBoard } from "../../store/action/BoardAction";
+import { useNavigate, useParams } from "react-router-dom";
 import { getCard } from "../../store/action/CardAction";
 import BoardList from "../../components/BoardComponent/BoardList";
 import RenameBoard from "../../components/BoardComponent/RenameBoard";
 import DeleteBoard from "../../components/BoardComponent/DeleteBoard";
 import CreateCard from "../../components/CardComponent/CreateCard";
 import CardList from "../../components/CardComponent/CardList";
-import {isCardSelector} from "../../store/slices/CardSlice";
+import { isCardSelector } from "../../store/slices/CardSlice";
+import { isBoardsSelector } from "../../store/slices/BoardSlice";
 
 const BoardPage: FC = () => {
-  const cards = useAppSelector(isCardSelector);
+  const boards = useAppSelector(isBoardsSelector);
 
+  const cards = useAppSelector(isCardSelector);
   const dispatch = useAppDispatch();
   const user = useAppSelector(userDataSelector);
-  const [board, setBoards] = useState<IBoard[]>([]);
-  const [card, setCards] = useState<ICard[]>([]);
   const navigate = useNavigate();
   const { boardId } = useParams<{ boardId: string }>();
-  const location = useLocation();
-
 
   const gif =
     "https://framerusercontent.com/images/lUWZ2z9geAGbpdf0JvpDsbZM3ww.gif";
 
   useEffect(() => {
-    if (boardId) {
-      const numBoardId = Number(boardId);
-      dispatch(getBoard())
-        .then((data) => {
-          const existingBoard = data.filter((board) => board.id === numBoardId);
-          if (!existingBoard.length) {
-            navigate(RouteEnum.BOARD);
-          }
-        })
-        .then(() => {
-          dispatch(getCard(Number(boardId)));
-        });
-    }
-  }, []); // eslint-disable-line
-
-
-  useEffect(() => {
-    if (cards) {
-      setCards(cards);
-    }
-  }, [cards]);
-
-
-
+    dispatch(getCard(Number(boardId)));
+  }, [boardId]); // eslint-disable-line
 
   return (
     <div className={styles.main_content}>
@@ -68,15 +41,15 @@ const BoardPage: FC = () => {
           <div>{user ? user.username : null}</div>
           <div className={styles.menu}></div>
           <div className={styles.board}>
-            <RenameBoard boardId={Number(boardId)} setBoards={setBoards} />
-            <DeleteBoard boardId={Number(boardId)} setBoards={setBoards} setCards={setCards} />
+            <RenameBoard boardId={Number(boardId)} />
+            <DeleteBoard boardId={Number(boardId)} />
           </div>
         </div>
         <div className={styles.board_content}>
           <div className={styles.board_canvas}>
-            <CreateCard boardId={Number(boardId)} setCards={setCards} />
+            <CreateCard boardId={Number(boardId)} />
             <div className={styles.cardsContainer}>
-              <CardList boardId={Number(boardId)} setCards={setCards} />
+              <CardList boardId={Number(boardId)} />
             </div>
           </div>
         </div>

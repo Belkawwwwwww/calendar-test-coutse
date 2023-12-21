@@ -1,42 +1,37 @@
 import React, { FC } from "react";
 import Modal from "../../../UI/Modal";
 import { useNavigate } from "react-router-dom";
-import ax from "../../../../utils/axios";
-import { IResponse } from "../../../../lib/types";
 import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpenClose";
-import { RouteEnum } from "../../../../lib/route/RouteEnum";
+import {RouteEnum} from "../../../../lib/route/RouteEnum";
+import {useAppDispatch} from "../../../../store/hooks/redux";
+import {deleteBoard} from "../../../../store/action/BoardAction";
+
+// import {deleteBoard} from "../../../../store/slices/BoardSlice";
 
 interface DeleteButtonProps {
   boardId: number;
   nameBoard: string;
-  onDeleteBoard: (boardId: number) => void;
-  onDeleteCards: (boardId: number) => void;
 }
 
 const DeleteButton: FC<DeleteButtonProps> = ({
   boardId,
   nameBoard,
-  onDeleteBoard,
-  onDeleteCards,
 }) => {
   const navigate = useNavigate();
   const { isModalActive, handleModalOpen, handleModalClose } =
     useModalOpenClose();
+  const dispatch = useAppDispatch();
 
-  const handleDeleteButton = async () => {
-    try {
-      const response = await ax.delete<IResponse>(
-        `/deleteBoard?boardId=${boardId}`,
-      );
-      if (response.status) {
-        onDeleteBoard(boardId);
-        onDeleteCards(boardId);
+  const handleDeleteButton = () => {
+    dispatch(deleteBoard(boardId))
+      .then(() => {
         navigate(RouteEnum.BOARD);
-      }
-    } catch (e) {
-      console.log(e);
-    }
+      })
+      .catch((error) => {
+        console.error("Произошла ошибка при удалении доски:", error);
+      });
   };
+
 
   return (
     <>
@@ -49,7 +44,7 @@ const DeleteButton: FC<DeleteButtonProps> = ({
             {
               name: "Удалить",
               disabled: false,
-              onClick: handleDeleteButton,
+              onClick: () => handleDeleteButton(),
             },
             { name: "Отменить", disabled: false, onClick: handleModalClose },
           ]}

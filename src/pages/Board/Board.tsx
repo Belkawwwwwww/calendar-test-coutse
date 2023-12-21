@@ -1,21 +1,16 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import styles from "./Board.module.sass";
-import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
+import { useAppSelector } from "../../store/hooks/redux";
 import { useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../lib/route/RouteEnum";
 import { userDataSelector } from "../../store/slices/UserSlice";
-import { getBoard } from "../../store/action/BoardAction";
 import { isBoardsSelector } from "../../store/slices/BoardSlice";
 
 const Board: FC = () => {
   const user = useAppSelector(userDataSelector);
   const boards = useAppSelector(isBoardsSelector);
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(getBoard());
-  }, []); // eslint-disable-line
   const handleSubmit = (boardId: number) => {
     const existingBoard = boards.filter((board) => board.id === boardId);
     if (existingBoard.length) {

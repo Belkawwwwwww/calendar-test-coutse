@@ -1,10 +1,10 @@
-import {IBoard, ICard} from "../../lib/types";
-import {createSelector, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {RootState} from "../index";
+import { ICard } from "../../lib/types";
+import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../index";
 
 export interface CardSlice {
-    cards: ICard[] | null;
-    error?: string;
+  cards: ICard[] | null;
+  error?: string;
 }
 
 const initialState: CardSlice = {
@@ -27,6 +27,11 @@ export const cardSlice = createSlice({
             } else {
                 state.cards = [payload]
             }
+        },
+        removeCard(state, {payload}: PayloadAction<number>) {
+            if (state.cards) {
+                state.cards = state.cards.filter((card) => card.id !== payload)
+            }
         }
     },
 });
@@ -34,5 +39,7 @@ const _cards = (state: RootState) => state.cards.cards
 const _error = (state: RootState) => state.cards.error
 
 export const isCardSelector = createSelector([_cards], (state) => state)
-export const errorCardSelector = createSelector([_error], (state) => state)
+export const errorCardSelector = createSelector([_error], (state) => state);
+
+export const { setCard, addCard, removeCard, setError } = cardSlice.actions;
 

@@ -1,45 +1,22 @@
 import React, { FC, useState } from "react";
-import ax from "../../../../utils/axios";
 import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpenClose";
 import Modal from "../../../UI/Modal";
 import styles from "../../../Navbar/styles.module.sass";
-import { IBoard } from "../../../../lib/types";
+import { useAppDispatch } from "../../../../store/hooks/redux";
+import { renameBoard } from "../../../../store/action/BoardAction";
 
 interface RenameButtonProps {
   boardId: number;
-  setBoards: React.Dispatch<React.SetStateAction<IBoard[]>>;
 }
 
-const RenameBoardButton: FC<RenameButtonProps> = ({ boardId, setBoards }) => {
+const RenameBoardButton: FC<RenameButtonProps> = ({ boardId }) => {
+  const dispatch = useAppDispatch();
   const [newBoardName, setNewBoardName] = useState("");
   const { isModalActive, handleModalOpen, handleModalClose } =
     useModalOpenClose();
 
   const handleRenameBoard = async () => {
-    if (newBoardName.trim() !== "") {
-      try {
-        const response = await ax.put(`/renameBoard?boardId=${boardId}`, {
-          boardId,
-          newName: newBoardName,
-        });
-        if (response.status) {
-          setBoards((prevBoards) =>
-            prevBoards.map((board) =>
-              board.id === boardId
-                ? { ...board, name_board: newBoardName }
-                : board,
-            ),
-          );
-          handleModalClose();
-          setNewBoardName("");
-          console.log("Название доски изменено");
-        } else {
-          console.log("Ошибка при изменении");
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    }
+    dispatch(renameBoard(boardId, newBoardName));
   };
   const onHandlerModal = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewBoardName(e.target.value);

@@ -1,37 +1,38 @@
 import React, { FC } from "react";
 import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpenClose";
-import ax from "../../../../utils/axios";
-import { IResponse } from "../../../../lib/types";
 import styles from "../../../../pages/Boardpage/styles.module.sass";
 import Modal from "../../../UI/Modal";
+import {useAppDispatch, useAppSelector} from "../../../../store/hooks/redux";
+import { deleteCard, getCard } from "../../../../store/action/CardAction";
+import {isCardSelector} from "../../../../store/slices/CardSlice";
 
 interface DeleteCardButtonProps {
   boardId: number;
   cardId: number;
   nameCard: string;
-  onDeleteCard: (cardId: number) => void;
 }
 
 const BurgerCard: FC<DeleteCardButtonProps> = ({
   cardId,
   nameCard,
   boardId,
-  onDeleteCard,
 }) => {
   const { isModalActive, handleModalOpen, handleModalClose } =
     useModalOpenClose();
+  const dispatch = useAppDispatch();
+  const cards = useAppSelector(isCardSelector);
 
-  const handleDeleteCardButton = async () => {
-    try {
-      const response = await ax.delete<IResponse>(
-        `/deleteCard?cardId=${cardId}&boarId=${boardId}`,
-      );
-      if (response.status) {
-        onDeleteCard(cardId); // Вызов функции onDeleteCard для обновления списка карточек
-        handleModalClose();
-      }
-    } catch (e) {
-      console.log(e);
+  const handleDeleteCardButton = () => {
+    if (cards !== null) {
+      dispatch(deleteCard(boardId, cardId))
+          .then(() => {
+            handleModalClose();
+            // const updatedCards = cards.filter((card) => card.id !== cardId);
+            dispatch(getCard(boardId));
+          })
+          .catch((error) => {
+            console.error("Произошла ошибка при удалении карточки:", error);
+          });
     }
   };
 
@@ -50,8 +51,10 @@ const BurgerCard: FC<DeleteCardButtonProps> = ({
             onClose={handleModalClose}
             customPosition={{ top: "-100px", right: "500px" }}
           >
-            <div>Изменить название списка</div>
-            <div onClick={handleDeleteCardButton}>Удалить список</div>
+            <div className={styles.lists}>Изменить название списка</div>
+            <div className={styles.lists} onClick={handleDeleteCardButton}>
+              Удалить список
+            </div>
           </Modal>
         ) : null}
       </div>

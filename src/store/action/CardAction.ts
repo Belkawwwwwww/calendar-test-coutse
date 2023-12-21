@@ -40,3 +40,24 @@ export const getCard =
       throw e;
     }
   };
+
+export const deleteCard =
+  (boardId: number, cardId: number) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await ax.delete<IResponse>(
+        `/deleteCard?cardId=${cardId}&boarId=${boardId}`,
+      );
+      console.log(response);
+      const obj_action: {
+        [key: number]: () => void;
+      } = {
+        200: () => {
+          dispatch(cardSlice.actions.removeCard(boardId));
+        },
+        // 2: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+        // 7: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+        // 9: () => dispatch(boardSlice.actions.setError(response.data.answer)),
+      };
+      obj_action[response.data.statusCode]?.();
+    } catch (e) {}
+  };

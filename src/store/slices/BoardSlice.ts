@@ -15,9 +15,10 @@ export const boardSlice = createSlice({
   name: "boards",
   initialState,
   reducers: {
-    setBoard(state, { payload }: PayloadAction<IBoard[] | null>) {
+    setBoards(state, { payload }: PayloadAction<IBoard[] | null>) {
       state.boards = payload;
     },
+
     addBoard(state, { payload }: PayloadAction<IBoard>) {
       if (state.boards) {
         state.boards.push(payload);
@@ -25,16 +26,22 @@ export const boardSlice = createSlice({
         state.boards = [payload];
       }
     },
-    // renameBoard(
-    //   state,
-    //   action: PayloadAction<{ boardId: number; newName: string }>,
-    // ) {
-    //   const { boardId, newName } = action.payload;
-    //   const board = state.boards?.find((board) => board.id === boardId);
-    //   if (board) {
-    //     board.name_board = newName;
-    //   }
-    // },
+
+    removeBoard(state, { payload }: PayloadAction<number>) {
+      if (state.boards) {
+        state.boards = state.boards.filter((board) => board.id !== payload);
+      }
+    },
+    renameBoard(state, { payload }: PayloadAction<{ boardId: number; newName: string }>) {
+      if (state.boards) {
+        const { boardId, newName } = payload;
+        state.boards = state.boards.map((board) =>
+            board.id === boardId ? { ...board, name: newName } : board
+        );
+      }
+    },
+
+
     setError(state, { payload }: PayloadAction<string | undefined>) {
       state.error = payload;
     },
@@ -46,3 +53,12 @@ const _error = (state: RootState) => state.boards.error;
 
 export const isBoardsSelector = createSelector([_boards], (state) => state);
 export const errorBoardSelector = createSelector([_error], (state) => state);
+
+export const {
+  setBoards,
+  addBoard,
+  renameBoard,
+  removeBoard,
+  setError,
+} = boardSlice.actions;
+export default boardSlice.reducer

@@ -1,8 +1,6 @@
 import { AppDispatch } from "../index";
 import ax from "../../utils/axios";
 import { userSlice } from "../slices/UserSlice";
-// import { modalSlice } from "../slices/ModalSlice";
-// import { boardSlice } from "../slices/BoardSlice";
 import { IBoard, IResponse } from "../../lib/types";
 import { boardSlice } from "../slices/BoardSlice";
 
@@ -47,11 +45,9 @@ export const getBoard =
         200: () => {
           if (response.data?.data !== undefined) {
             const boardData = response.data.data;
-            dispatch(boardSlice.actions.setBoard(boardData));
+            dispatch(boardSlice.actions.setBoards(boardData));
           }
-          // const boardData = response.data.data || null;
-          //
-          // dispatch(boardSlice.actions.setBoard(boardData));
+
         },
         // 401: () => dispatch(boardSlice.actions.setError(response.data.answer)),
         // 7: () => dispatch(boardSlice.actions.setError(response.data.answer)),
@@ -78,13 +74,13 @@ export const deleteBoard =
         [key: number]: () => void;
       } = {
         200: () => {
-          // dispatch(setBoard(response.data.data || []));
+          dispatch(boardSlice.actions.removeBoard(boardId));
         },
         // 2: () => dispatch(boardSlice.actions.setError(response.data.answer)),
         // 7: () => dispatch(boardSlice.actions.setError(response.data.answer)),
         // 9: () => dispatch(boardSlice.actions.setError(response.data.answer)),
       };
-      // obj_action[response.data.statusCode]?.();
+      obj_action[response.data.statusCode]?.();
     } catch (e) {
       dispatch(
         userSlice.actions.setError("Произошла ошибка при удалении доски"),
@@ -92,28 +88,21 @@ export const deleteBoard =
     }
   };
 
-// export const renameBoard =
-//   (boardId: number, boardNewName: string) => async (dispatch: AppDispatch) => {
-//     try {
-//       const response = await ax.put<IResponse>(
-//         `/renameBoard?boardId=${boardId}`,
-//         {
-//           boardId,
-//           boardNewName,
-//         },
-//       );
-//       const obj_action: {
-//         [key: number]: () => void;
-//       } = {
-//         200: () => {
-//           dispatch(
-//             boardSlice.actions.renameBoard({ boardId, newName: boardNewName }),
-//           );
-//           console.log("Название доски изменено");
-//         },
-//       };
-//       obj_action[response.data.statusCode]?.();
-//     } catch (e) {
-//       console.log(e);
-//     }
-//   };
+export const renameBoard =
+    (boardId: number, boardNewName: string) => async (dispatch: AppDispatch) => {
+      try {
+        const response = await ax.put<IResponse>(`/renameBoard?boardId=${boardId}`);
+        const obj_action: {
+          [key: number]: () => void;
+        } = {
+          200: () => {
+            // dispatch(boardSlice.actions.renameBoard(boardId, boardNewName));
+            console.log("Название доски изменено");
+          },
+        };
+        obj_action[response.data.statusCode]?.();
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
