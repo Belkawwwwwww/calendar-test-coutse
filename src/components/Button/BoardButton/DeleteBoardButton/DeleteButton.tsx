@@ -1,6 +1,6 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 import Modal from "../../../UI/Modal";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpenClose";
 import {RouteEnum} from "../../../../lib/route/RouteEnum";
 import {useAppDispatch} from "../../../../store/hooks/redux";
@@ -48,7 +48,7 @@ const DeleteButton: FC<DeleteButtonProps> = ({
             },
             { name: "Отменить", disabled: false, onClick: handleModalClose },
           ]}
-          customPosition={{ top: "-216px", right: "10px" }}
+          customPosition={{ top: "18%", left: "90%" }}
         ></Modal>
       ) : null}
     </>

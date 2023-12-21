@@ -61,7 +61,7 @@ const CreateBoardButton: FC = () => {
               onClick: handleSubmitModal,
             },
           ]}
-          customPosition={{ top: "-265px", right: "270px" }}
+          customPosition={{ top: "15%", right: "10%" }}
         >
           <input
             value={nameBoard}

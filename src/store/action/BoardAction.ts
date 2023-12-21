@@ -96,7 +96,12 @@ export const renameBoard =
           [key: number]: () => void;
         } = {
           200: () => {
-            // dispatch(boardSlice.actions.renameBoard(boardId, boardNewName));
+            dispatch(
+              boardSlice.actions.renameBoard({
+                boardId,
+                newName: boardNewName,
+              }),
+            );
             console.log("Название доски изменено");
           },
         };

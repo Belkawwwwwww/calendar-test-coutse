@@ -16,7 +16,14 @@ const RenameBoardButton: FC<RenameButtonProps> = ({ boardId }) => {
     useModalOpenClose();
 
   const handleRenameBoard = async () => {
-    dispatch(renameBoard(boardId, newBoardName));
+    dispatch(renameBoard(boardId, newBoardName))
+      .then(() => {
+        handleModalClose();
+        setNewBoardName("");
+      })
+      .catch((error) => {
+        console.error("Произошла ошибка при изменении названия доски:", error);
+      });
   };
   const onHandlerModal = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewBoardName(e.target.value);
@@ -37,7 +44,7 @@ const RenameBoardButton: FC<RenameButtonProps> = ({ boardId }) => {
             },
             { name: "Отменить", disabled: false, onClick: handleModalClose },
           ]}
-          customPosition={{ top: "-200px", right: "150px" }}
+          customPosition={{ top: "18%", left: "82%" }}
         >
           <input
             value={newBoardName}

@@ -39,7 +39,7 @@ const Board: FC = () => {
             <div className={styles.section}>
               <div className={styles.create}>
                 {!boards || boards.length === 0 ? (
-                  <div className={styles.createBoard}>Нет доступных досок</div>
+                  <div className={styles.createBoard}>Нет досок</div>
                 ) : (
                   boards.map((board) => (
                     <div

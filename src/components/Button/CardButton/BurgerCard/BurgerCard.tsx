@@ -2,9 +2,9 @@ import React, { FC } from "react";
 import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpenClose";
 import styles from "../../../../pages/Boardpage/styles.module.sass";
 import Modal from "../../../UI/Modal";
-import {useAppDispatch, useAppSelector} from "../../../../store/hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../../../store/hooks/redux";
 import { deleteCard, getCard } from "../../../../store/action/CardAction";
-import {isCardSelector} from "../../../../store/slices/CardSlice";
+import { isCardSelector } from "../../../../store/slices/CardSlice";
 
 interface DeleteCardButtonProps {
   boardId: number;
@@ -49,7 +49,7 @@ const BurgerCard: FC<DeleteCardButtonProps> = ({
           <Modal
             title={`Действия со списком :  ${nameCard}`}
             onClose={handleModalClose}
-            customPosition={{ top: "-100px", right: "500px" }}
+            customPosition={{ top: "35%", left: "50%" }}
           >
             <div className={styles.lists}>Изменить название списка</div>
             <div className={styles.lists} onClick={handleDeleteCardButton}>

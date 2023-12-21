@@ -74,7 +74,11 @@ export const Modal = (props: IModalProps) => {
   return isMounted ? (
     <Portal id={MODAL_CONTAINER_ID}>
       <div className={styles.wrap} ref={rootRef}>
-        <div className={styles.content} style={modalStyle}>
+        <div className={styles.backdrop} onClick={handleClose}></div>
+        <div
+          className={`${styles.content} ${styles.center}`}
+          style={modalStyle}
+        >
           <button
             type="button"
             className={styles.closeButton}

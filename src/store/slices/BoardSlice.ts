@@ -32,15 +32,18 @@ export const boardSlice = createSlice({
         state.boards = state.boards.filter((board) => board.id !== payload);
       }
     },
-    renameBoard(state, { payload }: PayloadAction<{ boardId: number; newName: string }>) {
+    renameBoard(
+      state,
+      { payload }: PayloadAction<{ boardId: number; newName: string }>,
+    ) {
       if (state.boards) {
         const { boardId, newName } = payload;
         state.boards = state.boards.map((board) =>
-            board.id === boardId ? { ...board, name: newName } : board
+          board.id === boardId ? { ...board, name_board: newName } : board,
         );
       }
+      // return state;
     },
-
 
     setError(state, { payload }: PayloadAction<string | undefined>) {
       state.error = payload;
