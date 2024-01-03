@@ -1,20 +1,18 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import styles from "./styles.module.sass";
 import { userDataSelector } from "../../store/slices/UserSlice";
 import { useNavigate, useParams } from "react-router-dom";
-import { getCard } from "../../store/action/CardAction";
 import BoardList from "../../components/BoardComponent/BoardList";
 import RenameBoard from "../../components/BoardComponent/RenameBoard";
 import DeleteBoard from "../../components/BoardComponent/DeleteBoard";
 import CreateCard from "../../components/CardComponent/CreateCard";
 import CardList from "../../components/CardComponent/CardList";
-import { isCardSelector } from "../../store/slices/CardSlice";
 import { isBoardsSelector } from "../../store/slices/BoardSlice";
+import { isCardSelector } from "../../store/slices/CardSlice";
 
 const BoardPage: FC = () => {
   const boards = useAppSelector(isBoardsSelector);
-
   const cards = useAppSelector(isCardSelector);
   const dispatch = useAppDispatch();
   const user = useAppSelector(userDataSelector);
@@ -23,10 +21,6 @@ const BoardPage: FC = () => {
 
   const gif =
     "https://framerusercontent.com/images/lUWZ2z9geAGbpdf0JvpDsbZM3ww.gif";
-
-  useEffect(() => {
-    dispatch(getCard(Number(boardId)));
-  }, [boardId]); // eslint-disable-line
 
   return (
     <div className={styles.main_content}>
@@ -49,7 +43,9 @@ const BoardPage: FC = () => {
           <div className={styles.board_canvas}>
             <CreateCard boardId={Number(boardId)} />
             <div className={styles.cardsContainer}>
+              {/*{cards?.map((card) => (*/}
               <CardList boardId={Number(boardId)} />
+              {/*))}*/}
             </div>
           </div>
         </div>

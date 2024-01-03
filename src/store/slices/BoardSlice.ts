@@ -11,6 +11,12 @@ const initialState: BoardSlice = {
   boards: null,
 };
 
+//
+// export const boardCardsSelector = (state: RootState, boardId: number) => {
+//   return state.cards.cards?.filter((card) => card.board_id === boardId);
+// };
+
+
 export const boardSlice = createSlice({
   name: "boards",
   initialState,
@@ -42,7 +48,6 @@ export const boardSlice = createSlice({
           board.id === boardId ? { ...board, name_board: newName } : board,
         );
       }
-      // return state;
     },
 
     setError(state, { payload }: PayloadAction<string | undefined>) {

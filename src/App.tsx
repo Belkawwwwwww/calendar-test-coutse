@@ -1,21 +1,23 @@
 import React, { FC, useEffect } from "react";
 import "./styles/App.sass";
 import Navbar from "./components/Navbar/Navbar";
-import {useAppDispatch, useAppSelector} from "./store/hooks/redux";
+import { useAppDispatch, useAppSelector } from "./store/hooks/redux";
 import AppRouter from "./lib/route/AppRouter";
 import { checkAuth, isLoggedIn } from "./store/action/userAction";
 import { getBoard } from "./store/action/BoardAction";
-import {isAuthSelector} from "./store/slices/UserSlice";
+import { isAuthSelector } from "./store/slices/UserSlice";
+import { getCard } from "./store/action/CardAction";
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
   const isAuth = useAppSelector(isAuthSelector);
 
-
   useEffect(() => {
     dispatch(checkAuth());
     if (isLoggedIn() || isAuth) {
-      dispatch(getBoard());
+      dispatch(getBoard()).then(() => {
+        dispatch(getCard());
+      });
     } else {
       console.log("User is not authenticated");
     }

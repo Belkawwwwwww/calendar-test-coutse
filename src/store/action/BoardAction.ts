@@ -103,6 +103,8 @@ export const renameBoard =
               }),
             );
             console.log("Название доски изменено");
+            // const boardData = response.data.data;
+            // dispatch(boardSlice.actions.setBoards(boardData));
           },
         };
         obj_action[response.data.statusCode]?.();

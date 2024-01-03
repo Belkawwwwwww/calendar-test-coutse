@@ -1,7 +1,7 @@
-import { AppDispatch } from "../index";
+import {AppDispatch} from "../index";
 import ax from "../../utils/axios";
-import { ICard, IResponse } from "../../lib/types";
-import { cardSlice } from "../slices/CardSlice";
+import {ICard, IResponse} from "../../lib/types";
+import {cardSlice} from "../slices/CardSlice";
 
 export const createCard =
   (nameCard: string, boardId: number) => async (dispatch: AppDispatch) => {
@@ -18,12 +18,10 @@ export const createCard =
   };
 
 export const getCard =
-  (boardId: number) =>
+  () =>
   async (dispatch: AppDispatch): Promise<ICard[]> => {
     try {
-      const response = await ax.get<IResponse<ICard[]>>(
-        `/getCard?boardId=${boardId}`,
-      );
+      const response = await ax.get<IResponse<ICard[]>>(`/getCard`);
       const obj_action: {
         [key: number]: () => void;
       } = {

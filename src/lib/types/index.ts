@@ -28,3 +28,14 @@ export interface ICard {
   content: string | null;
 }
 
+export interface IList {
+  id: number;
+  created: string;
+  updated: string;
+  deletedAt: string | null;
+  title: string;
+  content: string;
+  board_id: number;
+  user_id: number;
+}
+

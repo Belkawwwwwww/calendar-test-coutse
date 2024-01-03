@@ -3,6 +3,7 @@ import styles from "../../pages/Boardpage/styles.module.sass";
 import BurgerCard from "../Button/CardButton/BurgerCard/BurgerCard";
 import { useAppSelector } from "../../store/hooks/redux";
 import { isCardSelector } from "../../store/slices/CardSlice";
+import CreateListButton from "../Button/ListButton/CreateListButton/CreateListButton";
 
 interface CardListProps {
   boardId: number;
@@ -31,14 +32,7 @@ const CardList: FC<CardListProps> = ({ boardId }) => {
                       />
                     </div>
                   </div>
-                  <div className={styles.footerCard}>
-                    <img
-                      className={styles.plusCard}
-                      src="/img/Plus.svg"
-                      alt="+"
-                    />
-                    <div> Добавить карточку</div>
-                  </div>
+                  <CreateListButton boardId={boardId} />
                 </div>
               </div>
             );

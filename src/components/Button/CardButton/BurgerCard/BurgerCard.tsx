@@ -3,8 +3,8 @@ import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpen
 import styles from "../../../../pages/Boardpage/styles.module.sass";
 import Modal from "../../../UI/Modal";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks/redux";
-import { deleteCard, getCard } from "../../../../store/action/CardAction";
-import { isCardSelector } from "../../../../store/slices/CardSlice";
+import { deleteCard } from "../../../../store/action/CardAction";
+import { isCardSelector, removeCard } from "../../../../store/slices/CardSlice";
 
 interface DeleteCardButtonProps {
   boardId: number;
@@ -22,17 +22,17 @@ const BurgerCard: FC<DeleteCardButtonProps> = ({
   const dispatch = useAppDispatch();
   const cards = useAppSelector(isCardSelector);
 
+
   const handleDeleteCardButton = () => {
     if (cards !== null) {
       dispatch(deleteCard(boardId, cardId))
-          .then(() => {
-            handleModalClose();
-            // const updatedCards = cards.filter((card) => card.id !== cardId);
-            dispatch(getCard(boardId));
-          })
-          .catch((error) => {
-            console.error("Произошла ошибка при удалении карточки:", error);
-          });
+        .then(() => {
+          dispatch(removeCard(cardId));
+          handleModalClose();
+        })
+        .catch((error) => {
+          console.error("Произошла ошибка при удалении карточки:", error);
+        });
     }
   };
 
