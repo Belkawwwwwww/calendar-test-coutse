@@ -16,5 +16,7 @@ export const CreateList =
       if (listId || response.status) {
         dispatch(listSlice.actions.addList(response.data.data!));
       }
-    } catch (e) {}
+    } catch (e) {
+      console.log(e)
+    }
   };
