@@ -11,24 +11,27 @@ interface RenameButtonProps {
 
 const RenameBoardButton: FC<RenameButtonProps> = ({ boardId }) => {
   const dispatch = useAppDispatch();
-  const [newBoardName, setNewBoardName] = useState("");
+    const [boardNewName, setNewBoardName] = useState("");
   const { isModalActive, handleModalOpen, handleModalClose } =
     useModalOpenClose();
 
   const handleRenameBoard = async () => {
-    dispatch(renameBoard(boardId, newBoardName))
-      .then(() => {
-        handleModalClose();
-        setNewBoardName("");
-      })
-      .catch((error) => {
-        console.error("Произошла ошибка при изменении названия доски:", error);
-      });
+      dispatch(renameBoard(boardId, boardNewName))
+        .then(() => {
+          handleModalClose();
+          setNewBoardName("");
+        })
+        .catch((error) => {
+          console.error(
+            "Произошла ошибка при изменении названия доски:",
+            error,
+          );
+        });
   };
   const onHandlerModal = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewBoardName(e.target.value);
   };
-  const isCreateButtonDisabled = newBoardName.length === 0;
+  const isCreateButtonDisabled = boardNewName.length === 0;
   return (
     <>
       <div onClick={handleModalOpen}>Изменить название доски</div>
@@ -47,7 +50,7 @@ const RenameBoardButton: FC<RenameButtonProps> = ({ boardId }) => {
           customPosition={{ top: "18%", left: "82%" }}
         >
           <input
-            value={newBoardName}
+            value={boardNewName}
             className={styles.inputModal}
             type="text"
             onChange={onHandlerModal}

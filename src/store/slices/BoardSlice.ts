@@ -40,12 +40,12 @@ export const boardSlice = createSlice({
     },
     renameBoard(
       state,
-      { payload }: PayloadAction<{ boardId: number; newName: string }>,
+      { payload }: PayloadAction<{ boardId: number; boardNewName: string }>,
     ) {
       if (state.boards) {
-        const { boardId, newName } = payload;
+        const { boardId, boardNewName } = payload;
         state.boards = state.boards.map((board) =>
-          board.id === boardId ? { ...board, name_board: newName } : board,
+          board.id === boardId ? { ...board, name_board: boardNewName } : board,
         );
       }
     },

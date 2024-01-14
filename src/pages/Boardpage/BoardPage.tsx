@@ -1,22 +1,16 @@
 import React, { FC } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
+import { useAppSelector } from "../../store/hooks/redux";
 import styles from "./styles.module.sass";
 import { userDataSelector } from "../../store/slices/UserSlice";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import BoardList from "../../components/BoardComponent/BoardList";
 import RenameBoard from "../../components/BoardComponent/RenameBoard";
 import DeleteBoard from "../../components/BoardComponent/DeleteBoard";
 import CreateCard from "../../components/CardComponent/CreateCard";
 import CardList from "../../components/CardComponent/CardList";
-import { isBoardsSelector } from "../../store/slices/BoardSlice";
-import { isCardSelector } from "../../store/slices/CardSlice";
 
 const BoardPage: FC = () => {
-  const boards = useAppSelector(isBoardsSelector);
-  const cards = useAppSelector(isCardSelector);
-  const dispatch = useAppDispatch();
   const user = useAppSelector(userDataSelector);
-  const navigate = useNavigate();
   const { boardId } = useParams<{ boardId: string }>();
 
   const gif =
@@ -43,9 +37,7 @@ const BoardPage: FC = () => {
           <div className={styles.board_canvas}>
             <CreateCard boardId={Number(boardId)} />
             <div className={styles.cardsContainer}>
-              {/*{cards?.map((card) => (*/}
               <CardList boardId={Number(boardId)} />
-              {/*))}*/}
             </div>
           </div>
         </div>

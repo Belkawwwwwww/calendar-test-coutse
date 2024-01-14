@@ -1,12 +1,10 @@
-import React, {FC} from "react";
+import React, { FC } from "react";
 import Modal from "../../../UI/Modal";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpenClose";
-import {RouteEnum} from "../../../../lib/route/RouteEnum";
-import {useAppDispatch} from "../../../../store/hooks/redux";
-import {deleteBoard} from "../../../../store/action/BoardAction";
-
-// import {deleteBoard} from "../../../../store/slices/BoardSlice";
+import { RouteEnum } from "../../../../lib/route/RouteEnum";
+import { useAppDispatch } from "../../../../store/hooks/redux";
+import { deleteBoard } from "../../../../store/action/BoardAction";
 
 interface DeleteButtonProps {
   boardId: number;

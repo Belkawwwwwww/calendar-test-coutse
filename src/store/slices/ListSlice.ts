@@ -1,5 +1,6 @@
 import { IList } from "../../lib/types";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../index";
 
 export interface ListSlice {
   lists: IList[] | null;
@@ -31,3 +32,7 @@ export const listSlice = createSlice({
     },
   },
 });
+
+const _lists = (state: RootState) => state.lists.lists ?? [];
+
+export const isListSelector = createSelector([_lists], (state) => state);

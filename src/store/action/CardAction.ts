@@ -1,7 +1,7 @@
-import {AppDispatch} from "../index";
+import { AppDispatch } from "../index";
 import ax from "../../utils/axios";
-import {ICard, IResponse} from "../../lib/types";
-import {cardSlice} from "../slices/CardSlice";
+import { ICard, IResponse } from "../../lib/types";
+import { cardSlice } from "../slices/CardSlice";
 
 export const createCard =
   (nameCard: string, boardId: number) => async (dispatch: AppDispatch) => {
@@ -50,7 +50,7 @@ export const deleteCard =
         [key: number]: () => void;
       } = {
         200: () => {
-          dispatch(cardSlice.actions.removeCard(boardId));
+          dispatch(cardSlice.actions.removeCard(cardId));
         },
         // 2: () => dispatch(boardSlice.actions.setError(response.data.answer)),
         // 7: () => dispatch(boardSlice.actions.setError(response.data.answer)),
@@ -58,4 +58,30 @@ export const deleteCard =
       };
       obj_action[response.data.statusCode]?.();
     } catch (e) {}
+  };
+
+export const renameCard =
+  (cardId: number, cardNewName: string, boardId: number) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const response = await ax.put<IResponse>(
+        `/renameCard?cardId=${cardId}&cardNewName=${cardNewName}&boardId=${boardId}`,
+      );
+      const obj_action: {
+        [key: number]: () => void;
+      } = {
+        200: () => {
+          dispatch(
+            cardSlice.actions.renameCard({
+              cardId,
+              cardNewName: cardNewName,
+            }),
+          );
+          console.log("Название доски изменено");
+        },
+      };
+      obj_action[response.data.statusCode]?.();
+    } catch (e) {
+      console.log(e);
+    }
   };

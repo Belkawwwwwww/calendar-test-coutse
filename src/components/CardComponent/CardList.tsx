@@ -7,6 +7,7 @@ import CreateListButton from "../Button/ListButton/CreateListButton/CreateListBu
 
 interface CardListProps {
   boardId: number;
+  // cardId: number
 }
 
 const CardList: FC<CardListProps> = ({ boardId }) => {

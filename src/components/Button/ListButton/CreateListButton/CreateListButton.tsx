@@ -3,7 +3,7 @@ import { useAppDispatch } from "../../../../store/hooks/redux";
 import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpenClose";
 import styles from "../../../../pages/Boardpage/styles.module.sass";
 import Modal from "../../../UI/Modal";
-import { CreateList } from "../../../../store/action/ListAction";
+import { createList } from "../../../../store/action/ListAction";
 
 interface GetListButtonProps {
   boardId: number;
@@ -13,7 +13,6 @@ const CreateListButton: FC<GetListButtonProps> = ({ boardId }) => {
   const dispatch = useAppDispatch();
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
-
   const { isModalActive, handleModalOpen, handleModalClose } =
     useModalOpenClose();
 
@@ -26,7 +25,10 @@ const CreateListButton: FC<GetListButtonProps> = ({ boardId }) => {
 
   const handleSubmitModal = () => {
     if (title || content) {
-      dispatch(CreateList(boardId, title, content));
+      dispatch(createList(boardId, title, content));
+      handleModalClose();
+      setTitle("");
+      setContent("");
     }
   };
   const isCreateButtonDisabled = title.length === 0;

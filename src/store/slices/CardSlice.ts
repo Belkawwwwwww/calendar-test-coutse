@@ -32,6 +32,16 @@ export const cardSlice = createSlice({
             if (state.cards) {
                 state.cards = state.cards.filter((card) => card.id !== payload)
             }
+        },
+        renameCard(
+            state,
+            {payload}: PayloadAction<{ cardId: number, cardNewName: string }>,
+        ) {
+            if (state.cards) {
+                const {cardId, cardNewName} = payload
+                state.cards = state.cards.map((card) =>
+                    card.id === cardId ? {...card, card_name: cardNewName} : card)
+            }
         }
     },
 });

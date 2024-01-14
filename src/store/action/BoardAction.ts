@@ -59,7 +59,7 @@ export const getBoard =
       dispatch(
         userSlice.actions.setError("Произошла ошибка при получении доски"),
       );
-      throw e; // Пробрасываем ошибку для дальнейшей обработки, если необходимо
+      throw e; // Пробрасываем ошибку для дальнейшей обработки
     }
   };
 
@@ -75,6 +75,7 @@ export const deleteBoard =
       } = {
         200: () => {
           dispatch(boardSlice.actions.removeBoard(boardId));
+          // dispatch(cardSlice.actions.removeCard(boardId));
         },
         // 2: () => dispatch(boardSlice.actions.setError(response.data.answer)),
         // 7: () => dispatch(boardSlice.actions.setError(response.data.answer)),
@@ -91,7 +92,9 @@ export const deleteBoard =
 export const renameBoard =
     (boardId: number, boardNewName: string) => async (dispatch: AppDispatch) => {
       try {
-        const response = await ax.put<IResponse>(`/renameBoard?boardId=${boardId}`);
+        const response = await ax.put<IResponse>(
+          `/renameBoard?boardId=${boardId}&boardNewName=${boardNewName}`,
+        );
         const obj_action: {
           [key: number]: () => void;
         } = {
@@ -99,12 +102,10 @@ export const renameBoard =
             dispatch(
               boardSlice.actions.renameBoard({
                 boardId,
-                newName: boardNewName,
+                boardNewName: boardNewName,
               }),
             );
             console.log("Название доски изменено");
-            // const boardData = response.data.data;
-            // dispatch(boardSlice.actions.setBoards(boardData));
           },
         };
         obj_action[response.data.statusCode]?.();
