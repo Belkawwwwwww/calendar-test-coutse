@@ -1,8 +1,8 @@
 import React, { FC } from "react";
-import styles from "../../pages/Boardpage/styles.module.sass";
-import DeleteButton from "../Button/BoardButton/DeleteBoardButton/DeleteButton";
-import { useAppSelector } from "../../store/hooks/redux";
-import { isBoardsSelector } from "../../store/slices/BoardSlice";
+import styles from "../../../../pages/Boardpage/styles.module.sass";
+import DeleteButton from "./DeleteButton";
+import { useAppSelector } from "../../../../store/hooks/redux";
+import { isBoardsSelector } from "../../../../store/slices/BoardSlice";
 
 interface DeleteBoardProps {
   boardId: number;

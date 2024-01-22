@@ -1,8 +1,8 @@
 import React, { FC } from "react";
-import styles from "../../pages/Boardpage/styles.module.sass";
-import CreateCardButton from "../Button/CardButton/GetCardButton/CreateCardButton";
-import { useAppSelector } from "../../store/hooks/redux";
-import { isBoardsSelector } from "../../store/slices/BoardSlice";
+import styles from "../../../../pages/Boardpage/styles.module.sass";
+import CreateCardButton from "./CreateCardButton";
+import { useAppSelector } from "../../../../store/hooks/redux";
+import { isBoardsSelector } from "../../../../store/slices/BoardSlice";
 
 interface CreateCardProps {
   boardId: number;

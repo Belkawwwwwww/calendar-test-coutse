@@ -1,8 +1,8 @@
 import React, { FC } from "react";
-import styles from "../../pages/Boardpage/styles.module.sass";
-import RenameBoardButton from "../Button/BoardButton/RenameBoardButton/RenameBoardButton";
-import { useAppSelector } from "../../store/hooks/redux";
-import { isBoardsSelector } from "../../store/slices/BoardSlice";
+import styles from "../../../../pages/Boardpage/styles.module.sass";
+import RenameBoardButton from "./RenameBoardButton";
+import { useAppSelector } from "../../../../store/hooks/redux";
+import { isBoardsSelector } from "../../../../store/slices/BoardSlice";
 
 interface RenameBoardProps {
   boardId: number;

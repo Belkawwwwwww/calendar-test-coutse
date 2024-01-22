@@ -4,10 +4,10 @@ import styles from "./styles.module.sass";
 import { userDataSelector } from "../../store/slices/UserSlice";
 import { useParams } from "react-router-dom";
 import BoardList from "../../components/BoardComponent/BoardList";
-import RenameBoard from "../../components/BoardComponent/RenameBoard";
-import DeleteBoard from "../../components/BoardComponent/DeleteBoard";
-import CreateCard from "../../components/CardComponent/CreateCard";
-import CardList from "../../components/CardComponent/CardList";
+import RenameBoard from "../../components/BoardComponent/BoardButton/RenameBoardButton/RenameBoard";
+import DeleteBoard from "../../components/BoardComponent/BoardButton/DeleteBoardButton/DeleteBoard";
+import CreateCard from "../../components/CardComponent/CardButton/CreateCardButton/CreateCard";
+import CardList from "../../components/ListComponent/CardList";
 
 const BoardPage: FC = () => {
   const user = useAppSelector(userDataSelector);
