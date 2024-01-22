@@ -75,13 +75,13 @@ export const deleteBoard =
       } = {
         200: () => {
           dispatch(boardSlice.actions.removeBoard(boardId));
-          // dispatch(cardSlice.actions.removeCard(boardId));
         },
         // 2: () => dispatch(boardSlice.actions.setError(response.data.answer)),
         // 7: () => dispatch(boardSlice.actions.setError(response.data.answer)),
         // 9: () => dispatch(boardSlice.actions.setError(response.data.answer)),
       };
       obj_action[response.data.statusCode]?.();
+      // dispatch(cardSlice.actions.removeCard(boardId))
     } catch (e) {
       dispatch(
         userSlice.actions.setError("Произошла ошибка при удалении доски"),
@@ -105,7 +105,6 @@ export const renameBoard =
                 boardNewName: boardNewName,
               }),
             );
-            console.log("Название доски изменено");
           },
         };
         obj_action[response.data.statusCode]?.();

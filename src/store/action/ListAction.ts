@@ -5,11 +5,12 @@ import { listSlice } from "../slices/ListSlice";
 import { userSlice } from "../slices/UserSlice";
 
 export const createList =
-  (board_id: number, title: string, content: string) =>
+  (board_id: number,card_id: number, title: string, content: string) =>
   async (dispatch: AppDispatch) => {
     try {
       const response = await ax.post<IResponse<IList>>(`/list/create`, {
         board_id: board_id,
+        card_id: card_id,
         title: title,
         content: content,
       });

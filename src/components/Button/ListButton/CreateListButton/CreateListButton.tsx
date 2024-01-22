@@ -7,9 +7,10 @@ import { createList } from "../../../../store/action/ListAction";
 
 interface GetListButtonProps {
   boardId: number;
+  cardId: number;
 }
 
-const CreateListButton: FC<GetListButtonProps> = ({ boardId }) => {
+const CreateListButton: FC<GetListButtonProps> = ({ boardId, cardId }) => {
   const dispatch = useAppDispatch();
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
@@ -25,7 +26,7 @@ const CreateListButton: FC<GetListButtonProps> = ({ boardId }) => {
 
   const handleSubmitModal = () => {
     if (title || content) {
-      dispatch(createList(boardId, title, content));
+      dispatch(createList(boardId, cardId, title, content));
       handleModalClose();
       setTitle("");
       setContent("");
@@ -45,7 +46,7 @@ const CreateListButton: FC<GetListButtonProps> = ({ boardId }) => {
     <div>
       <div className={styles.footerCard} onClick={handleModalOpen}>
         <img className={styles.plusCard} src="/img/Plus.svg" alt="+" />
-        <div> Добавить карточку</div>
+        <div> Добавить список</div>
       </div>
       <div className={styles.modal}>
         {isModalActive ? (
@@ -63,7 +64,7 @@ const CreateListButton: FC<GetListButtonProps> = ({ boardId }) => {
                 onClick: handleModalClose,
               },
             ]}
-            customPosition={{ top: "25%", left: "23%" }}
+            customPosition={{ top: "50%", left: "50%" }}
           >
             <input
               placeholder="Название списка"

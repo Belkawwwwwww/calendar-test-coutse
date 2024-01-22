@@ -35,6 +35,7 @@ const BurgerCard: FC<DeleteCardButtonProps> = ({
     dispatch(renameCard(cardId, cardNewName, boardId))
       .then(() => {
         handleModalClose();
+        setShowRenameModal(false);
         setNewCardName("");
       })
       .catch((error) => {
@@ -72,12 +73,12 @@ const BurgerCard: FC<DeleteCardButtonProps> = ({
         />
         {isModalActive ? (
           <Modal
-            title={`Действия со списком :  ${nameCard}`}
+            title={`Действия с карточкой :  ${nameCard}`}
             onClose={handleModalClose}
             customPosition={{ top: "35%", left: "50%" }}
           >
             <div className={styles.lists} onClick={handleModalOpenModal}>
-              Изменить название списка
+              Изменить название карточки
             </div>
 
             {showRenameModal && (
@@ -108,7 +109,7 @@ const BurgerCard: FC<DeleteCardButtonProps> = ({
               </Modal>
             )}
             <div className={styles.lists} onClick={handleDeleteCardButton}>
-              Удалить список
+              Удалить карточку
             </div>
           </Modal>
         ) : null}

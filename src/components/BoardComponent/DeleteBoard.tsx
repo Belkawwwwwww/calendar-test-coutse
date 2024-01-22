@@ -8,7 +8,7 @@ interface DeleteBoardProps {
   boardId: number;
 }
 
-const DeleteBoard: FC<DeleteBoardProps> = ({ boardId }) => {
+const DeleteBoard: FC<DeleteBoardProps> = ({ boardId}) => {
   const boards = useAppSelector(isBoardsSelector);
 
   return (

@@ -36,6 +36,7 @@ export interface IList {
   title: string;
   content: string;
   board_id: number;
+  card_id: number;
   user_id: number;
 }
 
