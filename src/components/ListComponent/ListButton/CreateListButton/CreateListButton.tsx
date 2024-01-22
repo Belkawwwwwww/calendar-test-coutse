@@ -10,6 +10,7 @@ interface GetListButtonProps {
   cardId: number;
 }
 
+
 const CreateListButton: FC<GetListButtonProps> = ({ boardId, cardId }) => {
   const dispatch = useAppDispatch();
   const [title, setTitle] = useState<string>("");
