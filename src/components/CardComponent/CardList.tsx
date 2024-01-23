@@ -17,35 +17,38 @@ const CardList: FC<CardListProps> = ({ boardId }) => {
 
   return (
     <div className={styles.cards}>
-      {cards &&
-        cards.map((card) => {
-          if (card.id && card.board_id === Number(boardId)) {
-            const cardLists = lists.filter((list) => list.card_id === card.id);
-            return (
-              <div className={styles.cardContainer} key={card.id}>
-                <div className={styles.btnGetFile} key={card.id}>
-                  <div>
-                    <div className={styles.contentCard}>
-                      <div className={styles.contentHeaderCard}>
-                        {card.card_name}
+      {cards
+        ? cards.map((card) => {
+            if (card.id && card.board_id === Number(boardId)) {
+              const cardLists = lists.filter(
+                (list) => list.card_id === card.id,
+              );
+              return (
+                <div className={styles.cardContainer} key={card.id}>
+                  <div className={styles.btnGetFile} key={card.id}>
+                    <div>
+                      <div className={styles.contentCard}>
+                        <div className={styles.contentHeaderCard}>
+                          {card.card_name}
+                        </div>
+                        <div>
+                          <BurgerCard
+                            boardId={card.board_id}
+                            cardId={card.id}
+                            nameCard={card.card_name}
+                          />
+                        </div>
                       </div>
-                      <div>
-                        <BurgerCard
-                          boardId={card.board_id}
-                          cardId={card.id}
-                          nameCard={card.card_name}
-                        />
-                      </div>
+                      <ListsList cardLists={cardLists} />
+                      <CreateListButton boardId={boardId} cardId={card.id} />
                     </div>
-                    <ListsList cardLists={cardLists} />
-                    <CreateListButton boardId={boardId} cardId={card.id} />
                   </div>
                 </div>
-              </div>
-            );
-          }
-          return null;
-        })}
+              );
+            }
+            return null;
+          })
+        : null}
     </div>
   );
 };

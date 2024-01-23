@@ -1,7 +1,7 @@
 import React from "react";
 
 const LoadingIndicator = () => {
-  return <div>жопа</div>;
+  return <div>жпа</div>;
 };
 
 export default LoadingIndicator;

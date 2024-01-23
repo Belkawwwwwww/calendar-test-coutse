@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import styles from "../../../Navbar/styles.module.sass";
-import Modal from "../../../UI/Modal";
+import Modal from "../../../UI/Modal/index";
 import { useNavigate } from "react-router-dom";
 import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpenClose";
 import { RouteEnum } from "../../../../lib/route/RouteEnum";
@@ -70,11 +70,11 @@ const CreateBoardButton: FC = () => {
             onChange={onHandlerModal}
             required
           />
-          {error && (
+          {error ? (
             <div style={{ color: "red", margin: "10px", width: "40px" }}>
               {error}
             </div>
-          )}
+          ) : null}
         </Modal>
       ) : null}
     </>

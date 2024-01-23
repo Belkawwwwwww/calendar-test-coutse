@@ -11,11 +11,6 @@ const initialState: BoardSlice = {
   boards: null,
 };
 
-//
-// export const boardCardsSelector = (state: RootState, boardId: number) => {
-//   return state.cards.cards?.filter((card) => card.board_id === boardId);
-// };
-
 
 export const boardSlice = createSlice({
   name: "boards",
@@ -62,11 +57,3 @@ const _error = (state: RootState) => state.boards.error;
 export const isBoardsSelector = createSelector([_boards], (state) => state);
 export const errorBoardSelector = createSelector([_error], (state) => state);
 
-export const {
-  setBoards,
-  addBoard,
-  renameBoard,
-  removeBoard,
-  setError,
-} = boardSlice.actions;
-export default boardSlice.reducer

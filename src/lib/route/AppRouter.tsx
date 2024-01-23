@@ -8,7 +8,7 @@ import { isAuthSelector } from "../../store/slices/UserSlice";
 const AppRouter: FC = () => {
   const isAuth = useAppSelector(isAuthSelector);
   const routesToRender =
-    isLoggedIn() || isAuth ? [...privateRoutes, ...publicRoutes] : publicRoutes;
+    isLoggedIn() || isAuth ? [...privateRoutes] : publicRoutes;
 
   return (
     <Routes>

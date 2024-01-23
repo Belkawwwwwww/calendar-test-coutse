@@ -39,7 +39,7 @@ const CreateListButton: FC<GetListButtonProps> = ({ boardId, cardId }) => {
     setTitle(e.target.value);
   };
 
-  const onContentChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onContentChange = (e: any) => {
     setContent(e.target.value);
   };
 
@@ -70,16 +70,15 @@ const CreateListButton: FC<GetListButtonProps> = ({ boardId, cardId }) => {
             <input
               placeholder="Название списка"
               value={title}
-              className={styles.inputModal}
+              className={styles.inputModalList}
               type="text"
               onChange={onTitleChange}
               required
             />
-            <input
+            <textarea
               placeholder="Контент"
               value={content}
-              className={styles.inputModal}
-              type="text"
+              className={styles.inputModalListContent}
               onChange={onContentChange}
               required
             />

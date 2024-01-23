@@ -83,7 +83,6 @@
   padding: 20px 10px 10px 20px
 .btnGetFile
   min-width: 270px
-  //height: auto
   border-radius: 12px
   padding: 12px
   cursor: pointer
@@ -93,9 +92,6 @@
 
   .btnGetFile.expand
     height: auto
-
-  //&.expand
-//max-height: 400px
 
 .cardsContainer
   height: 100vh
@@ -128,11 +124,12 @@
 .lists
   cursor: pointer
   margin-top: 10px
-  padding: 5px 5px 5px 0
   border-radius: 8px
 
-//.lists:hover
-//  border-bottom: 1px chartreuse
+  &:first-child
+    padding-right: 59px
+    margin-bottom: 10px
+
 .listsEnumeration
   .contentList
     padding-bottom: 10px
@@ -145,18 +142,13 @@
     padding: 7px 0 7px 5px
     background-color: #D8D8D8
 
-
 .contentList
   position: relative
-
 
 .overlay
   position: absolute
   top: 50px
   left: 0
-  //width: 100%
-  //height: 100%
-  //background-color: rgba(0, 0, 0, 0.5)
   display: flex
   justify-content: center
   align-items: center
@@ -177,6 +169,23 @@
 .cardContainer
   display: inline-block
   margin-right: 10px
+
+.ListButton
+  width: 400px
+  margin-top: 10px
+  display: flex
+
+.inputModalCard
+  margin-top: 10px
+  margin-bottom: 10px
+
+.inputModalList
+  margin-bottom: 10px
+
+.inputModalListContent
+  height: 50px
+
+
 
 
 

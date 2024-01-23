@@ -5,6 +5,7 @@ import useModalOpenClose from "../../store/hooks/custom-hooks/useModalOpenClose"
 import { IList } from "../../lib/types";
 import { useAppDispatch } from "../../store/hooks/redux";
 import { deleteList } from "../../store/action/ListAction";
+import RenameListButton from "./ListButton/RenameListButton/RenameListButton";
 
 interface ListsProps {
   cardLists: IList[];
@@ -19,17 +20,8 @@ const ListsList: FC<ListsProps> = ({ cardLists }) => {
   const handleListClick = async (selectedList: IList) => {
     setSelectedList(selectedList);
     handleModalOpen();
-    // try {
-    //   const response = await ax.get<IResponse>(`/list?listId=${selectedList.id}`);
-    //   console.log(response.data.data);
-    //   setSelectedList(selectedList);
-    //   handleModalOpen();
-    //   return response.data.data || [];
-    // } catch (error) {
-    //   console.log(error);
-    //   return [];
-    // }
   };
+
   const handleDeleteListButton = () => {
     if (selectedList !== null) {
       dispatch(deleteList(selectedList.id))
@@ -62,17 +54,24 @@ const ListsList: FC<ListsProps> = ({ cardLists }) => {
                   title={selectedList.title}
                   onClose={handleModalClose}
                   customPosition={{ top: "50%", left: "50%" }}
-                  width="400px"
-                  height="200px"
+                  width="500px"
+                  height="130px"
                 >
-                  <div>Изменить название списка</div>
-                  <div
-                    className={styles.lists}
-                    onClick={handleDeleteListButton}
-                  >
-                    Удалить список
+                  {selectedList.content ? (
+                    <div>{selectedList.content}</div>
+                  ) : (
+                    <div>Контент пуст</div>
+                  )}
+
+                  <div className={styles.ListButton}>
+                    <RenameListButton />
+                    <div
+                      className={styles.lists}
+                      onClick={handleDeleteListButton}
+                    >
+                      Удалить список
+                    </div>
                   </div>
-                  <div>{selectedList.content}</div>
                 </Modal>
               ) : null}
             </div>
@@ -83,13 +82,13 @@ const ListsList: FC<ListsProps> = ({ cardLists }) => {
                 onMouseLeave={handleMouseLeave}
               >
                 <img src="/img/menu_icon.svg" alt="user" />
-                {hoveredIndex === index && (
+                {hoveredIndex === index ? (
                   <div className={styles.overlay}>
                     <div className={styles.overlayText}>
                       Этот список с описанием
                     </div>
                   </div>
-                )}
+                ) : null}
               </div>
             )}
           </div>

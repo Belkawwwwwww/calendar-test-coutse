@@ -4,8 +4,8 @@ import styles from "./styles.module.sass";
 import { userDataSelector } from "../../store/slices/UserSlice";
 import { useParams } from "react-router-dom";
 import BoardList from "../../components/BoardComponent/BoardList";
-import RenameBoard from "../../components/BoardComponent/BoardButton/RenameBoardButton/RenameBoard";
-import DeleteBoard from "../../components/BoardComponent/BoardButton/DeleteBoardButton/DeleteBoard";
+import RenameBoardButton from "../../components/BoardComponent/BoardButton/RenameBoardButton/RenameBoardButton";
+import DeleteBoardButton from "../../components/BoardComponent/BoardButton/DeleteBoardButton/DeleteBoardButton";
 import CreateCard from "../../components/CardComponent/CardButton/CreateCardButton/CreateCard";
 import CardList from "../../components/CardComponent/CardList";
 
@@ -29,8 +29,8 @@ const BoardPage: FC = () => {
           <div>{user ? user.username : null}</div>
           <div className={styles.menu}></div>
           <div className={styles.board}>
-            <RenameBoard boardId={Number(boardId)} />
-            <DeleteBoard boardId={Number(boardId)} />
+            <RenameBoardButton boardId={Number(boardId)} />
+            <DeleteBoardButton boardId={Number(boardId)} />
           </div>
         </div>
         <div className={styles.board_content}>

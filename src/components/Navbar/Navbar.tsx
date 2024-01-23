@@ -5,7 +5,7 @@ import { isLoggedIn, logout } from "../../store/action/userAction";
 import { Link } from "react-router-dom";
 import { RouteEnum } from "../../lib/route/RouteEnum";
 import Logo from "../UI/Logo/Logo";
-import SearchBar from "../UI/SearchBar/SearchBar";
+import SearchBar from "../UI/SearchBar/index";
 import CreateBoardButton from "../BoardComponent/BoardButton/CreateBoardButton/CreateBoardButton";
 import { isAuthSelector } from "../../store/slices/UserSlice";
 
@@ -13,17 +13,15 @@ const Navbar: FC = () => {
   const dispatch = useAppDispatch();
   const isAuth = useAppSelector(isAuthSelector);
 
-
   const handleSubmit = () => {
     dispatch(logout())
-        .then(() => {
-          window.location.reload();
-        })
-        .catch((error) => {
-          console.error("Произошла ошибка при выходе из аккаунта:", error);
-        });
+      .then(() => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("Произошла ошибка при выходе из аккаунта:", error);
+      });
   };
-
 
   return (
     <div
@@ -62,7 +60,7 @@ const Navbar: FC = () => {
                 <button
                   onClick={handleSubmit}
                   type="button"
-                  className={styles.btnlogOut}
+                  className={styles.btnLogOut}
                 >
                   Выйти
                 </button>

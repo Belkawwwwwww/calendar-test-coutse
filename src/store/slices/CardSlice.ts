@@ -51,5 +51,4 @@ const _error = (state: RootState) => state.cards.error
 export const isCardSelector = createSelector([_cards], (state) => state)
 export const errorCardSelector = createSelector([_error], (state) => state);
 
-export const { setCard, addCard, removeCard, setError } = cardSlice.actions;
 
