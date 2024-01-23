@@ -37,7 +37,7 @@ const RenameBoardButton: FC<RenameBoardProps> = ({ boardId }) => {
       {boards?.map((board) => {
         if (board.id === Number(boardId)) {
           return (
-            <>
+            <div key={board.id}>
               <div onClick={handleModalOpen}>Изменить название доски</div>
               {isModalActive ? (
                 <Modal
@@ -58,6 +58,7 @@ const RenameBoardButton: FC<RenameBoardProps> = ({ boardId }) => {
                   customPosition={{ top: "18%", left: "82%" }}
                 >
                   <input
+                    id="nameBoard"
                     value={boardNewName}
                     className={styles.inputModal}
                     type="text"
@@ -66,7 +67,7 @@ const RenameBoardButton: FC<RenameBoardProps> = ({ boardId }) => {
                   />
                 </Modal>
               ) : null}
-            </>
+            </div>
           );
         } else {
           return null;

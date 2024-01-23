@@ -67,6 +67,7 @@ const RenameCardButton: FC<RenameCardProps> = ({ cardId, boardId }) => {
           customPosition={{ top: "35%", left: "50%" }}
         >
           <input
+            id="nameCard"
             value={cardNewName}
             className={styles.inputModalCard}
             type="text"

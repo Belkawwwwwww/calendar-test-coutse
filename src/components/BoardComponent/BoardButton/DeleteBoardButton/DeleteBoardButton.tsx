@@ -33,7 +33,7 @@ const DeleteBoardButton: FC<DeleteBoardProps> = ({ boardId }) => {
       {boards?.map((board) => {
         if (board.id === Number(boardId)) {
           return (
-            <>
+            <div key={board.id}>
               <div onClick={handleModalOpen}>Удалить доску</div>
               {isModalActive ? (
                 <Modal
@@ -55,7 +55,7 @@ const DeleteBoardButton: FC<DeleteBoardProps> = ({ boardId }) => {
                   width="325px"
                 ></Modal>
               ) : null}
-            </>
+            </div>
           );
         } else {
           return null;

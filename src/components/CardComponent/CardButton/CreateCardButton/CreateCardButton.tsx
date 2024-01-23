@@ -12,14 +12,14 @@ interface GetFileButtonProps {
 const CreateCardButton: FC<GetFileButtonProps> = ({ boardId }) => {
   const dispatch = useAppDispatch();
   const [nameCard, setNameCard] = useState<string>("");
-  const [error, setError] = useState<string | undefined>(undefined);
+  // const [error, setError] = useState<string | undefined>(undefined);
   const { isModalActive, handleModalOpen, handleModalClose } =
     useModalOpenClose();
 
   useEffect(() => {
     if (!isModalActive) {
       setNameCard("");
-      setError(undefined);
+      // setError(undefined);
     }
   }, [isModalActive]);
   const handleSubmitModal = async () => {
@@ -59,6 +59,7 @@ const CreateCardButton: FC<GetFileButtonProps> = ({ boardId }) => {
             customPosition={{ top: "25%", left: "23%" }}
           >
             <input
+              id="nameCard"
               placeholder="Название карточки"
               value={nameCard}
               className={styles.inputModal}
