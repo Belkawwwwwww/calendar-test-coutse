@@ -17,6 +17,8 @@ type IModalProps = {
   customPosition?: {
     [key: string]: string | number;
   };
+  width?: string;
+  height?: string;
 };
 const MODAL_CONTAINER_ID = "modal-container-id";
 export const Modal = (props: IModalProps) => {
@@ -27,6 +29,8 @@ export const Modal = (props: IModalProps) => {
       footerButtons,
       position,
       customPosition,
+      width,
+      height,
     } = props;
     const rootRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
@@ -36,6 +40,8 @@ export const Modal = (props: IModalProps) => {
     bottom: customPosition?.bottom || (position === "bottom" ? 0 : undefined),
     left: customPosition?.left || (position === "left" ? 0 : undefined),
     right: customPosition?.right || (position === "right" ? 0 : undefined),
+    width: width || undefined,
+    height: height || undefined,
   };
 
   useEffect(() => {

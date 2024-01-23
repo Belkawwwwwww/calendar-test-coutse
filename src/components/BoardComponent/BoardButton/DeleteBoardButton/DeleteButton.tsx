@@ -46,7 +46,8 @@ const DeleteButton: FC<DeleteButtonProps> = ({
             },
             { name: "Отменить", disabled: false, onClick: handleModalClose },
           ]}
-          customPosition={{ top: "18%", left: "90%" }}
+          customPosition={{ top: "18%", left: "88%" }}
+          width="325px"
         ></Modal>
       ) : null}
     </>

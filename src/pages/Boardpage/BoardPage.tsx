@@ -7,7 +7,7 @@ import BoardList from "../../components/BoardComponent/BoardList";
 import RenameBoard from "../../components/BoardComponent/BoardButton/RenameBoardButton/RenameBoard";
 import DeleteBoard from "../../components/BoardComponent/BoardButton/DeleteBoardButton/DeleteBoard";
 import CreateCard from "../../components/CardComponent/CardButton/CreateCardButton/CreateCard";
-import CardList from "../../components/ListComponent/CardList";
+import CardList from "../../components/CardComponent/CardList";
 
 const BoardPage: FC = () => {
   const user = useAppSelector(userDataSelector);

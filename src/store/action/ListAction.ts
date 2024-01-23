@@ -5,7 +5,7 @@ import { listSlice } from "../slices/ListSlice";
 import { userSlice } from "../slices/UserSlice";
 
 export const createList =
-  (board_id: number,card_id: number, title: string, content: string) =>
+  (board_id: number, card_id: number, title: string, content: string) =>
   async (dispatch: AppDispatch) => {
     try {
       const response = await ax.post<IResponse<IList>>(`/list/create`, {
@@ -39,11 +39,9 @@ export const getList =
         },
       };
       obj_action[response.data.statusCode]?.();
-      return response.data?.data || []; // Возвращаем тип Promise<IBoard[]> из функции
+      return response.data?.data || [];
     } catch (e) {
-      dispatch(
-        userSlice.actions.setError("Произошла ошибка при получении доски"),
-      );
+
       throw e; // Пробрасываем ошибку для дальнейшей обработки
     }
   };
@@ -66,11 +64,8 @@ export const getContentList =
         },
       };
       obj_action[response.data.statusCode]?.();
-      return response.data?.data || []; // Возвращаем тип Promise<IBoard[]> из функции
+      return response.data?.data || [];
     } catch (e) {
-      dispatch(
-        userSlice.actions.setError("Произошла ошибка при получении доски"),
-      );
       throw e; // Пробрасываем ошибку для дальнейшей обработки
     }
   };

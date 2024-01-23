@@ -76,6 +76,7 @@ const BurgerCard: FC<DeleteCardButtonProps> = ({
             title={`Действия с карточкой :  ${nameCard}`}
             onClose={handleModalClose}
             customPosition={{ top: "35%", left: "50%" }}
+            height="140px"
           >
             <div className={styles.lists} onClick={handleModalOpenModal}>
               Изменить название карточки
@@ -83,8 +84,10 @@ const BurgerCard: FC<DeleteCardButtonProps> = ({
 
             {showRenameModal && (
               <Modal
-                title="Изменить название списка"
+                title="Изменить название карточки"
                 onClose={handleModalCloseModal}
+                width="296px"
+                height="140px"
                 footerButtons={[
                   {
                     name: "Изменить",
