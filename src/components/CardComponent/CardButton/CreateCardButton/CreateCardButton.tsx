@@ -56,7 +56,7 @@ const CreateCardButton: FC<GetFileButtonProps> = ({ boardId }) => {
                 onClick: handleModalClose,
               },
             ]}
-            customPosition={{ top: "25%", left: "23%" }}
+            customPosition={{ top: "25%", left: "40%" }}
           >
             <input
               id="nameCard"

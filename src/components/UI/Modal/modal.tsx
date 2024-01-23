@@ -19,6 +19,7 @@ type IModalProps = {
   };
   width?: string;
   height?: string;
+  cardId?:number
 };
 const MODAL_CONTAINER_ID = "modal-container-id";
 export const Modal = (props: IModalProps) => {

@@ -9,10 +9,18 @@ import DeleteBoardButton from "../../components/BoardComponent/BoardButton/Delet
 import CreateCard from "../../components/CardComponent/CardButton/CreateCardButton/CreateCard";
 import CardList from "../../components/CardComponent/CardList";
 
+
 const BoardPage: FC = () => {
   const user = useAppSelector(userDataSelector);
+  // const boards = useAppSelector(isBoardsSelector);
+  // const navigate = useNavigate();
   const { boardId } = useParams<{ boardId: string }>();
-
+  // useEffect(() => {
+  //   const boardExist = boards.filter((board) => board.id === Number(boardId));
+  //   if (!boardExist.length) {
+  //     navigate(RouteEnum.BOARD);
+  //   }
+  // }, [boardId]);// eslint-disable-line
   const gif =
     "https://framerusercontent.com/images/lUWZ2z9geAGbpdf0JvpDsbZM3ww.gif";
 

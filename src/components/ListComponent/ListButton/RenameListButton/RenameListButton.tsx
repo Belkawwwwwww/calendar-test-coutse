@@ -36,11 +36,11 @@ const RenameListButton: FC = () => {
         <Modal
           title="Изменить название списка"
           onClose={handleModalCloseModal}
-          width="500px"
-          height="135px"
+          width="240px"
+          // height="135px"
           footerButtons={[
             {
-              name: "Изменить",
+              name: "Сохранить",
               // disabled: isCreateButtonDisabled,
               onClick: () => handleRenameCard,
             },
@@ -50,7 +50,7 @@ const RenameListButton: FC = () => {
               onClick: handleModalCloseModal,
             },
           ]}
-          customPosition={{ top: "50%", left: "50%" }}
+          customPosition={{ top: "70%", left: "41%" }}
         >
           <input
             // value={cardNewName}

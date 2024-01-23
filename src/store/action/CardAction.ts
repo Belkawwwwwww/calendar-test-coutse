@@ -52,9 +52,6 @@ export const deleteCard =
         200: () => {
           dispatch(cardSlice.actions.removeCard(cardId));
         },
-        // 2: () => dispatch(boardSlice.actions.setError(response.data.answer)),
-        // 7: () => dispatch(boardSlice.actions.setError(response.data.answer)),
-        // 9: () => dispatch(boardSlice.actions.setError(response.data.answer)),
       };
       obj_action[response.data.statusCode]?.();
     } catch (e) {}

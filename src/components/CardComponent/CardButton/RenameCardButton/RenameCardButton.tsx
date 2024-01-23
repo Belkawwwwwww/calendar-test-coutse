@@ -50,11 +50,11 @@ const RenameCardButton: FC<RenameCardProps> = ({ cardId, boardId }) => {
         <Modal
           title="Изменить название карточки"
           onClose={handleModalCloseModal}
-          width="350px"
+          width="260px"
           height="140px"
           footerButtons={[
             {
-              name: "Изменить",
+              name: "Сохранить",
               disabled: isCreateButtonDisabled,
               onClick: handleRenameCard,
             },
@@ -64,7 +64,7 @@ const RenameCardButton: FC<RenameCardProps> = ({ cardId, boardId }) => {
               onClick: handleModalCloseModal,
             },
           ]}
-          customPosition={{ top: "35%", left: "50%" }}
+          customPosition={{ top: "49%", left: "48%" }}
         >
           <input
             id="nameCard"

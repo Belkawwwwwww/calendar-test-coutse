@@ -14,17 +14,6 @@ export const createBoard =
       if (boardId || response.status) {
         dispatch(boardSlice.actions.addBoard(response.data.data!));
       }
-      const obj_action: {
-        [key: number]: () => void;
-      } = {
-        200: () => {},
-        // 2: () => dispatch(boardSlice.actions.setError(response.data.answer)),
-        // 7: () => dispatch(boardSlice.actions.setError(response.data.answer)),
-        // 10: () => dispatch(boardSlice.actions.setError(response.data.answer)),
-      };
-      obj_action[response.data.statusCode]?.();
-
-      // dispatch(getBoard());
       return response.data;
     } catch (e) {
       dispatch(
@@ -47,11 +36,7 @@ export const getBoard =
             const boardData = response.data.data;
             dispatch(boardSlice.actions.setBoards(boardData));
           }
-
         },
-        // 401: () => dispatch(boardSlice.actions.setError(response.data.answer)),
-        // 7: () => dispatch(boardSlice.actions.setError(response.data.answer)),
-        // 9: () => dispatch(boardSlice.actions.setError(response.data.answer)),
       };
       obj_action[response.data.statusCode]?.();
       return response.data?.data || []; // Возвращаем тип Promise<IBoard[]> из функции
@@ -76,12 +61,8 @@ export const deleteBoard =
         200: () => {
           dispatch(boardSlice.actions.removeBoard(boardId));
         },
-        // 2: () => dispatch(boardSlice.actions.setError(response.data.answer)),
-        // 7: () => dispatch(boardSlice.actions.setError(response.data.answer)),
-        // 9: () => dispatch(boardSlice.actions.setError(response.data.answer)),
       };
       obj_action[response.data.statusCode]?.();
-      // dispatch(cardSlice.actions.removeCard(boardId))
     } catch (e) {
       dispatch(
         userSlice.actions.setError("Произошла ошибка при удалении доски"),

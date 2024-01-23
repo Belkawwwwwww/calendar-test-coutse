@@ -2,10 +2,8 @@ import React, { FC } from "react";
 import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpenClose";
 import styles from "../../../../pages/Boardpage/styles.module.sass";
 import Modal from "../../../UI/Modal";
-import { useAppDispatch, useAppSelector } from "../../../../store/hooks/redux";
-import { deleteCard } from "../../../../store/action/CardAction";
-import { isCardSelector } from "../../../../store/slices/CardSlice";
 import RenameCardButton from "../RenameCardButton/RenameCardButton";
+import DeleteCardButton from "../DeleteCardButton/DeleteCardButton";
 
 interface DeleteCardButtonProps {
   boardId: number;
@@ -20,20 +18,6 @@ const BurgerCard: FC<DeleteCardButtonProps> = ({
 }) => {
   const { isModalActive, handleModalOpen, handleModalClose } =
     useModalOpenClose();
-  const dispatch = useAppDispatch();
-  const cards = useAppSelector(isCardSelector);
-
-  const handleDeleteCardButton = () => {
-    if (cards !== null) {
-      dispatch(deleteCard(boardId, cardId))
-        .then(() => {
-          handleModalClose();
-        })
-        .catch((error) => {
-          console.error("Произошла ошибка при удалении карточки:", error);
-        });
-    }
-  };
 
   return (
     <>
@@ -52,9 +36,7 @@ const BurgerCard: FC<DeleteCardButtonProps> = ({
             height="140px"
           >
             <RenameCardButton cardId={cardId} boardId={boardId} />
-            <div className={styles.lists} onClick={handleDeleteCardButton}>
-              Удалить карточку
-            </div>
+            <DeleteCardButton boardId={boardId} cardId={cardId} nameCard={nameCard}/>
           </Modal>
         ) : null}
       </div>

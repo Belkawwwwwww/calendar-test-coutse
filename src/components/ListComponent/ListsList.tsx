@@ -3,16 +3,14 @@ import styles from "../../pages/Boardpage/styles.module.sass";
 import Modal from "../UI/Modal";
 import useModalOpenClose from "../../store/hooks/custom-hooks/useModalOpenClose";
 import { IList } from "../../lib/types";
-import { useAppDispatch } from "../../store/hooks/redux";
-import { deleteList } from "../../store/action/ListAction";
 import RenameListButton from "./ListButton/RenameListButton/RenameListButton";
+import DeleteListButton from "./ListButton/DeleteListButton/DeleteListButton";
 
 interface ListsProps {
   cardLists: IList[];
 }
 
 const ListsList: FC<ListsProps> = ({ cardLists }) => {
-  const dispatch = useAppDispatch();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedList, setSelectedList] = useState<IList | null>(null);
   const { isModalActive, handleModalOpen, handleModalClose } =
@@ -20,18 +18,6 @@ const ListsList: FC<ListsProps> = ({ cardLists }) => {
   const handleListClick = async (selectedList: IList) => {
     setSelectedList(selectedList);
     handleModalOpen();
-  };
-
-  const handleDeleteListButton = () => {
-    if (selectedList !== null) {
-      dispatch(deleteList(selectedList.id))
-        .then(() => {
-          handleModalClose();
-        })
-        .catch((error) => {
-          console.log("Произошла ошибка при удалении списка:", error);
-        });
-    }
   };
 
   const handleMouseEnter = (index: number) => {
@@ -65,12 +51,7 @@ const ListsList: FC<ListsProps> = ({ cardLists }) => {
 
                   <div className={styles.ListButton}>
                     <RenameListButton />
-                    <div
-                      className={styles.lists}
-                      onClick={handleDeleteListButton}
-                    >
-                      Удалить список
-                    </div>
+                    <DeleteListButton />
                   </div>
                 </Modal>
               ) : null}

@@ -45,7 +45,7 @@ const RenameBoardButton: FC<RenameBoardProps> = ({ boardId }) => {
                   onClose={handleModalClose}
                   footerButtons={[
                     {
-                      name: "Изменить",
+                      name: "Сохранить",
                       disabled: isCreateButtonDisabled,
                       onClick: handleRenameBoard,
                     },

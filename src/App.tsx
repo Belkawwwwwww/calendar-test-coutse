@@ -12,8 +12,11 @@ import { getList } from "./store/action/ListAction";
 const App: FC = () => {
   const dispatch = useAppDispatch();
   const isAuth = useAppSelector(isAuthSelector);
+  // const navigate = useNavigate();
 
   useEffect(() => {
+    // const storedUsername = sessionStorage.getItem("username");
+    // if (storedUsername) {
     dispatch(checkAuth());
     if (isLoggedIn() || isAuth) {
       dispatch(getBoard()).then(() => {
@@ -23,6 +26,9 @@ const App: FC = () => {
     } else {
       console.log("User is not authenticated");
     }
+    // } else {
+    //   navigate(RouteEnum.LOGIN);
+    // }
   }, [isLoggedIn()]); // eslint-disable-line
 
   return (
