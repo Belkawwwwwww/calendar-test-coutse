@@ -19,7 +19,8 @@ type IModalProps = {
   };
   width?: string;
   height?: string;
-  cardId?:number
+  image?: string | undefined;
+  imageClassName?: string;
 };
 const MODAL_CONTAINER_ID = "modal-container-id";
 export const Modal = (props: IModalProps) => {
@@ -32,6 +33,7 @@ export const Modal = (props: IModalProps) => {
       customPosition,
       width,
       height,
+      image,
     } = props;
     const rootRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
@@ -93,7 +95,10 @@ export const Modal = (props: IModalProps) => {
           >
             Х
           </button>
-          <p className={styles.title}>{title}</p>
+          <div className={styles.header}>
+            {image && <img src={image} alt="Модальное окно" className={props.imageClassName}/>}
+            <p className={styles.title}>{title}</p>
+          </div>
           <div className={styles.mainContent}>{children}</div>
           <div className={styles.footer}>
             {footerButtons?.map((button, index) => (

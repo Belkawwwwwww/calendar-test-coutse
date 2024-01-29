@@ -40,17 +40,29 @@ const ListsList: FC<ListsProps> = ({ cardLists }) => {
             <div className={styles.modal}>
               {isModalActive && selectedList && selectedList.id === list.id ? (
                 <Modal
+                  image="/img/browser_icon.svg"
                   title={selectedList.title}
                   onClose={handleModalClose}
                   customPosition={{ top: "50%", left: "50%" }}
-                  width="500px"
-                  height="130px"
+                  width="460px"
+                  height="152px"
+                  imageClassName={styles.customImage}
                 >
-                  {selectedList.content ? (
-                    <div>{selectedList.content}</div>
-                  ) : (
-                    <div>Контент пуст</div>
-                  )}
+                  <div className={styles.modalListContent}>
+                    <img
+                      className={styles.browserIcon}
+                      src="/img/menu_icon.svg"
+                      alt="menu"
+                    />
+                    <div>Описание</div>
+                  </div>
+                  <div className={styles.listContent}>
+                    {selectedList.content ? (
+                      <div>{selectedList.content}</div>
+                    ) : (
+                      <div>Контент пуст</div>
+                    )}
+                  </div>
 
                   <div className={styles.ListButton}>
                     <RenameListButton />

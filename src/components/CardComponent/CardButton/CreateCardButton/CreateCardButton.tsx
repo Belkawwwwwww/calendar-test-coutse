@@ -43,6 +43,7 @@ const CreateCardButton: FC<GetFileButtonProps> = ({ boardId }) => {
       <div className={styles.modal}>
         {isModalActive ? (
           <Modal
+            title="Название карточки"
             onClose={handleModalClose}
             footerButtons={[
               {
@@ -60,7 +61,6 @@ const CreateCardButton: FC<GetFileButtonProps> = ({ boardId }) => {
           >
             <input
               id="nameCard"
-              placeholder="Название карточки"
               value={nameCard}
               className={styles.inputModal}
               type="text"
