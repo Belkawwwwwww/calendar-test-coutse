@@ -1,12 +1,9 @@
 import React, { ChangeEvent, FC, FormEvent, useState } from "react";
 import styles from "../Login/Login.module.sass";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
-import {
-  errorUserSelector,
-  isAuthSelector,
-} from "../../../store/slices/UserSlice";
-import { isLoggedIn, register } from "../../../store/action/userAction";
-import { Link, useNavigate } from "react-router-dom";
+import { errorUserSelector } from "../../../store/slices/UserSlice";
+import {isLoggedIn, register} from "../../../store/action/userAction";
+import {Link, Navigate, useNavigate} from "react-router-dom";
 import { RouteEnum } from "../../../lib/route/RouteEnum";
 
 const Registration: FC = () => {
@@ -16,8 +13,10 @@ const Registration: FC = () => {
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
   const error = useAppSelector(errorUserSelector);
   const navigate = useNavigate();
-  const isAuth = useAppSelector(isAuthSelector);
-
+  // const isAuth = useAppSelector(isAuthSelector);
+  if (isLoggedIn()) {
+    return <Navigate to={RouteEnum.BOARD} />;
+  }
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
@@ -26,9 +25,7 @@ const Registration: FC = () => {
       passwordConfirm.trim() !== ""
     ) {
       await dispatch(register(username, password, passwordConfirm));
-      if (isLoggedIn() || isAuth) {
-        navigate(RouteEnum.BOARD);
-      }
+      navigate(RouteEnum.BOARD);
     }
   };
 
@@ -53,7 +50,7 @@ const Registration: FC = () => {
       }}
     >
       <div className={styles.form}>
-        <form action="" className={styles.btnBox} onSubmit={handleSubmit}>
+        <form className={styles.btnBox} onSubmit={handleSubmit}>
           <div className={styles.title}>
             <h1 className={styles.title}>REGISTRATION</h1>
           </div>

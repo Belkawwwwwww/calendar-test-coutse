@@ -34,7 +34,7 @@ const DeleteBoardButton: FC<DeleteBoardProps> = ({ boardId }) => {
         if (board.id === Number(boardId)) {
           return (
             <div key={board.id}>
-              <div onClick={handleModalOpen}>Удалить доску</div>
+              <div className={styles.btnDeleteBoard} onClick={handleModalOpen}>Удалить доску</div>
               {isModalActive ? (
                 <Modal
                   title={`Вы уверены что хотите удалить : ${board.name_board}`}

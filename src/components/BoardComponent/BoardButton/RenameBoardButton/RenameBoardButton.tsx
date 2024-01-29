@@ -38,7 +38,7 @@ const RenameBoardButton: FC<RenameBoardProps> = ({ boardId }) => {
         if (board.id === Number(boardId)) {
           return (
             <div key={board.id}>
-              <div onClick={handleModalOpen}>Изменить название доски</div>
+              <div className={styles.btnRenameBoard} onClick={handleModalOpen}>Изменить название доски</div>
               {isModalActive ? (
                 <Modal
                   title="Изменить название доски"

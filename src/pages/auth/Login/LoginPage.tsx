@@ -2,11 +2,8 @@ import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import styles from "./Login.module.sass";
 import { isLoggedIn, login } from "../../../store/action/userAction";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
-import {
-  errorUserSelector,
-  isAuthSelector,
-} from "../../../store/slices/UserSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { errorUserSelector } from "../../../store/slices/UserSlice";
+import {Link, Navigate, useNavigate} from "react-router-dom";
 import { RouteEnum } from "../../../lib/route/RouteEnum";
 
 const LoginPage: FC = () => {
@@ -16,15 +13,22 @@ const LoginPage: FC = () => {
   const error = useAppSelector(errorUserSelector);
   const navigate = useNavigate();
   const [isAnimationDone, setIsAnimationDone] = useState(false);
-  const isAuth = useAppSelector(isAuthSelector);
+  // const isAuth = useAppSelector(isAuthSelector);
+  useEffect(() => {
+    if (!isAnimationDone) {
+      setIsAnimationDone(true);
+    }
+  }, []); // eslint-disable-line
+
+  if (isLoggedIn()) {
+    return <Navigate to={RouteEnum.BOARD} />;
+  }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (username.trim() !== "" || password.trim() !== "") {
       await dispatch(login(username, password));
-      if (isLoggedIn() || isAuth) {
-        navigate(RouteEnum.BOARD);
-      }
+      navigate(RouteEnum.BOARD)
     }
   };
 
@@ -35,17 +39,12 @@ const LoginPage: FC = () => {
       setPassword(e.target.value);
     }
   };
-  useEffect(() => {
-    if (!isAnimationDone) {
-      setIsAnimationDone(true);
-    }
-  }, []); // eslint-disable-line
 
   return (
     <div
       className={styles.content}
       style={{
-        backgroundImage: `url("/img/fon1.png")`,
+        backgroundImage: "url(/img/fon1.png)",
         backgroundSize: "cover",
       }}
     >
@@ -69,6 +68,7 @@ const LoginPage: FC = () => {
               <img src="/img/icon-user.svg" alt="user" />
             </label>
             <input
+              autoFocus
               value={username}
               onChange={onHandlerUser}
               id="username"

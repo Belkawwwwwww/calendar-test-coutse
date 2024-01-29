@@ -37,11 +37,9 @@ const RenameListButton: FC = () => {
           title="Изменить название списка"
           onClose={handleModalCloseModal}
           width="240px"
-          // height="135px"
           footerButtons={[
             {
               name: "Сохранить",
-              // disabled: isCreateButtonDisabled,
               onClick: () => handleRenameCard,
             },
             {

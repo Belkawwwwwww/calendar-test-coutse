@@ -32,8 +32,11 @@ const ListsList: FC<ListsProps> = ({ cardLists }) => {
     <div className={styles.listsEnumeration}>
       {cardLists.map((list, index) => (
         <div key={list.id} className={styles.contentList}>
-          <div className={styles.contentHeaderCard}>
-            <div onClick={() => handleListClick(list)}>{list.title}</div>
+          <div
+            className={styles.contentHeaderCard}
+            onClick={() => handleListClick(list)}
+          >
+            <div>{list.title}</div>
             <div className={styles.modal}>
               {isModalActive && selectedList && selectedList.id === list.id ? (
                 <Modal

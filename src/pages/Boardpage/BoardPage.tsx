@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import { useAppSelector } from "../../store/hooks/redux";
 import styles from "./styles.module.sass";
 import { userDataSelector } from "../../store/slices/UserSlice";
@@ -9,18 +9,36 @@ import DeleteBoardButton from "../../components/BoardComponent/BoardButton/Delet
 import CreateCard from "../../components/CardComponent/CardButton/CreateCardButton/CreateCard";
 import CardList from "../../components/CardComponent/CardList";
 
-
 const BoardPage: FC = () => {
   const user = useAppSelector(userDataSelector);
   // const boards = useAppSelector(isBoardsSelector);
   // const navigate = useNavigate();
   const { boardId } = useParams<{ boardId: string }>();
+  const cardsContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (cardsContainerRef.current) {
+      cardsContainerRef.current.scrollTo(0, 0); // Прокрутка к началу списка карточек
+    }
+  }, [boardId]);
   // useEffect(() => {
-  //   const boardExist = boards.filter((board) => board.id === Number(boardId));
+  //   const parsedBoardId = Number(boardId);
+  //   const boardExist = boards.filter((board) => board.id === parsedBoardId);
+  //   console.log(`url:${parsedBoardId}` , `bek:${boardExist}`, boardExist);
   //   if (!boardExist.length) {
   //     navigate(RouteEnum.BOARD);
   //   }
-  // }, [boardId]);// eslint-disable-line
+  // }, [boardId]); //eslint-disable-line
+
+  // useLayoutEffect(() => {
+  //     const parsedBoardId = Number(boardId);
+  //   const boardExist = boards.filter((board) => board.id === Number(boardId));
+  //     console.log(`url:${parsedBoardId}` , `bek:${boardExist}`, boardExist);
+  //
+  //   if (!boardExist.length) {
+  //     navigate(RouteEnum.BOARD)
+  // }}, [boardId]); //eslint-disable-line
+
   const gif =
     "https://framerusercontent.com/images/lUWZ2z9geAGbpdf0JvpDsbZM3ww.gif";
 
@@ -44,7 +62,7 @@ const BoardPage: FC = () => {
         <div className={styles.board_content}>
           <div className={styles.board_canvas}>
             <CreateCard boardId={Number(boardId)} />
-            <div className={styles.cardsContainer}>
+            <div className={styles.cardsContainer} ref={cardsContainerRef}>
               <CardList boardId={Number(boardId)} />
             </div>
           </div>

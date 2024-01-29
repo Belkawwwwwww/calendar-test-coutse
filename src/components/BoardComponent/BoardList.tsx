@@ -23,7 +23,7 @@ const BoardList = () => {
   return (
     <div className={styles.board_list}>
       <Link to={RouteEnum.BOARD} className={styles.my_board}>
-        Мои доски:{" "}
+        Мои доски
       </Link>
       <div className={styles.board_list}>
         {!boards || boards.length === 0 ? (

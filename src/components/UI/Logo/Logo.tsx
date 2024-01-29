@@ -6,7 +6,7 @@ import { RouteEnum } from "../../../lib/route/RouteEnum";
 const Logo = () => {
   return (
     <div className={styles.logo}>
-      <Link to={RouteEnum.BOARD}>LOGO</Link>
+      <Link to={RouteEnum.HOME}>LOGO</Link>
     </div>
   );
 };
