@@ -66,7 +66,7 @@ const ListsList: FC<ListsProps> = ({ cardLists }) => {
 
                   <div className={styles.ListButton}>
                     <RenameListButton />
-                    <DeleteListButton />
+                    <DeleteListButton nameList={list.title} listId={list.id} />
                   </div>
                 </Modal>
               ) : null}

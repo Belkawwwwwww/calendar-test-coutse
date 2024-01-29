@@ -4,17 +4,21 @@ import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpen
 import { deleteList } from "../../../../store/action/ListAction";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks/redux";
 import { isListSelector } from "../../../../store/slices/ListSlice";
-import { IList } from "../../../../lib/types";
 import { Modal } from "../../../UI/Modal";
 
-const DeleteListButton: FC = () => {
+interface DeleteListProps {
+  nameList: string;
+  listId: number;
+}
+
+const DeleteListButton: FC<DeleteListProps> = ({ nameList, listId }) => {
   const dispatch = useAppDispatch();
   const lists = useAppSelector(isListSelector);
   const { isModalActive, handleModalOpen, handleModalClose } =
     useModalOpenClose();
-  const handleDeleteListButton = (selectedList: IList) => {
+  const handleDeleteListButton = () => {
     if (lists !== null) {
-      dispatch(deleteList(selectedList.id))
+      dispatch(deleteList(listId))
         .then(() => {
           handleModalClose();
         })
@@ -30,21 +34,21 @@ const DeleteListButton: FC = () => {
       </div>
       {isModalActive ? (
         <Modal
-          title={`Удалить список`}
+          title={`Удалить список: ${nameList}`}
           onClose={handleModalClose}
           footerButtons={[
             {
               name: "Удалить",
-              onClick: () => handleDeleteListButton,
+              onClick: handleDeleteListButton,
             },
             {
               name: "Отменить",
               onClick: handleModalClose,
             },
           ]}
-          customPosition={{ top: "67%", right: "22%" }}
-          width="250px"
-          height="90px"
+          customPosition={{ top: "65%", right: "22%" }}
+          width="300px"
+          height="97px"
         ></Modal>
       ) : null}
     </>

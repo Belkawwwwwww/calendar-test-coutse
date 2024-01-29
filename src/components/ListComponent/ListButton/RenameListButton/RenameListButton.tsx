@@ -48,7 +48,7 @@ const RenameListButton: FC = () => {
               onClick: handleModalCloseModal,
             },
           ]}
-          customPosition={{ top: "70%", left: "41%" }}
+          customPosition={{ top: "68%", left: "43%" }}
         >
           <input
             // value={cardNewName}

@@ -51,7 +51,7 @@ const DeleteCardButton: FC<DeleteCardProps> = ({
               onClick: handleModalClose,
             },
           ]}
-          customPosition={{ top: "53%", left: "49%" }}
+          customPosition={{ top: "48%", left: "49%" }}
           width="300px"
           // height="140px"
         ></Modal>

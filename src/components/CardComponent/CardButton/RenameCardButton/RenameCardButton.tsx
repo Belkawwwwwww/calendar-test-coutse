@@ -64,7 +64,7 @@ const RenameCardButton: FC<RenameCardProps> = ({ cardId, boardId }) => {
               onClick: handleModalCloseModal,
             },
           ]}
-          customPosition={{ top: "49%", left: "48%" }}
+          customPosition={{ top: "45%", left: "48%" }}
         >
           <input
             id="nameCard"
