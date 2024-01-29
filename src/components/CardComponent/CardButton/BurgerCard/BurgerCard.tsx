@@ -36,7 +36,11 @@ const BurgerCard: FC<DeleteCardButtonProps> = ({
             height="140px"
           >
             <RenameCardButton cardId={cardId} boardId={boardId} />
-            <DeleteCardButton boardId={boardId} cardId={cardId} nameCard={nameCard}/>
+            <DeleteCardButton
+              boardId={boardId}
+              cardId={cardId}
+              nameCard={nameCard}
+            />
           </Modal>
         ) : null}
       </div>

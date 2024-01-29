@@ -41,7 +41,6 @@ export const getList =
       obj_action[response.data.statusCode]?.();
       return response.data?.data || [];
     } catch (e) {
-
       throw e; // Пробрасываем ошибку для дальнейшей обработки
     }
   };

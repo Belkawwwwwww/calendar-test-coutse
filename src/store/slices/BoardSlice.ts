@@ -11,7 +11,6 @@ const initialState: BoardSlice = {
   boards: null,
 };
 
-
 export const boardSlice = createSlice({
   name: "boards",
   initialState,
@@ -56,4 +55,3 @@ const _error = (state: RootState) => state.boards.error;
 
 export const isBoardsSelector = createSelector([_boards], (state) => state);
 export const errorBoardSelector = createSelector([_error], (state) => state);
-

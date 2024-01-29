@@ -9,27 +9,27 @@ const AppRouter: FC = () => {
   const isAuth = useAppSelector(isAuthSelector);
 
   return (
-      <Routes>
-        {isLoggedIn() || isAuth ? (
-            <>
-              {privateRoutes.map((route) => (
-                  <Route path={route.path} element={route.element} key={route.path} />
-              ))}
-              {publicRoutes.map((route) => (
-                  <Route path={route.path} element={route.element} key={route.path} />
-              ))}
-            </>
-        ) : (
-            <>
-              {publicRoutes.map((route) => (
-                  <Route path={route.path} element={route.element} key={route.path} />
-              ))}
-            </>
-        )}
-        {anotherRoutes.map((route) => (
+    <Routes>
+      {isLoggedIn() || isAuth ? (
+        <>
+          {privateRoutes.map((route) => (
             <Route path={route.path} element={route.element} key={route.path} />
-        ))}
-      </Routes>
+          ))}
+          {publicRoutes.map((route) => (
+            <Route path={route.path} element={route.element} key={route.path} />
+          ))}
+        </>
+      ) : (
+        <>
+          {publicRoutes.map((route) => (
+            <Route path={route.path} element={route.element} key={route.path} />
+          ))}
+        </>
+      )}
+      {anotherRoutes.map((route) => (
+        <Route path={route.path} element={route.element} key={route.path} />
+      ))}
+    </Routes>
   );
 };
 

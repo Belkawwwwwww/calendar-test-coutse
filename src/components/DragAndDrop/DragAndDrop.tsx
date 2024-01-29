@@ -6,14 +6,15 @@ interface Item {
   id: number;
   title: string;
 }
+
 interface Cards {
   cardId: number;
   title: string;
   items: Item[];
-  boardId: number
-  nameCard: string
-
+  boardId: number;
+  nameCard: string;
 }
+
 const DragAndDrop = () => {
   // const [cards, setCards] = useState<IResponseData>({});
   const [currentBoard, setCurrentBoard] = useState<Cards | null>(null);

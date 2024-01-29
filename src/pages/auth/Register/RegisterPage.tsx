@@ -2,8 +2,8 @@ import React, { ChangeEvent, FC, FormEvent, useState } from "react";
 import styles from "../Login/Login.module.sass";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
 import { errorUserSelector } from "../../../store/slices/UserSlice";
-import {isLoggedIn, register} from "../../../store/action/userAction";
-import {Link, Navigate, useNavigate} from "react-router-dom";
+import { isLoggedIn, register } from "../../../store/action/userAction";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../../lib/route/RouteEnum";
 
 const Registration: FC = () => {

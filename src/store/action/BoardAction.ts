@@ -71,26 +71,25 @@ export const deleteBoard =
   };
 
 export const renameBoard =
-    (boardId: number, boardNewName: string) => async (dispatch: AppDispatch) => {
-      try {
-        const response = await ax.put<IResponse>(
-          `/renameBoard?boardId=${boardId}&boardNewName=${boardNewName}`,
-        );
-        const obj_action: {
-          [key: number]: () => void;
-        } = {
-          200: () => {
-            dispatch(
-              boardSlice.actions.renameBoard({
-                boardId,
-                boardNewName: boardNewName,
-              }),
-            );
-          },
-        };
-        obj_action[response.data.statusCode]?.();
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
+  (boardId: number, boardNewName: string) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await ax.put<IResponse>(
+        `/renameBoard?boardId=${boardId}&boardNewName=${boardNewName}`,
+      );
+      const obj_action: {
+        [key: number]: () => void;
+      } = {
+        200: () => {
+          dispatch(
+            boardSlice.actions.renameBoard({
+              boardId,
+              boardNewName: boardNewName,
+            }),
+          );
+        },
+      };
+      obj_action[response.data.statusCode]?.();
+    } catch (e) {
+      console.log(e);
+    }
+  };

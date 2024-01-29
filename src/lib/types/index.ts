@@ -39,4 +39,3 @@ export interface IList {
   card_id: number;
   user_id: number;
 }
-

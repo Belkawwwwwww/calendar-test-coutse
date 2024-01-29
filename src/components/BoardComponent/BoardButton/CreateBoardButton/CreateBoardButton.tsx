@@ -81,5 +81,4 @@ const CreateBoardButton: FC = () => {
   );
 };
 
-
 export default CreateBoardButton;

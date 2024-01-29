@@ -3,7 +3,7 @@ import styles from "./Login.module.sass";
 import { isLoggedIn, login } from "../../../store/action/userAction";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
 import { errorUserSelector } from "../../../store/slices/UserSlice";
-import {Link, Navigate, useNavigate} from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../../lib/route/RouteEnum";
 
 const LoginPage: FC = () => {
@@ -28,7 +28,7 @@ const LoginPage: FC = () => {
     e.preventDefault();
     if (username.trim() !== "" || password.trim() !== "") {
       await dispatch(login(username, password));
-      navigate(RouteEnum.BOARD)
+      navigate(RouteEnum.BOARD);
     }
   };
 

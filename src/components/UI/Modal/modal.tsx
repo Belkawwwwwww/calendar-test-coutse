@@ -24,18 +24,18 @@ type IModalProps = {
 };
 const MODAL_CONTAINER_ID = "modal-container-id";
 export const Modal = (props: IModalProps) => {
-    const {
-      title,
-      onClose,
-      children,
-      footerButtons,
-      position,
-      customPosition,
-      width,
-      height,
-      image,
-    } = props;
-    const rootRef = useRef<HTMLDivElement>(null);
+  const {
+    title,
+    onClose,
+    children,
+    footerButtons,
+    position,
+    customPosition,
+    width,
+    height,
+    image,
+  } = props;
+  const rootRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
 
   const modalStyle = {
@@ -96,7 +96,13 @@ export const Modal = (props: IModalProps) => {
             Х
           </button>
           <div className={styles.header}>
-            {image && <img src={image} alt="Модальное окно" className={props.imageClassName}/>}
+            {image && (
+              <img
+                src={image}
+                alt="Модальное окно"
+                className={props.imageClassName}
+              />
+            )}
             <p className={styles.title}>{title}</p>
           </div>
           <div className={styles.mainContent}>{children}</div>

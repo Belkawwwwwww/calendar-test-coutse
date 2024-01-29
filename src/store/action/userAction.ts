@@ -10,6 +10,7 @@ interface User {
   deletedAt: string | null;
   username: string;
 }
+
 export const isLoggedIn = () => {
   return !!sessionStorage.getItem("username");
 };
@@ -30,13 +31,13 @@ export const login =
           dispatch(userSlice.actions.setUser({ username }));
           dispatch(userSlice.actions.setIsAuth(true));
         },
-        401: () => dispatch(userSlice.actions.setError("Пользователь не существует")),
+        401: () =>
+          dispatch(userSlice.actions.setError("Пользователь не существует")),
         // 403: () => dispatch(userSlice.actions.setError(response.data.message)),
         // 404: () => dispatch(userSlice.actions.setError(response.data.message)),
         // 500: () => dispatch(userSlice.actions.setError(response.data.message)),
       };
       obj_action[response.data.statusCode]?.();
-
     } catch (e) {
       dispatch(userSlice.actions.setError("Некорректный логин или пароль"));
     }
@@ -76,7 +77,7 @@ export const checkAuth = () => async (dispatch: AppDispatch) => {
 
 export const logout = () => async (dispatch: AppDispatch) => {
   try {
-    sessionStorage.removeItem("username")
+    sessionStorage.removeItem("username");
     dispatch(userSlice.actions.setIsAuth(false));
     dispatch(userSlice.actions.setUser(null));
     await ax.post("/logout");
