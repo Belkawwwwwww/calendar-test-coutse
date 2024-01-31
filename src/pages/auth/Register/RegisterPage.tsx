@@ -13,7 +13,6 @@ const Registration: FC = () => {
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
   const error = useAppSelector(errorUserSelector);
   const navigate = useNavigate();
-  // const isAuth = useAppSelector(isAuthSelector);
   if (isLoggedIn()) {
     return <Navigate to={RouteEnum.BOARD} />;
   }

@@ -53,7 +53,6 @@ const DeleteCardButton: FC<DeleteCardProps> = ({
           ]}
           customPosition={{ top: "48%", left: "49%" }}
           width="300px"
-          // height="140px"
         ></Modal>
       ) : null}
     </>

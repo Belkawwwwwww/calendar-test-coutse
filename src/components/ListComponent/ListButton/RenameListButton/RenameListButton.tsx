@@ -15,7 +15,6 @@ const RenameListButton: FC = () => {
       .then(() => {
         handleModalClose();
         setShowRenameModal(false);
-        // setNewCardName("");
       })
       .catch((error) => {
         console.error("Произошла ошибка при изменении названия списка:", error);
@@ -50,13 +49,7 @@ const RenameListButton: FC = () => {
           ]}
           customPosition={{ top: "68%", left: "43%" }}
         >
-          <input
-            // value={cardNewName}
-            className={styles.inputModalCard}
-            type="text"
-            // onChange={onHandlerModal}
-            required
-          />
+          <input className={styles.inputModalCard} type="text" required />
         </Modal>
       ) : null}
     </>

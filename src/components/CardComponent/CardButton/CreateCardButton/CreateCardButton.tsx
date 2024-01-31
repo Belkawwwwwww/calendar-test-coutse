@@ -12,14 +12,12 @@ interface GetFileButtonProps {
 const CreateCardButton: FC<GetFileButtonProps> = ({ boardId }) => {
   const dispatch = useAppDispatch();
   const [nameCard, setNameCard] = useState<string>("");
-  // const [error, setError] = useState<string | undefined>(undefined);
   const { isModalActive, handleModalOpen, handleModalClose } =
     useModalOpenClose();
 
   useEffect(() => {
     if (!isModalActive) {
       setNameCard("");
-      // setError(undefined);
     }
   }, [isModalActive]);
   const handleSubmitModal = async () => {

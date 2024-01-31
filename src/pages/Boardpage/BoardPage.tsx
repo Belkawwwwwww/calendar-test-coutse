@@ -11,8 +11,6 @@ import CardList from "../../components/CardComponent/CardList";
 
 const BoardPage: FC = () => {
   const user = useAppSelector(userDataSelector);
-  // const boards = useAppSelector(isBoardsSelector);
-  // const navigate = useNavigate();
   const { boardId } = useParams<{ boardId: string }>();
   const cardsContainerRef = useRef<HTMLDivElement>(null);
 
@@ -21,23 +19,6 @@ const BoardPage: FC = () => {
       cardsContainerRef.current.scrollTo(0, 0); // Прокрутка к началу списка карточек
     }
   }, [boardId]);
-  // useEffect(() => {
-  //   const parsedBoardId = Number(boardId);
-  //   const boardExist = boards.filter((board) => board.id === parsedBoardId);
-  //   console.log(`url:${parsedBoardId}` , `bek:${boardExist}`, boardExist);
-  //   if (!boardExist.length) {
-  //     navigate(RouteEnum.BOARD);
-  //   }
-  // }, [boardId]); //eslint-disable-line
-
-  // useLayoutEffect(() => {
-  //     const parsedBoardId = Number(boardId);
-  //   const boardExist = boards.filter((board) => board.id === Number(boardId));
-  //     console.log(`url:${parsedBoardId}` , `bek:${boardExist}`, boardExist);
-  //
-  //   if (!boardExist.length) {
-  //     navigate(RouteEnum.BOARD)
-  // }}, [boardId]); //eslint-disable-line
 
   const gif =
     "https://framerusercontent.com/images/lUWZ2z9geAGbpdf0JvpDsbZM3ww.gif";

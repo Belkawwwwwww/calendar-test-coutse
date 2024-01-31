@@ -13,7 +13,6 @@ const LoginPage: FC = () => {
   const error = useAppSelector(errorUserSelector);
   const navigate = useNavigate();
   const [isAnimationDone, setIsAnimationDone] = useState(false);
-  // const isAuth = useAppSelector(isAuthSelector);
   useEffect(() => {
     if (!isAnimationDone) {
       setIsAnimationDone(true);
