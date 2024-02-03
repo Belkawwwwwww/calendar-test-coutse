@@ -30,6 +30,14 @@ export const listSlice = createSlice({
         state.lists = state.lists.filter((list) => list.id !== payload);
       }
     },
+    setContent(state, {payload}: PayloadAction<{listId: number, content: string}>) {
+      if (state.lists) {
+        const listIndex = state.lists.findIndex((list) => list.id === payload.listId)
+        if (listIndex !== -1) {
+          state.lists[listIndex].content= payload.content
+        }
+      }
+    }
   },
 });
 

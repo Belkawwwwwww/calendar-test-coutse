@@ -39,7 +39,7 @@ const CardList: FC<CardListProps> = ({ boardId }) => {
                           />
                         </div>
                       </div>
-                      <ListsList cardLists={cardLists} />
+                      <ListsList cardLists={cardLists} cardId={card.id} />
                       <CreateListButton boardId={boardId} cardId={card.id} />
                     </div>
                   </div>

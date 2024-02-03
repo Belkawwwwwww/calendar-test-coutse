@@ -5,12 +5,14 @@ import useModalOpenClose from "../../store/hooks/custom-hooks/useModalOpenClose"
 import { IList } from "../../lib/types";
 import RenameListButton from "./ListButton/RenameListButton/RenameListButton";
 import DeleteListButton from "./ListButton/DeleteListButton/DeleteListButton";
+import {getContentList} from "../../store/action/ListAction";
 
 interface ListsProps {
   cardLists: IList[];
+  cardId: number
 }
 
-const ListsList: FC<ListsProps> = ({ cardLists }) => {
+const ListsList: FC<ListsProps> = ({ cardLists, cardId }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedList, setSelectedList] = useState<IList | null>(null);
   const { isModalActive, handleModalOpen, handleModalClose } =
@@ -18,6 +20,7 @@ const ListsList: FC<ListsProps> = ({ cardLists }) => {
   const handleListClick = async (selectedList: IList) => {
     setSelectedList(selectedList);
     handleModalOpen();
+    getContentList(cardId)
   };
 
   const handleMouseEnter = (index: number) => {
@@ -34,9 +37,8 @@ const ListsList: FC<ListsProps> = ({ cardLists }) => {
         <div key={list.id} className={styles.contentList}>
           <div
             className={styles.contentHeaderCard}
-            onClick={() => handleListClick(list)}
           >
-            <div>{list.title}</div>
+            <div onClick={() => handleListClick(list)}>{list.title}</div>
             <div className={styles.modal}>
               {isModalActive && selectedList && selectedList.id === list.id ? (
                 <Modal

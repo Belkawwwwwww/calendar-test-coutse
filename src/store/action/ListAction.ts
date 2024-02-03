@@ -54,21 +54,31 @@ export const getContentList =
       const response = await ax.get<IResponse<IList[]>>(
         `/list?listId=${listId}`,
       );
+      console.log(response);
+
       const obj_action: {
         [key: number]: () => void;
       } = {
         200: () => {
           if (response.data?.data !== undefined) {
-            const listData = response.data.data;
-            dispatch(listSlice.actions.setLists(listData));
+            const listData = response.data.data[0];
+            dispatch(
+              listSlice.actions.setContent({
+                listId,
+                content: listData.content,
+              }),
+            );
           }
         },
       };
       obj_action[response.data.statusCode]?.();
       return response.data?.data || [];
+
     } catch (e) {
+
       throw e;
     }
+
   };
 
 export const deleteList = (listId: number) => async (dispatch: AppDispatch) => {
