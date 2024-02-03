@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef } from "react";
-import { useAppSelector } from "../../store/hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import styles from "./styles.module.sass";
 import { userDataSelector } from "../../store/slices/UserSlice";
 import { useParams } from "react-router-dom";
@@ -8,17 +8,22 @@ import RenameBoardButton from "../../components/BoardComponent/BoardButton/Renam
 import DeleteBoardButton from "../../components/BoardComponent/BoardButton/DeleteBoardButton/DeleteBoardButton";
 import CreateCard from "../../components/CardComponent/CardButton/CreateCardButton/CreateCard";
 import CardList from "../../components/CardComponent/CardList";
+import { getCard } from "../../store/action/CardAction";
+import { getList } from "../../store/action/ListAction";
 
 const BoardPage: FC = () => {
+  const dispatch = useAppDispatch();
   const user = useAppSelector(userDataSelector);
   const { boardId } = useParams<{ boardId: string }>();
   const cardsContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    dispatch(getCard(Number(boardId)));
+    dispatch(getList(Number(boardId)));
     if (cardsContainerRef.current) {
       cardsContainerRef.current.scrollTo(0, 0); // Прокрутка к началу списка карточек
     }
-  }, [boardId]);
+  }, [boardId]); // eslint-disable-line
 
   const gif =
     "https://framerusercontent.com/images/lUWZ2z9geAGbpdf0JvpDsbZM3ww.gif";

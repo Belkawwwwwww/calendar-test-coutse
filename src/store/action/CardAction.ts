@@ -18,10 +18,12 @@ export const createCard =
   };
 
 export const getCard =
-  () =>
+  (boardId: number) =>
   async (dispatch: AppDispatch): Promise<ICard[]> => {
     try {
-      const response = await ax.get<IResponse<ICard[]>>(`/getCard`);
+      const response = await ax.get<IResponse<ICard[]>>(
+        `getCard?boardId=${boardId}`,
+      );
       const obj_action: {
         [key: number]: () => void;
       } = {

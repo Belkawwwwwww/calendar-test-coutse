@@ -24,10 +24,12 @@ export const createList =
   };
 
 export const getList =
-  () =>
+  (boardId: number) =>
   async (dispatch: AppDispatch): Promise<IList[]> => {
     try {
-      const response = await ax.get<IResponse<IList[]>>(`/lists`);
+      const response = await ax.get<IResponse<IList[]>>(
+        `/lists?boardId=${boardId}`,
+      );
       const obj_action: {
         [key: number]: () => void;
       } = {
