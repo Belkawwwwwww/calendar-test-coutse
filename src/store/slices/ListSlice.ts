@@ -30,14 +30,41 @@ export const listSlice = createSlice({
         state.lists = state.lists.filter((list) => list.id !== payload);
       }
     },
-    setContent(state, {payload}: PayloadAction<{listId: number, content: string}>) {
+    setContent(
+      state,
+      { payload }: PayloadAction<{ listId: number; content: string }>,
+    ) {
       if (state.lists) {
-        const listIndex = state.lists.findIndex((list) => list.id === payload.listId)
+        const listIndex = state.lists.findIndex(
+          (list) => list.id === payload.listId,
+        );
         if (listIndex !== -1) {
-          state.lists[listIndex].content= payload.content
+          state.lists[listIndex].content = payload.content;
         }
       }
-    }
+    },
+    renameTitleList(
+      state,
+      { payload }: PayloadAction<{ list_id: number; title: string }>,
+    ) {
+      if (state.lists) {
+        const { list_id, title } = payload;
+        state.lists = state.lists.map((list) =>
+          list.id === list_id ? { ...list, title: title } : list,
+        );
+      }
+    },
+    updateContent(
+      state,
+      { payload }: PayloadAction<{ list_id: number; content: string }>,
+    ) {
+      if (state.lists) {
+        const { list_id, content } = payload;
+        state.lists = state.lists.map((list) =>
+          list.id === list_id ? { ...list, content: content } : list,
+        );
+      }
+    },
   },
 });
 

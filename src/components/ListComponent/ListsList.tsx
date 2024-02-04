@@ -5,14 +5,16 @@ import useModalOpenClose from "../../store/hooks/custom-hooks/useModalOpenClose"
 import { IList } from "../../lib/types";
 import RenameListButton from "./ListButton/RenameListButton/RenameListButton";
 import DeleteListButton from "./ListButton/DeleteListButton/DeleteListButton";
-import {getContentList} from "../../store/action/ListAction";
+import { getContentList } from "../../store/action/ListAction";
+import UpdateContent from "./ListButton/UpdateContent/UpdateContent";
 
 interface ListsProps {
   cardLists: IList[];
-  cardId: number
+  cardId: number;
+  boardId: number;
 }
 
-const ListsList: FC<ListsProps> = ({ cardLists, cardId }) => {
+const ListsList: FC<ListsProps> = ({ cardLists, cardId, boardId }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedList, setSelectedList] = useState<IList | null>(null);
   const { isModalActive, handleModalOpen, handleModalClose } =
@@ -20,7 +22,7 @@ const ListsList: FC<ListsProps> = ({ cardLists, cardId }) => {
   const handleListClick = async (selectedList: IList) => {
     setSelectedList(selectedList);
     handleModalOpen();
-    getContentList(cardId)
+    getContentList(cardId);
   };
 
   const handleMouseEnter = (index: number) => {
@@ -35,39 +37,53 @@ const ListsList: FC<ListsProps> = ({ cardLists, cardId }) => {
     <div className={styles.listsEnumeration}>
       {cardLists.map((list, index) => (
         <div key={list.id} className={styles.contentList}>
-          <div
-            className={styles.contentHeaderCard}
-          >
+          <div className={styles.contentHeaderCard}>
             <div onClick={() => handleListClick(list)}>{list.title}</div>
             <div className={styles.modal}>
               {isModalActive && selectedList && selectedList.id === list.id ? (
                 <Modal
                   image="/img/browser_icon.svg"
-                  title={selectedList.title}
+                  title={list.title}
                   onClose={handleModalClose}
                   customPosition={{ top: "50%", left: "50%" }}
-                  width="460px"
-                  height="152px"
+                  width="600px"
+                  height="451px"
                   imageClassName={styles.customImage}
                 >
                   <div className={styles.modalListContent}>
-                    <img
-                      className={styles.browserIcon}
-                      src="/img/menu_icon.svg"
-                      alt="menu"
+                    <div className={styles.modalListContentLeft}>
+                      <img
+                        className={styles.browserIcon}
+                        src="/img/menu_icon.svg"
+                        alt="menu"
+                      />
+                      <div>Описание</div>
+                    </div>
+                    <UpdateContent
+                      listId={list.id}
+                      nameList={list.title}
+                      cardId={cardId}
+                      boardId={boardId}
                     />
-                    <div>Описание</div>
                   </div>
                   <div className={styles.listContent}>
-                    {selectedList.content ? (
-                      <div>{selectedList.content}</div>
+                    {list.content ? (
+                      <div>{list.content}</div>
                     ) : (
                       <div>Контент пуст</div>
                     )}
                   </div>
 
-                  <div className={styles.ListButton}>
-                    <RenameListButton />
+                  <div
+                    className={`${styles.ListButton} ${styles.alwaysJustify}`}
+                  >
+                    <RenameListButton
+                      nameList={list.title}
+                      listContent={list.content}
+                      cardId={cardId}
+                      boardId={boardId}
+                      listId={list.id}
+                    />
                     <DeleteListButton nameList={list.title} listId={list.id} />
                   </div>
                 </Modal>

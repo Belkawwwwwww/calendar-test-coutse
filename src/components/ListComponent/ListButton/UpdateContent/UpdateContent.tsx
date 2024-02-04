@@ -1,38 +1,37 @@
 import React, { FC, useState } from "react";
-import styles from "../../../../pages/Boardpage/styles.module.sass";
-import Modal from "../../../UI/Modal";
-import { renameTitleList } from "../../../../store/action/ListAction";
+import styles from "./styles.module.sass";
 import { useAppDispatch } from "../../../../store/hooks/redux";
 import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpenClose";
+import Modal from "../../../UI/Modal";
+import { updateContentList } from "../../../../store/action/ListAction";
 
-interface RenameListProps {
-  cardId: number;
-  nameList: string;
-  listContent: string;
-  boardId: number;
+interface updateContentProps {
   listId: number;
+  nameList: string;
+  cardId: number;
+  boardId: number;
 }
 
-const RenameListButton: FC<RenameListProps> = ({
-  cardId,
-  listContent,
-  boardId,
+const UpdateContent: FC<updateContentProps> = ({
   listId,
+  nameList,
+  boardId,
+  cardId,
 }) => {
-  const dispatch = useAppDispatch();
   const [showRenameModal, setShowRenameModal] = useState(false);
+  const [listContent, setListContent] = useState("");
   const { handleModalClose } = useModalOpenClose();
-  const [listTitle, setListTitle] = useState("");
-  const isCreateButtonDisabled = listTitle.length === 0;
+  const dispatch = useAppDispatch();
+  const isCreateButtonDisabled = listContent.length === 0;
 
-  const handleRenameCard = async () => {
+  const handleUpdateContent = async () => {
     await dispatch(
-      renameTitleList(boardId, cardId, listId, listTitle, listContent),
+      updateContentList(boardId, cardId, listId, nameList, listContent),
     )
       .then(() => {
         handleModalClose();
         setShowRenameModal(false);
-        setListTitle("");
+        setListContent("");
       })
       .catch((error) => {
         console.error("Произошла ошибка при изменении названия списка:", error);
@@ -44,24 +43,24 @@ const RenameListButton: FC<RenameListProps> = ({
   const handleModalCloseModal = () => {
     setShowRenameModal(false);
   };
-  const onHandlerModal = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setListTitle(e.target.value);
+  const onHandlerModal = (e: any) => {
+    setListContent(e.target.value);
   };
   return (
     <>
-      <div className={styles.lists} onClick={handleModalOpenModal}>
-        Изменить название списка
+      <div className={styles.btnUpdateContent} onClick={handleModalOpenModal}>
+        Изменить
       </div>
       {showRenameModal ? (
         <Modal
-          title="Изменить название списка"
+          title="Изменить контент"
           onClose={handleModalCloseModal}
           width="240px"
           footerButtons={[
             {
               name: "Сохранить",
               disabled: isCreateButtonDisabled,
-              onClick: () => handleRenameCard(),
+              onClick: () => handleUpdateContent(),
             },
             {
               name: "Отменить",
@@ -69,14 +68,12 @@ const RenameListButton: FC<RenameListProps> = ({
               onClick: handleModalCloseModal,
             },
           ]}
-          customPosition={{ top: "70.6%", left: "55%" }}
+          customPosition={{ top: "35%", left: "78%" }}
         >
-          <input
+          <textarea
+            value={listContent}
+            className={styles.inputModalListContent}
             onChange={onHandlerModal}
-            id="listTitle"
-            value={listTitle}
-            className={styles.inputModalCard}
-            type="text"
             required
           />
         </Modal>
@@ -85,4 +82,4 @@ const RenameListButton: FC<RenameListProps> = ({
   );
 };
 
-export default RenameListButton;
+export default UpdateContent;

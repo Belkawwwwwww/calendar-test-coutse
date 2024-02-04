@@ -84,7 +84,6 @@ export const getContentList =
 export const deleteList = (listId: number) => async (dispatch: AppDispatch) => {
   try {
     const response = await ax.delete<IResponse>(`/list?listId=${listId}`);
-    console.log(response);
     const obj_action: {
       [key: number]: () => void;
     } = {
@@ -98,18 +97,72 @@ export const deleteList = (listId: number) => async (dispatch: AppDispatch) => {
   }
 };
 
-export const renameList = (listId: number) => async (dispatch: AppDispatch) => {
-  try {
-    const response = await ax.put<IResponse>(`/list/update?listId=${listId}`);
-    const obj_action: {
-      [key: number]: () => void;
-    } = {
-      200: () => {
-        console.log("Название доски изменено");
-      },
-    };
-    obj_action[response.data.statusCode]?.();
-  } catch (e) {
-    console.log(e);
-  }
-};
+export const renameTitleList =
+  (
+    board_id: number,
+    card_id: number,
+    list_id: number,
+    title: string,
+    content: string,
+  ) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const response = await ax.put<IResponse>(`/list/update`, {
+        board_id: board_id,
+        card_id: card_id,
+        list_id: list_id,
+        title: title,
+        content: content,
+      });
+      console.log(board_id, card_id, list_id, title, content);
+      console.log(response);
+      const obj_action: {
+        [key: number]: () => void;
+      } = {
+        200: () => {
+          dispatch(
+            listSlice.actions.renameTitleList({ list_id, title: title }),
+          );
+          console.log("Название доски изменено");
+        },
+      };
+      obj_action[response.data.statusCode]?.();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+export const updateContentList =
+  (
+    board_id: number,
+    card_id: number,
+    list_id: number,
+    title: string,
+    content: string,
+  ) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const response = await ax.put<IResponse>(`/list/update`, {
+        board_id: board_id,
+        card_id: card_id,
+        list_id: list_id,
+        title: title,
+        content: content,
+      });
+      console.log(board_id, card_id, list_id, title, content);
+      console.log(response);
+      const obj_action: {
+        [key: number]: () => void;
+      } = {
+        200: () => {
+          dispatch(
+            listSlice.actions.updateContent({ list_id, content: content }),
+          );
+          console.log("Название доски изменено");
+        },
+      };
+      obj_action[response.data.statusCode]?.();
+    } catch (e) {
+      console.log(e);
+    }
+  };

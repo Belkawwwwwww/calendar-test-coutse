@@ -145,7 +145,7 @@
   border-radius: 8px
 
   &:first-child
-    padding-right: 59px
+    //padding-right: 59px
     margin-bottom: 10px
 
 .listsEnumeration
@@ -194,8 +194,12 @@
 
 .ListButton
   width: 400px
-  margin-top: 10px
-  display: flex
+  bottom: 10px
+  position: absolute
+//display: flex
+.alwaysJustify
+  justify-content: space-between !important
+
 
 .inputModalCard
   margin-top: 10px
@@ -218,10 +222,16 @@
 .modalListContent
   display: flex
   align-items: center
+  justify-content: space-between
+
+  .modalListContentLeft
+    display: flex
 
 .listContent
+  word-wrap: break-word
   padding-left: 31px
   padding-top: 10px
+  padding-bottom: 10px
 
 .customImage
   margin-top: -5px

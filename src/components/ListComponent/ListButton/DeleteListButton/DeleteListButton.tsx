@@ -46,7 +46,7 @@ const DeleteListButton: FC<DeleteListProps> = ({ nameList, listId }) => {
               onClick: handleModalClose,
             },
           ]}
-          customPosition={{ top: "65%", right: "22%" }}
+          customPosition={{ top: "73.5%", right: "22%" }}
           width="300px"
           height="97px"
         ></Modal>

@@ -47,7 +47,6 @@ export const deleteCard =
       const response = await ax.delete<IResponse>(
         `/deleteCard?cardId=${cardId}&boarId=${boardId}`,
       );
-      console.log(response);
       const obj_action: {
         [key: number]: () => void;
       } = {
