@@ -1,15 +1,7 @@
 import { AppDispatch } from "../index";
 import { userSlice } from "../slices/UserSlice";
 import ax from "../../utils/axios";
-import { IResponse } from "../../lib/types";
-
-interface User {
-  id: number;
-  created: string;
-  updated: string;
-  deletedAt: string | null;
-  username: string;
-}
+import { IResponse, IUser } from "../../lib/types";
 
 export const isLoggedIn = () => {
   return !!sessionStorage.getItem("username");
@@ -41,7 +33,7 @@ export const login =
   };
 export const checkAuth = () => async (dispatch: AppDispatch) => {
   try {
-    const response = await ax.get<IResponse<User>>("/profile");
+    const response = await ax.get<IResponse<IUser>>("/profile");
 
     const userData = response.data.data;
     if (userData) {
@@ -83,7 +75,7 @@ export const register =
   (username: string, password: string, password_confirm: string) =>
   async (dispatch: AppDispatch) => {
     try {
-      const response = await ax.post<IResponse>("/registration", {
+      const response = await ax.post<IResponse<IUser>>("/registration", {
         username: username,
         password: password,
         password_confirm: password_confirm,

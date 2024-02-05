@@ -51,7 +51,7 @@ export const getBoard =
 export const deleteBoard =
   (boardId: number) => async (dispatch: AppDispatch) => {
     try {
-      const response = await ax.delete<IResponse>(
+      const response = await ax.delete<IResponse<IBoard>>(
         `/deleteBoard?boardId=${boardId}`,
       );
       console.log(response);
@@ -73,7 +73,7 @@ export const deleteBoard =
 export const renameBoard =
   (boardId: number, boardNewName: string) => async (dispatch: AppDispatch) => {
     try {
-      const response = await ax.put<IResponse>(
+      const response = await ax.put<IResponse<IBoard>>(
         `/renameBoard?boardId=${boardId}&boardNewName=${boardNewName}`,
       );
       const obj_action: {
