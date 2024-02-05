@@ -1,8 +1,8 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import styles from "./styles.module.sass";
 import { userDataSelector } from "../../store/slices/UserSlice";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import BoardList from "../../components/BoardComponent/BoardList";
 import RenameBoardButton from "../../components/BoardComponent/BoardButton/RenameBoardButton/RenameBoardButton";
 import DeleteBoardButton from "../../components/BoardComponent/BoardButton/DeleteBoardButton/DeleteBoardButton";
@@ -10,20 +10,37 @@ import CreateCard from "../../components/CardComponent/CardButton/CreateCardButt
 import CardList from "../../components/CardComponent/CardList";
 import { getCard } from "../../store/action/CardAction";
 import { getList } from "../../store/action/ListAction";
+import { RouteEnum } from "../../lib/route/RouteEnum";
+import { isBoardsSelector } from "../../store/slices/BoardSlice";
 
 const BoardPage: FC = () => {
+  const navigate = useNavigate();
+  const boards = useAppSelector(isBoardsSelector);
   const dispatch = useAppDispatch();
   const user = useAppSelector(userDataSelector);
   const { boardId } = useParams<{ boardId: string }>();
   const cardsContainerRef = useRef<HTMLDivElement>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    if (boards.length > 0) {
+      const boardExists = boards.some((board) => board.id === Number(boardId));
+      if (!boardExists) {
+        navigate(RouteEnum.BOARD);
+      } else {
+        setIsLoading(false);
+      }
+    }
     dispatch(getCard(Number(boardId)));
     dispatch(getList(Number(boardId)));
     if (cardsContainerRef.current) {
       cardsContainerRef.current.scrollTo(0, 0); // Прокрутка к началу списка карточек
     }
-  }, [boardId]); // eslint-disable-line
+  }, [boards, boardId]); // eslint-disable-line
+
+  if (isLoading) {
+    return null; // показывает загрузочный экран или компонент ожидания, пока данные не готовы
+  }
 
   const gif =
     "https://framerusercontent.com/images/lUWZ2z9geAGbpdf0JvpDsbZM3ww.gif";

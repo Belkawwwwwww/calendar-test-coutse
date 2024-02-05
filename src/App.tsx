@@ -8,6 +8,7 @@ import { getBoard } from "./store/action/BoardAction";
 import { isAuthSelector } from "./store/slices/UserSlice";
 
 const App: FC = () => {
+  // const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isAuth = useAppSelector(isAuthSelector);
 
