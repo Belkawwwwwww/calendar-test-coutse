@@ -32,24 +32,18 @@ const BoardList = () => {
         Мои доски
       </Link>
       <div className={styles.board_list}>
-        {!boards || boards.length === 0 ? (
-          <div className={styles.createBoard}>Нет досок</div>
-        ) : (
-          boards.map((board) => (
-            <Link
-              to={`/board/${board.id}`}
-              className={`${styles.createBoard} ${
-                location.pathname === `/board/${board.id}`
-                  ? styles.selected
-                  : ""
-              }`}
-              key={board.id}
-              style={{ backgroundColor: getRandomColor(board.id) }}
-            >
-              {board.name_board}
-            </Link>
-          ))
-        )}
+        {boards.map((board) => (
+          <Link
+            to={`/board/${board.id}`}
+            className={`${styles.createBoard} ${
+              location.pathname === `/board/${board.id}` ? styles.selected : ""
+            }`}
+            key={board.id}
+            style={{ backgroundColor: getRandomColor(board.id) }}
+          >
+            {board.name_board}
+          </Link>
+        ))}
       </div>
     </div>
   );

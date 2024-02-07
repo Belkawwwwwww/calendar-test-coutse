@@ -1,7 +1,10 @@
 import React, { ChangeEvent, FC, FormEvent, useState } from "react";
 import styles from "../Login/Login.module.sass";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
-import { errorUserSelector } from "../../../store/slices/UserSlice";
+import {
+  errorUserSelector,
+  isLoadingUserSelector,
+} from "../../../store/slices/UserSlice";
 import { isLoggedIn, register } from "../../../store/action/userAction";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../../lib/route/RouteEnum";
@@ -13,6 +16,8 @@ const Registration: FC = () => {
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
   const error = useAppSelector(errorUserSelector);
   const navigate = useNavigate();
+  const isLoading = useAppSelector(isLoadingUserSelector);
+
   if (isLoggedIn()) {
     return <Navigate to={RouteEnum.BOARD} />;
   }
@@ -103,7 +108,13 @@ const Registration: FC = () => {
             />
           </div>
           <div className={styles.btnBox}>
-            <button type="submit">Register</button>
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? (
+                <div className={styles.loader}></div>
+              ) : (
+                "Registration"
+              )}
+            </button>
           </div>
         </form>
         <div className={styles.subtitle}>

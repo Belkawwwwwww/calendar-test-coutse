@@ -1,8 +1,11 @@
-import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, FC, FormEvent, useState } from "react";
 import styles from "./Login.module.sass";
 import { isLoggedIn, login } from "../../../store/action/userAction";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
-import { errorUserSelector } from "../../../store/slices/UserSlice";
+import {
+  errorUserSelector,
+  isLoadingUserSelector,
+} from "../../../store/slices/UserSlice";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../../lib/route/RouteEnum";
 
@@ -11,13 +14,8 @@ const LoginPage: FC = () => {
   const [password, setPassword] = useState<string>("");
   const dispatch = useAppDispatch();
   const error = useAppSelector(errorUserSelector);
+  const isLoading = useAppSelector(isLoadingUserSelector);
   const navigate = useNavigate();
-  const [isAnimationDone, setIsAnimationDone] = useState(false);
-  useEffect(() => {
-    if (!isAnimationDone) {
-      setIsAnimationDone(true);
-    }
-  }, []); // eslint-disable-line
 
   if (isLoggedIn()) {
     return <Navigate to={RouteEnum.BOARD} />;
@@ -94,7 +92,13 @@ const LoginPage: FC = () => {
             />
           </div>
           <div className={styles.btnBox}>
-            <button type="submit">Sign In</button>
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? (
+                <span className={styles.loader}>Loading...</span>
+              ) : (
+                "Sign In"
+              )}
+            </button>
           </div>
         </form>
         <div className={styles.subtitle}>

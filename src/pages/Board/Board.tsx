@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import styles from "./Board.module.sass";
 import { useAppSelector } from "../../store/hooks/redux";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,11 @@ const Board: FC = () => {
   const user = useAppSelector(userDataSelector);
   const boards = useAppSelector(isBoardsSelector);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
+  setTimeout(() => {
+    setLoading(false);
+  }, 200);
 
   const handleSubmit = (boardId: number) => {
     const existingBoard = boards.filter((board) => board.id === boardId);
@@ -33,26 +38,32 @@ const Board: FC = () => {
       <div className={styles.container}>
         <div className={styles.allBoard}>
           <div className={styles.content}>
-            <div className={styles.user}>
-              {user ? user.username : null} : Ваши созданные доски
-            </div>
             <div className={styles.section}>
-              <div className={styles.create}>
-                {!boards || boards.length === 0 ? (
-                  <div className={styles.createBoard}>Нет досок</div>
-                ) : (
-                  boards.map((board) => (
-                    <div
-                      onClick={() => handleSubmit(board.id)}
-                      className={styles.createBoard}
-                      key={board.id}
-                      style={{ backgroundColor: getRandomColor() }}
-                    >
-                      {board.name_board}
-                    </div>
-                  ))
-                )}
-              </div>
+              {loading ? (
+                <div className={styles.loader}>Загрузка...</div>
+              ) : (
+                <div>
+                  <div className={styles.user}>
+                    {user ? user.username : null} : Ваши созданные доски
+                  </div>
+                  <div className={styles.create}>
+                    {!boards || boards.length === 0 ? (
+                      <div className={styles.createBoard}>Нет досок</div>
+                    ) : (
+                      boards.map((board) => (
+                        <div
+                          onClick={() => handleSubmit(board.id)}
+                          className={styles.createBoard}
+                          key={board.id}
+                          style={{ backgroundColor: getRandomColor() }}
+                        >
+                          {board.name_board}
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -6,7 +6,7 @@ export interface UserSlice {
   isAuth: boolean;
   user: IUser | null;
   isLoading: boolean;
-  error?: string;
+  error?: string | null;
 }
 
 const initialState: UserSlice = {

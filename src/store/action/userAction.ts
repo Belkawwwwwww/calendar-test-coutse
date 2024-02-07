@@ -15,20 +15,17 @@ export const login =
         username: username,
         password: password,
       });
-      const obj_action: {
-        [key: number]: () => void;
-      } = {
-        200: () => {
-          sessionStorage.setItem("username", username);
-          dispatch(userSlice.actions.setUser({ username }));
-          dispatch(userSlice.actions.setIsAuth(true));
-        },
-        401: () =>
-          dispatch(userSlice.actions.setError("Пользователь не существует")),
-      };
-      obj_action[response.data.statusCode]?.();
+      if (response.status) {
+        sessionStorage.setItem("username", username);
+        dispatch(userSlice.actions.setUser({ username }));
+        dispatch(userSlice.actions.setIsAuth(true));
+        dispatch(userSlice.actions.setError(undefined));
+        dispatch(userSlice.actions.setLoading(false));
+      }
     } catch (e) {
       dispatch(userSlice.actions.setError("Некорректный логин или пароль"));
+    } finally {
+      dispatch(userSlice.actions.setLoading(false));
     }
   };
 export const checkAuth = () => async (dispatch: AppDispatch) => {
@@ -38,17 +35,19 @@ export const checkAuth = () => async (dispatch: AppDispatch) => {
     const userData = response.data.data;
     if (userData) {
       const userName = userData.username;
+      if (response.status) {
+        dispatch(userSlice.actions.setIsAuth(true));
+        dispatch(userSlice.actions.setUser({ username: userName }));
 
-      const obj_action: {
-        [key: number]: () => void;
-      } = {
-        200: () => {
-          dispatch(userSlice.actions.setIsAuth(true));
-          dispatch(userSlice.actions.setUser({ username: userName }));
-        },
-      };
-      obj_action[response.data.statusCode]?.();
+        // if (userName !== sessionStorage.getItem("username")) {
+        //   sessionStorage.removeItem("username");
+        //   dispatch(userSlice.actions.setError("Пользователь не существует"));
+        //   dispatch(userSlice.actions.setIsAuth(false));
+        // }
+      }
     } else {
+      dispatch(userSlice.actions.setLoading(false));
+      sessionStorage.removeItem("username");
       dispatch(
         userSlice.actions.setError(
           "Произошла ошибка получения данных пользователя",
@@ -62,10 +61,12 @@ export const checkAuth = () => async (dispatch: AppDispatch) => {
 
 export const logout = () => async (dispatch: AppDispatch) => {
   try {
-    sessionStorage.removeItem("username");
-    dispatch(userSlice.actions.setIsAuth(false));
-    dispatch(userSlice.actions.setUser(null));
-    await ax.post("/logout");
+      const response = await ax.post("/logout");
+      if (response.status) {
+          sessionStorage.removeItem("username");
+          dispatch(userSlice.actions.setIsAuth(false));
+          dispatch(userSlice.actions.setUser(null));
+      }
   } catch (e) {
     dispatch(userSlice.actions.setError("Произошла ошибка"));
   }
@@ -86,8 +87,11 @@ export const register =
         sessionStorage.setItem("username", username);
         dispatch(userSlice.actions.setUser({ username }));
         dispatch(userSlice.actions.setIsAuth(true));
+        dispatch(userSlice.actions.setError(undefined));
+        dispatch(userSlice.actions.setLoading(false));
       }
     } catch (e) {
+      dispatch(userSlice.actions.setLoading(false));
       dispatch(userSlice.actions.setError("Произошла ошибка при регистрации"));
     }
   };

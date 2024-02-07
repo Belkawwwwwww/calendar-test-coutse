@@ -1,7 +1,14 @@
+import React from "react";
+
 export interface IUser {
   username: string;
 }
 
+export type IRoute = {
+  path: string;
+  element: React.ReactNode;
+  action?: any;
+};
 export interface IBoard {
   id: number;
   user_id: number;

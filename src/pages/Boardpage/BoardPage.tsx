@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import styles from "./styles.module.sass";
 import { userDataSelector } from "../../store/slices/UserSlice";
@@ -20,15 +20,12 @@ const BoardPage: FC = () => {
   const user = useAppSelector(userDataSelector);
   const { boardId } = useParams<{ boardId: string }>();
   const cardsContainerRef = useRef<HTMLDivElement>(null);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (boards.length > 0) {
       const boardExists = boards.some((board) => board.id === Number(boardId));
       if (!boardExists) {
         navigate(RouteEnum.BOARD);
-      } else {
-        setIsLoading(false);
       }
     }
     dispatch(getCard(Number(boardId)));
@@ -37,10 +34,6 @@ const BoardPage: FC = () => {
       cardsContainerRef.current.scrollTo(0, 0); // Прокрутка к началу списка карточек
     }
   }, [boards, boardId]); // eslint-disable-line
-
-  if (isLoading) {
-    return null; // показывает загрузочный экран или компонент ожидания, пока данные не готовы
-  }
 
   const gif =
     "https://framerusercontent.com/images/lUWZ2z9geAGbpdf0JvpDsbZM3ww.gif";

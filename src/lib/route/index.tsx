@@ -7,11 +7,7 @@ import Board from "../../pages/Board/Board";
 import NotFound from "../../pages/NotFound/NotFound";
 import BoardPage from "../../pages/Boardpage/BoardPage";
 import Home from "../../pages/Home/Home";
-
-type IRoute = {
-  path: string;
-  element: React.ReactNode;
-};
+import { IRoute } from "../types";
 
 export const publicRoutes: IRoute[] = [
   {
@@ -22,7 +18,7 @@ export const publicRoutes: IRoute[] = [
     path: RouteEnum.REGISTRATION,
     element: <RegisterPage />,
   },
-  { path: RouteEnum.NOTFOUND, element: <Navigate to="/login" /> },
+  { path: RouteEnum.NOTFOUND, element: <Navigate to={RouteEnum.LOGIN} /> },
 ];
 
 export const privateRoutes: IRoute[] = [
