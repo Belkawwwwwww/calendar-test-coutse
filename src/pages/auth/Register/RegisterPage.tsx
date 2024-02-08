@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FC, FormEvent, useState } from "react";
-import styles from "../Login/Login.module.sass";
+import styles from "../Login/styles.module.sass";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
 import {
   errorUserSelector,

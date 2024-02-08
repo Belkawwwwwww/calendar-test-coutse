@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import styles from "../../../../pages/Boardpage/styles.module.sass";
+import styles from "./styles.module.sass";
 import Modal from "../../../UI/Modal";
 import { renameTitleList } from "../../../../store/action/ListAction";
 import { useAppDispatch } from "../../../../store/hooks/redux";

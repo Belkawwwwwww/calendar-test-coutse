@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "../../pages/Boardpage/styles.module.sass";
+import styles from "./styles.module.sass";
 import { Link, useLocation } from "react-router-dom";
-import { RouteEnum } from "../../lib/route/RouteEnum";
-import { useAppSelector } from "../../store/hooks/redux";
-import { isBoardsSelector } from "../../store/slices/BoardSlice";
+import { RouteEnum } from "../../../lib/route/RouteEnum";
+import { useAppSelector } from "../../../store/hooks/redux";
+import { isBoardsSelector } from "../../../store/slices/BoardSlice";
 
 const BoardList = () => {
   const boards = useAppSelector(isBoardsSelector);

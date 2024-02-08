@@ -1,12 +1,12 @@
 import React, { FC, useState } from "react";
-import styles from "../../pages/Boardpage/styles.module.sass";
-import Modal from "../UI/Modal";
-import useModalOpenClose from "../../store/hooks/custom-hooks/useModalOpenClose";
-import { IList } from "../../lib/types";
-import RenameListButton from "./ListButton/RenameListButton/RenameListButton";
-import DeleteListButton from "./ListButton/DeleteListButton/DeleteListButton";
-import { getContentList } from "../../store/action/ListAction";
-import UpdateContent from "./ListButton/UpdateContent/UpdateContent";
+import styles from "./styles.module.sass";
+import Modal from "../../UI/Modal";
+import useModalOpenClose from "../../../store/hooks/custom-hooks/useModalOpenClose";
+import { IList } from "../../../lib/types";
+import RenameListButton from "../ListButton/RenameListButton/RenameListButton";
+import DeleteListButton from "../ListButton/DeleteListButton/DeleteListButton";
+import { getContentList } from "../../../store/action/ListAction";
+import UpdateContent from "../ListButton/UpdateContent/UpdateContent";
 
 interface ListsProps {
   cardLists: IList[];

@@ -1,0 +1,70 @@
+.listsEnumeration
+  .contentList
+    padding-bottom: 10px
+
+  &:first-child
+    padding-top: 0
+
+  .contentHeaderCard
+    border-radius: 8px
+    padding: 7px 0 7px 5px
+    background-color: #D8D8D8
+
+  .contentHeaderCard:hover
+    border: 2px solid black
+
+.modalListContent
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+.modalListContentLeft
+  display: flex
+
+.browserIcon
+  width: 20px
+  height: 20px
+  margin-right: 10px
+
+.listContent
+  word-wrap: break-word
+  padding-left: 31px
+  padding-top: 10px
+  padding-bottom: 10px
+
+.ListButton
+  width: 400px
+  bottom: 10px
+  position: absolute
+
+  .alwaysJustify
+    justify-content: space-between !important
+
+.customImage
+  margin-top: -5px
+  margin-right: 14px
+  width: 16px
+
+.contentIcon
+  position: relative
+
+  img
+    width: 15px
+    height: 15px
+
+  .overlay
+    position: absolute
+    top: 30px
+    left: -12px
+    display: flex
+    justify-content: center
+    align-items: center
+    opacity: 0
+    transition: opacity 0.3s ease
+
+  .overlayText
+    font-size: 15px
+
+.contentList:hover .overlay
+  opacity: 1
+

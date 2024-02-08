@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import { useAppDispatch } from "../../../../store/hooks/redux";
 import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpenClose";
-import styles from "../../../../pages/Boardpage/styles.module.sass";
+import styles from "./styles.module.sass";
 import Modal from "../../../UI/Modal";
 import { createList } from "../../../../store/action/ListAction";
 

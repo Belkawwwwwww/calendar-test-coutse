@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import styles from "../../../../pages/Boardpage/styles.module.sass";
+import styles from "./styles.module.sass";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks/redux";
 import { isBoardsSelector } from "../../../../store/slices/BoardSlice";
 import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpenClose";

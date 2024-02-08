@@ -4,254 +4,54 @@
   position: relative
   padding-left: 20px
 
-.left_nav
-  display: flex
-  flex-direction: column
-  height: 100%
-  min-width: 160px
-
-.username
-  display: flex
-  align-items: center
-  padding: 8px 0 8px
-//font-size: 30px
-
-.gif
-  width: 100px
-  height: 100px
-  border-radius: 50%
-
-.board_list
-  margin-top: 6px
-  padding: 2px 0
-
-  .my_board
+  .left_nav
     display: flex
-    flex-direction: row
-    align-items: center
-    padding: 4px 0 4px 0
-    color: black
+    flex-direction: column
+    height: 100%
+    min-width: 160px
 
-.createBoard
-  display: flex
-  flex-direction: row
-  align-items: center
-  height: 45px
-  width: 140px
-  padding: 0 12px
-  position: relative
-  color: black
-  margin-bottom: 10px
-  box-shadow: 4px 4px 0 #171717
-  border: 2px solid #171717
+    .username
+      display: flex
+      align-items: center
+      padding: 8px 0 8px
 
-.createBoard:hover
-  transform: scale(1.1)
+      .gif
+        width: 100px
+        height: 100px
+        border-radius: 50%
 
-.content_wrapper
-  display: flex
-  flex-direction: column
-  flex-grow: 1
-  width: calc(100% - 160px)
-  border-left: 1px solid #e7e7e7
-
-
-.board_content
-  position: relative
-
-.header
-  display: flex
-  padding: 18px 14px 17px 24px
-  align-items: center
-  border-bottom: 1px solid #e7e7e7
-
-
-.board
-  padding-right: 10px
-  display: flex
-  align-items: flex-start
-
-.menu
-  position: relative
-  display: flex
-  align-items: flex-start
-  margin-left: auto
-
-.delete_board
-  cursor: pointer
-
-  &:first-child
-    padding-right: 10px
-
-.btnDeleteBoard:hover
-  transform: scale(1.1)
-
-.board_canvas
-  overflow: hidden
-  padding: 20px 10px 10px 20px
-
-.btnGetFile
-  min-width: 274px
-  border-radius: 12px
-  padding: 12px
-  cursor: pointer
-  margin-right: 10px
-  background-color: #e9e9e9 !important
-  border: none
-
-  .btnGetFile.expand
-    height: auto
-
-.cardsContainer
-  height: 100vh
-  width: 100%
-  overflow-x: scroll
-
-.cards
-  display: flex
-  width: 1200px
-
-.contentCard
-  justify-content: space-between
-  display: flex
-  margin-bottom: 10px
-
-  .dotsCard
-    padding: 0 5px 9px 10px
-    width: 29px
-    height: 34px
-
-  .dotsCard:hover
-    transform: scale(1.2)
-
-.footerCard
-  width: 100%
-  align-items: center
-  display: flex
-  padding: 5px 0 4px 0
-  border-radius: 8px
-
-.footerCard:hover
-  background-color: #D8D8D8
-
-.plusCard
-  padding-right: 6px
-  width: 23px
-  height: 24px
-
-.lists
-  cursor: pointer
-  margin-top: 10px
-  border-radius: 8px
-
-  &:first-child
-    //padding-right: 59px
-    margin-bottom: 10px
-
-.listsEnumeration
-  .contentList
-    padding-bottom: 10px
-
-  &:first-child
-    padding-top: 0
-
-  .contentHeaderCard
-    border-radius: 8px
-    padding: 7px 0 7px 5px
-    background-color: #D8D8D8
-
-  .contentHeaderCard:hover
-    border: 2px solid black
-
-
-.contentList
-  position: relative
-
-.overlay
-  position: absolute
-  top: 58px
-  left: -5px
-  display: flex
-  justify-content: center
-  align-items: center
-  opacity: 0
-  transition: opacity 0.3s ease
-
-.overlayText
-  font-size: 14px
-
-.contentList:hover .overlay
-  opacity: 1
-
-.contentIcon
-  img
-    width: 15px
-    height: 15px
-
-.cardContainer
-  display: inline-block
-  margin-right: 10px
-
-.ListButton
-  width: 400px
-  bottom: 10px
-  position: absolute
-//display: flex
-.alwaysJustify
-  justify-content: space-between !important
-
-
-.inputModalCard
-  margin-top: 10px
-  margin-bottom: 10px
-
-.inputModalList
-  margin-bottom: 10px
-
-.inputModalListContent
-  height: 50px
-
-.btnRenameBoard:hover
-  transform: scale(1.1)
-
-.browserIcon
-  width: 20px
-  height: 20px
-  margin-right: 10px
-
-.modalListContent
-  display: flex
-  align-items: center
-  justify-content: space-between
-
-  .modalListContentLeft
+  .content_wrapper
     display: flex
+    flex-direction: column
+    flex-grow: 1
+    width: calc(100% - 160px)
+    border-left: 1px solid #e7e7e7
 
-.listContent
-  word-wrap: break-word
-  padding-left: 31px
-  padding-top: 10px
-  padding-bottom: 10px
+    .header
+      display: flex
+      padding: 18px 14px 17px 24px
+      align-items: center
+      border-bottom: 1px solid #e7e7e7
 
-.customImage
-  margin-top: -5px
-  margin-right: 14px
-  width: 16px
+      .menu
+        position: relative
+        display: flex
+        align-items: flex-start
+        margin-left: auto
 
-.selected
-  height: 53px
-  width: 152px
+      .board
+        padding-right: 10px
+        display: flex
+        align-items: flex-start
 
+    .board_content
+      position: relative
 
+      .board_canvas
+        overflow: hidden
+        padding: 20px 10px 10px 20px
 
-
-
-
-
-
-
-
-
-
-
-
+      .cardsContainer
+        height: 100vh
+        width: 100%
+        overflow-x: scroll

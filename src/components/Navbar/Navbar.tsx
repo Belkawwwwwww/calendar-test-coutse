@@ -1,17 +1,15 @@
 import React, { FC } from "react";
 import styles from "./styles.module.sass";
-import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
+import { useAppDispatch } from "../../store/hooks/redux";
 import { isLoggedIn, logout } from "../../store/action/userAction";
 import { Link } from "react-router-dom";
 import { RouteEnum } from "../../lib/route/RouteEnum";
 import Logo from "../UI/Logo/Logo";
 import SearchBar from "../UI/SearchBar/index";
 import CreateBoardButton from "../BoardComponent/BoardButton/CreateBoardButton/CreateBoardButton";
-import { isAuthSelector } from "../../store/slices/UserSlice";
 
 const Navbar: FC = () => {
   const dispatch = useAppDispatch();
-  const isAuth = useAppSelector(isAuthSelector);
 
   const handleSubmit = () => {
     dispatch(logout())
@@ -24,16 +22,12 @@ const Navbar: FC = () => {
   };
 
   return (
-    <div
-      className={`${styles.header} ${
-        isLoggedIn() || isAuth ? styles.auth : styles.unauth
-      }`}
-    >
+    <div className={`${styles.header}`}>
       <div className={styles.container}>
         <Logo />
         <div className={styles.links}>
           {!isLoggedIn() ? (
-            <div className={styles.link}>
+            <div>
               <div className={styles.menuLog}>
                 <img
                   className={styles.accountLogo}
@@ -41,12 +35,8 @@ const Navbar: FC = () => {
                   alt=""
                 />
                 <div className={styles.dropdownContent}>
-                  <Link className={styles.menuLink} to={RouteEnum.LOGIN}>
-                    Login
-                  </Link>
-                  <Link className={styles.menuLink} to={RouteEnum.REGISTRATION}>
-                    Sign up
-                  </Link>
+                  <Link to={RouteEnum.LOGIN}>Login</Link>
+                  <Link to={RouteEnum.REGISTRATION}>Sign up</Link>
                 </div>
               </div>
             </div>
@@ -55,7 +45,7 @@ const Navbar: FC = () => {
               <div className={styles.leftNav}>
                 <CreateBoardButton />
               </div>
-              <div className={styles.rightNav}>
+              <div>
                 <SearchBar />
                 <button
                   onClick={handleSubmit}

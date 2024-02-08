@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import styles from "../../../Navbar/styles.module.sass";
+import styles from "./styles.module.sass";
 import Modal from "../../../UI/Modal/index";
 import { useNavigate } from "react-router-dom";
 import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpenClose";
@@ -65,7 +65,6 @@ const CreateBoardButton: FC = () => {
         >
           <input
             value={nameBoard}
-            className={styles.inputModal}
             type="text"
             onChange={onHandlerModal}
             required

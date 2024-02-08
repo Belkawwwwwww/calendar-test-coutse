@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import styles from "../../../../pages/Boardpage/styles.module.sass";
+import styles from "./styles.module.sass";
 import { deleteCard } from "../../../../store/action/CardAction";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks/redux";
 import { isCardSelector } from "../../../../store/slices/CardSlice";

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpenClose";
-import styles from "../../../../pages/Boardpage/styles.module.sass";
+import styles from "./styles.module.sass";
 import Modal from "../../../UI/Modal";
 import RenameCardButton from "../RenameCardButton/RenameCardButton";
 import DeleteCardButton from "../DeleteCardButton/DeleteCardButton";
@@ -21,7 +21,6 @@ const BurgerCard: FC<DeleteCardButtonProps> = ({
 
   return (
     <>
-      <div>
         <img
           onClick={handleModalOpen}
           className={styles.dotsCard}
@@ -43,7 +42,6 @@ const BurgerCard: FC<DeleteCardButtonProps> = ({
             />
           </Modal>
         ) : null}
-      </div>
     </>
   );
 };

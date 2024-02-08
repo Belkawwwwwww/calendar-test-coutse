@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import styles from "../../../../pages/Boardpage/styles.module.sass";
+import styles from "./styles.module.sass";
 import Modal from "../../../UI/Modal";
 import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpenClose";
 import { renameCard } from "../../../../store/action/CardAction";
@@ -51,7 +51,7 @@ const RenameCardButton: FC<RenameCardProps> = ({ cardId, boardId }) => {
           title="Изменить название карточки"
           onClose={handleModalCloseModal}
           width="260px"
-          height="140px"
+          height="130px"
           footerButtons={[
             {
               name: "Сохранить",

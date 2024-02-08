@@ -72,7 +72,6 @@ const UpdateContent: FC<updateContentProps> = ({
         >
           <textarea
             value={listContent}
-            className={styles.inputModalListContent}
             onChange={onHandlerModal}
             required
           />

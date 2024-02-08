@@ -1,11 +1,11 @@
 import React, { FC } from "react";
-import styles from "../../pages/Boardpage/styles.module.sass";
-import BurgerCard from "./CardButton/BurgerCard/BurgerCard";
-import { useAppSelector } from "../../store/hooks/redux";
-import { isCardSelector } from "../../store/slices/CardSlice";
-import CreateListButton from "../ListComponent/ListButton/CreateListButton/CreateListButton";
-import { isListSelector } from "../../store/slices/ListSlice";
-import ListsList from "../ListComponent/ListsList";
+import styles from "./styles.module.sass";
+import BurgerCard from "../CardButton/BurgerCard/BurgerCard";
+import { useAppSelector } from "../../../store/hooks/redux";
+import { isCardSelector } from "../../../store/slices/CardSlice";
+import CreateListButton from "../../ListComponent/ListButton/CreateListButton/CreateListButton";
+import { isListSelector } from "../../../store/slices/ListSlice";
+import ListsList from "../../ListComponent/ListsList/ListsList";
 
 interface CardListProps {
   boardId: number;
@@ -26,7 +26,6 @@ const CardList: FC<CardListProps> = ({ boardId }) => {
               return (
                 <div className={styles.cardContainer} key={card.id}>
                   <div className={styles.btnGetFile} key={card.id}>
-                    <div>
                       <div className={styles.contentCard}>
                         <div className={styles.contentHeaderCard}>
                           {card.card_name}
@@ -46,7 +45,6 @@ const CardList: FC<CardListProps> = ({ boardId }) => {
                       />
                       <CreateListButton boardId={boardId} cardId={card.id} />
                     </div>
-                  </div>
                 </div>
               );
             }

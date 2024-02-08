@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import styles from "../../../../pages/Boardpage/styles.module.sass";
+import styles from "./styles.module.sass";
 import useModalOpenClose from "../../../../store/hooks/custom-hooks/useModalOpenClose";
 import { deleteList } from "../../../../store/action/ListAction";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks/redux";

@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import styles from "../../../../pages/Boardpage/styles.module.sass";
+import styles from "./styles.module.sass";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks/redux";
 import { isBoardsSelector } from "../../../../store/slices/BoardSlice";
 import Modal from "../../../UI/Modal";
@@ -62,7 +62,6 @@ const RenameBoardButton: FC<RenameBoardProps> = ({ boardId }) => {
                   <input
                     id="nameBoard"
                     value={boardNewName}
-                    className={styles.inputModal}
                     type="text"
                     onChange={onHandlerModal}
                     required
