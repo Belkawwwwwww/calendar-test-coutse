@@ -1,11 +1,11 @@
 import { AppDispatch } from "../index";
 import ax from "../../utils/axios";
-import { userSlice } from "../slices/UserSlice";
 import { IBoard, IResponse } from "../../lib/types";
 import { boardSlice } from "../slices/BoardSlice";
 
 export const createBoard =
-  (nameBoard: string) => async (dispatch: AppDispatch) => {
+  (nameBoard: string) =>
+  async (dispatch: AppDispatch): Promise<IResponse<IBoard>> => {
     try {
       const response = await ax.post<IResponse<IBoard>>(`/createBoard`, {
         nameBoard: nameBoard,
@@ -16,9 +16,7 @@ export const createBoard =
       }
       return response.data;
     } catch (e) {
-      dispatch(
-        userSlice.actions.setError("Произошла ошибка при создании доски"),
-      );
+      console.log("Произошла ошибка при создании доски: ", e);
       throw e;
     }
   };
@@ -41,9 +39,7 @@ export const getBoard =
       obj_action[response.data.statusCode]?.();
       return response.data?.data || []; // Возвращаем тип Promise<IBoard[]> из функции
     } catch (e) {
-      dispatch(
-        userSlice.actions.setError("Произошла ошибка при получении доски"),
-      );
+      console.log("Произошла ошибка при получении досок:", e);
       throw e; // Пробрасываем ошибку для дальнейшей обработки
     }
   };
@@ -64,9 +60,7 @@ export const deleteBoard =
       };
       obj_action[response.data.statusCode]?.();
     } catch (e) {
-      dispatch(
-        userSlice.actions.setError("Произошла ошибка при удалении доски"),
-      );
+      console.log("Произошла ошибка при удалении доски: ", e);
     }
   };
 
@@ -90,6 +84,6 @@ export const renameBoard =
       };
       obj_action[response.data.statusCode]?.();
     } catch (e) {
-      console.log(e);
+      console.log("Произошла ошибка при изменении названия доски: ", e);
     }
   };

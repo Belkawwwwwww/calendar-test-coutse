@@ -93,11 +93,7 @@ const LoginPage: FC = () => {
           </div>
           <div className={styles.btnBox}>
             <button type="submit" disabled={isLoading}>
-              {isLoading ? (
-                <span className={styles.loader}>Loading...</span>
-              ) : (
-                "Sign In"
-              )}
+              {isLoading ? <span className={styles.loader}></span> : "Sign In"}
             </button>
           </div>
         </form>

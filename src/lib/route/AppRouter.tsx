@@ -7,14 +7,25 @@ import { isAuthSelector } from "../../store/slices/UserSlice";
 
 const AppRouter: FC = () => {
   const isAuth = useAppSelector(isAuthSelector);
-  const routesToRender =
-    isLoggedIn() || isAuth ? [...privateRoutes] : publicRoutes;
 
   return (
     <Routes>
-      {routesToRender.map((route) => (
-        <Route path={route.path} element={route.element} key={route.path} />
-      ))}
+      {isLoggedIn() || isAuth ? (
+        <>
+          {privateRoutes.map((route) => (
+            <Route path={route.path} element={route.element} key={route.path} />
+          ))}
+          {publicRoutes.map((route) => (
+            <Route path={route.path} element={route.element} key={route.path} />
+          ))}
+        </>
+      ) : (
+        <>
+          {publicRoutes.map((route) => (
+            <Route path={route.path} element={route.element} key={route.path} />
+          ))}
+        </>
+      )}
       {anotherRoutes.map((route) => (
         <Route path={route.path} element={route.element} key={route.path} />
       ))}

@@ -4,7 +4,6 @@ import { RootState } from "../index";
 
 export interface CardSlice {
   cards: ICard[] | null;
-  error?: string;
 }
 
 const initialState: CardSlice = {
@@ -17,9 +16,6 @@ export const cardSlice = createSlice({
   reducers: {
     setCard(state, { payload }: PayloadAction<ICard[] | null>) {
       state.cards = payload;
-    },
-    setError(state, { payload }: PayloadAction<string | undefined>) {
-      state.error = payload;
     },
     addCard(state, { payload }: PayloadAction<ICard>) {
       if (state.cards) {
@@ -47,7 +43,5 @@ export const cardSlice = createSlice({
   },
 });
 const _cards = (state: RootState) => state.cards.cards;
-const _error = (state: RootState) => state.cards.error;
 
 export const isCardSelector = createSelector([_cards], (state) => state);
-export const errorCardSelector = createSelector([_error], (state) => state);

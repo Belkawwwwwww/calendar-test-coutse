@@ -4,7 +4,6 @@ import { RootState } from "../index";
 
 export interface BoardSlice {
   boards: IBoard[] | null;
-  error?: string;
 }
 
 const initialState: BoardSlice = {
@@ -43,15 +42,9 @@ export const boardSlice = createSlice({
         );
       }
     },
-
-    setError(state, { payload }: PayloadAction<string | undefined>) {
-      state.error = payload;
-    },
   },
 });
 
 const _boards = (state: RootState) => state.boards.boards ?? [];
-const _error = (state: RootState) => state.boards.error;
 
 export const isBoardsSelector = createSelector([_boards], (state) => state);
-export const errorBoardSelector = createSelector([_error], (state) => state);

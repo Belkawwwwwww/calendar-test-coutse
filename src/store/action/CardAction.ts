@@ -14,7 +14,9 @@ export const createCard =
       if (cardId || response.status) {
         dispatch(cardSlice.actions.addCard(response.data.data!));
       }
-    } catch (e) {}
+    } catch (e) {
+      console.log("Произошла ошибка при создании карточки: ", e);
+    }
   };
 
 export const getCard =
@@ -37,7 +39,8 @@ export const getCard =
       obj_action[response.data.statusCode]?.();
       return response.data?.data || [];
     } catch (e) {
-      throw e;
+        console.log("Произошла ошибка при получении карточек: ", e);
+        throw e;
     }
   };
 
@@ -55,7 +58,9 @@ export const deleteCard =
         },
       };
       obj_action[response.data.statusCode]?.();
-    } catch (e) {}
+    } catch (e) {
+      console.log("Произошла ошибка при удалении карточки", e);
+    }
   };
 
 export const renameCard =
@@ -80,6 +85,6 @@ export const renameCard =
       };
       obj_action[response.data.statusCode]?.();
     } catch (e) {
-      console.log(e);
+      console.log("Произошла ошибка при изменении карточки", e);
     }
   };

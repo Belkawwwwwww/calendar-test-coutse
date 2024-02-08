@@ -2,7 +2,6 @@ import { AppDispatch } from "../index";
 import ax from "../../utils/axios";
 import { IList, IResponse } from "../../lib/types";
 import { listSlice } from "../slices/ListSlice";
-import { userSlice } from "../slices/UserSlice";
 
 export const createList =
   (board_id: number, card_id: number, title: string, content: string) =>
@@ -19,7 +18,7 @@ export const createList =
         dispatch(listSlice.actions.addList(response.data.data!));
       }
     } catch (e) {
-      console.log(e);
+      console.log("Произошла ошбика при создании списка: ", e);
     }
   };
 
@@ -43,6 +42,7 @@ export const getList =
       obj_action[response.data.statusCode]?.();
       return response.data?.data || [];
     } catch (e) {
+      console.log("Произошла ошибка при получении списка: ", e);
       throw e; // Пробрасываем ошибку для дальнейшей обработки
     }
   };
@@ -75,7 +75,7 @@ export const getContentList =
       return response.data?.data || [];
 
     } catch (e) {
-
+      console.log("Произошла ошибка при получении контента: ", e);
       throw e;
     }
 
@@ -93,7 +93,7 @@ export const deleteList = (listId: number) => async (dispatch: AppDispatch) => {
     };
     obj_action[response.data.statusCode]?.();
   } catch (e) {
-    dispatch(userSlice.actions.setError("Произошла ошибка при удалении доски"));
+    console.log("Произошла ошибка при удалении доски: ", e);
   }
 };
 
@@ -123,12 +123,11 @@ export const renameTitleList =
           dispatch(
             listSlice.actions.renameTitleList({ list_id, title: title }),
           );
-          console.log("Название доски изменено");
         },
       };
       obj_action[response.data.statusCode]?.();
     } catch (e) {
-      console.log(e);
+      console.log("Произошла ошибка при изменении названия списка: ", e);
     }
   };
 
@@ -163,6 +162,6 @@ export const updateContentList =
       };
       obj_action[response.data.statusCode]?.();
     } catch (e) {
-      console.log(e);
+      console.log("Произошла ошибка при изменении контента: ", e);
     }
   };

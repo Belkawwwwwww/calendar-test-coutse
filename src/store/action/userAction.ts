@@ -8,19 +8,22 @@ export const isLoggedIn = () => {
 };
 
 export const login =
-  (username: string, password: string) => async (dispatch: AppDispatch) => {
+  (username: string, password: string) =>
+  async (dispatch: AppDispatch): Promise<IUser | undefined> => {
     try {
       dispatch(userSlice.actions.setLoading(true));
-      const response = await ax.post<IResponse>("/authentication", {
+      const response = await ax.post<IResponse<IUser>>("/authentication", {
         username: username,
         password: password,
       });
       if (response.status) {
+        const userData = response.data.data;
         sessionStorage.setItem("username", username);
         dispatch(userSlice.actions.setUser({ username }));
         dispatch(userSlice.actions.setIsAuth(true));
         dispatch(userSlice.actions.setError(undefined));
         dispatch(userSlice.actions.setLoading(false));
+        return userData;
       }
     } catch (e) {
       dispatch(userSlice.actions.setError("Некорректный логин или пароль"));
@@ -28,45 +31,49 @@ export const login =
       dispatch(userSlice.actions.setLoading(false));
     }
   };
-export const checkAuth = () => async (dispatch: AppDispatch) => {
-  try {
-    const response = await ax.get<IResponse<IUser>>("/profile");
+export const checkAuth =
+  () =>
+  async (dispatch: AppDispatch): Promise<IUser | void> => {
+    try {
+      const response = await ax.get<IResponse<IUser>>("/profile");
+      const userData = response.data.data;
 
-    const userData = response.data.data;
-    if (userData) {
-      const userName = userData.username;
-      if (response.status) {
-        dispatch(userSlice.actions.setIsAuth(true));
-        dispatch(userSlice.actions.setUser({ username: userName }));
+      // Проверка наличия данных пользователя
+      if (userData) {
+        const backendUsername = userData.username;
+        const sessionUsername = sessionStorage.getItem("username");
 
-        // if (userName !== sessionStorage.getItem("username")) {
-        //   sessionStorage.removeItem("username");
-        //   dispatch(userSlice.actions.setError("Пользователь не существует"));
-        //   dispatch(userSlice.actions.setIsAuth(false));
-        // }
+        // Проверка соответствия username в sessionStorage и на бэке
+        if (sessionUsername !== backendUsername) {
+          // Удаление username из sessionStorage
+          sessionStorage.removeItem("username");
+          return;
+        }
+
+        if (response.status) {
+          dispatch(userSlice.actions.setIsAuth(true));
+          dispatch(userSlice.actions.setUser({ username: backendUsername }));
+        }
+        return userData; // Возвращаем userData
+      } else {
+        dispatch(userSlice.actions.setLoading(false));
+        sessionStorage.removeItem("username");
+        dispatch(
+          userSlice.actions.setError(
+            "Произошла ошибка получения данных пользователя",
+          ),
+        );
       }
-    } else {
-      dispatch(userSlice.actions.setLoading(false));
-      sessionStorage.removeItem("username");
-      dispatch(
-        userSlice.actions.setError(
-          "Произошла ошибка получения данных пользователя",
-        ),
-      );
-    }
-  } catch (e) {
-    localStorage.removeItem("userId");
-  }
-};
-
+    } catch (e) {}
+  };
 export const logout = () => async (dispatch: AppDispatch) => {
   try {
-      const response = await ax.post("/logout");
-      if (response.status) {
-          sessionStorage.removeItem("username");
-          dispatch(userSlice.actions.setIsAuth(false));
-          dispatch(userSlice.actions.setUser(null));
-      }
+    const response = await ax.post("/logout");
+    if (response.status) {
+      sessionStorage.removeItem("username");
+      dispatch(userSlice.actions.setIsAuth(false));
+      dispatch(userSlice.actions.setUser(null));
+    }
   } catch (e) {
     dispatch(userSlice.actions.setError("Произошла ошибка"));
   }
@@ -74,21 +81,25 @@ export const logout = () => async (dispatch: AppDispatch) => {
 
 export const register =
   (username: string, password: string, password_confirm: string) =>
-  async (dispatch: AppDispatch) => {
+  async (dispatch: AppDispatch): Promise<IUser | undefined> => {
     try {
       const response = await ax.post<IResponse<IUser>>("/registration", {
         username: username,
         password: password,
         password_confirm: password_confirm,
       });
-      console.log(response);
       if (response.data.statusCode !== 200) {
+        dispatch(
+          userSlice.actions.setError("Произошла ошибка при регистрации"),
+        );
       } else {
+        const userData = response.data.data;
         sessionStorage.setItem("username", username);
         dispatch(userSlice.actions.setUser({ username }));
         dispatch(userSlice.actions.setIsAuth(true));
         dispatch(userSlice.actions.setError(undefined));
         dispatch(userSlice.actions.setLoading(false));
+        return userData;
       }
     } catch (e) {
       dispatch(userSlice.actions.setLoading(false));

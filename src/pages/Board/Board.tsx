@@ -14,7 +14,7 @@ const Board: FC = () => {
 
   setTimeout(() => {
     setLoading(false);
-  }, 200);
+  }, 400);
 
   const handleSubmit = (boardId: number) => {
     const existingBoard = boards.filter((board) => board.id === boardId);

@@ -4,7 +4,6 @@ import { RootState } from "../index";
 
 export interface ListSlice {
   lists: IList[] | null;
-  error?: string;
 }
 
 const initialState: ListSlice = {
