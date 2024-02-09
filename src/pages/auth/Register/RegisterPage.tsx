@@ -6,7 +6,7 @@ import {
   isLoadingUserSelector,
 } from "../../../store/slices/UserSlice";
 import { isLoggedIn, register } from "../../../store/action/userAction";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../../lib/route/RouteEnum";
 
 const Registration: FC = () => {
@@ -18,9 +18,6 @@ const Registration: FC = () => {
   const navigate = useNavigate();
   const isLoading = useAppSelector(isLoadingUserSelector);
 
-  if (isLoggedIn()) {
-    // return <Navigate to={RouteEnum.BOARD} />;
-  }
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
@@ -29,7 +26,9 @@ const Registration: FC = () => {
       passwordConfirm.trim() !== ""
     ) {
       await dispatch(register(username, password, passwordConfirm));
-      // navigate(RouteEnum.BOARD);
+      if (isLoggedIn()) {
+        navigate(RouteEnum.BOARD);
+      }
     }
   };
 

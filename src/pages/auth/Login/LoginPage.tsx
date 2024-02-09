@@ -6,7 +6,7 @@ import {
   errorUserSelector,
   isLoadingUserSelector,
 } from "../../../store/slices/UserSlice";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../../lib/route/RouteEnum";
 
 const LoginPage: FC = () => {
@@ -17,16 +17,12 @@ const LoginPage: FC = () => {
   const isLoading = useAppSelector(isLoadingUserSelector);
   const navigate = useNavigate();
 
-  if (isLoggedIn()) {
-    return <Navigate to={RouteEnum.BOARD} />;
-  }
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (username.trim() !== "" || password.trim() !== "") {
       await dispatch(login(username, password));
       if (isLoggedIn()) {
-        navigate(RouteEnum.BOARD)
+        navigate(RouteEnum.BOARD);
       }
     }
   };
@@ -95,7 +91,11 @@ const LoginPage: FC = () => {
           </div>
           <div className={styles.btnBox}>
             <button type="submit" disabled={isLoading}>
-              {isLoading ? <span className={styles.loader}>Загрузка</span> : "Sign In"}
+              {isLoading ? (
+                <span className={styles.loader}>Загрузка</span>
+              ) : (
+                "Sign In"
+              )}
             </button>
           </div>
         </form>
