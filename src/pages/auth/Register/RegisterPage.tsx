@@ -19,7 +19,7 @@ const Registration: FC = () => {
   const isLoading = useAppSelector(isLoadingUserSelector);
 
   if (isLoggedIn()) {
-    return <Navigate to={RouteEnum.BOARD} />;
+    // return <Navigate to={RouteEnum.BOARD} />;
   }
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,7 +29,7 @@ const Registration: FC = () => {
       passwordConfirm.trim() !== ""
     ) {
       await dispatch(register(username, password, passwordConfirm));
-      navigate(RouteEnum.BOARD);
+      // navigate(RouteEnum.BOARD);
     }
   };
 

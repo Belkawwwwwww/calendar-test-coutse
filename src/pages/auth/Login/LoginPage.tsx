@@ -25,7 +25,9 @@ const LoginPage: FC = () => {
     e.preventDefault();
     if (username.trim() !== "" || password.trim() !== "") {
       await dispatch(login(username, password));
-      navigate(RouteEnum.BOARD);
+      if (isLoggedIn()) {
+        navigate(RouteEnum.BOARD)
+      }
     }
   };
 
@@ -93,7 +95,7 @@ const LoginPage: FC = () => {
           </div>
           <div className={styles.btnBox}>
             <button type="submit" disabled={isLoading}>
-              {isLoading ? <span className={styles.loader}></span> : "Sign In"}
+              {isLoading ? <span className={styles.loader}>Загрузка</span> : "Sign In"}
             </button>
           </div>
         </form>

@@ -14,7 +14,7 @@ const Board: FC = () => {
 
   setTimeout(() => {
     setLoading(false);
-  }, 400);
+  }, 500);
 
   const handleSubmit = (boardId: number) => {
     const existingBoard = boards.filter((board) => board.id === boardId);
@@ -40,7 +40,9 @@ const Board: FC = () => {
           <div className={styles.content}>
             <div className={styles.section}>
               {loading ? (
-                <div className={styles.loader}>Загрузка...</div>
+                <div className={styles.loader}>
+                  <img src="/img/icon_cookie.png" alt="Loader" className={styles.spinner}/>
+                </div>
               ) : (
                 <div>
                   <div className={styles.user}>

@@ -18,7 +18,11 @@ export const publicRoutes: IRoute[] = [
     path: RouteEnum.REGISTRATION,
     element: <RegisterPage />,
   },
-  { path: RouteEnum.NOTFOUND, element: <Navigate to={RouteEnum.LOGIN} /> },
+  {
+    path: RouteEnum.HOME,
+    element:<Home/>
+  }
+  // { path: RouteEnum.NOTFOUND, element: <Navigate to={RouteEnum.LOGIN} /> },
 ];
 
 export const privateRoutes: IRoute[] = [
@@ -38,8 +42,8 @@ export const privateRoutes: IRoute[] = [
 ];
 
 export const anotherRoutes: IRoute[] = [
-  {
-    path: RouteEnum.NOTFOUND,
-    element: <NotFound />,
-  },
+  // {
+  //   path: RouteEnum.NOTFOUND,
+  //   element: <NotFound />,
+  // },
 ];
