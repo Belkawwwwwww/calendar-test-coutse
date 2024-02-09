@@ -1,10 +1,11 @@
-import React, { ChangeEvent, FC, FormEvent, useState } from "react";
+import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import styles from "./styles.module.sass";
 import { isLoggedIn, login } from "../../../store/action/userAction";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
 import {
   errorUserSelector,
   isLoadingUserSelector,
+  userSlice,
 } from "../../../store/slices/UserSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../../lib/route/RouteEnum";
@@ -16,7 +17,9 @@ const LoginPage: FC = () => {
   const error = useAppSelector(errorUserSelector);
   const isLoading = useAppSelector(isLoadingUserSelector);
   const navigate = useNavigate();
-
+  useEffect(() => {
+    dispatch(userSlice.actions.resetError());
+  }, []); // eslint-disable-line
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (username.trim() !== "" || password.trim() !== "") {
@@ -89,13 +92,9 @@ const LoginPage: FC = () => {
               required
             />
           </div>
-          <div className={styles.btnBox}>
+          <div>
             <button type="submit" disabled={isLoading}>
-              {isLoading ? (
-                <span className={styles.loader}>Загрузка</span>
-              ) : (
-                "Sign In"
-              )}
+              {isLoading ? <div className={styles.loader}></div> : "Sign In"}
             </button>
           </div>
         </form>

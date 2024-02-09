@@ -38,14 +38,11 @@ export const checkAuth =
       const response = await ax.get<IResponse<IUser>>("/profile");
       const userData = response.data.data;
 
-      // Проверка наличия данных пользователя
       if (userData) {
         const backendUsername = userData.username;
         const sessionUsername = sessionStorage.getItem("username");
 
-        // Проверка соответствия username в sessionStorage и на бэке
         if (sessionUsername !== backendUsername) {
-          // Удаление username из sessionStorage
           sessionStorage.removeItem("username");
           return;
         }
@@ -54,7 +51,7 @@ export const checkAuth =
           dispatch(userSlice.actions.setIsAuth(true));
           dispatch(userSlice.actions.setUser({ username: backendUsername }));
         }
-        return userData; // Возвращаем userData
+        return userData;
       } else {
         dispatch(userSlice.actions.setLoading(false));
         sessionStorage.removeItem("username");
@@ -102,7 +99,8 @@ export const register =
         return userData;
       }
     } catch (e) {
-      dispatch(userSlice.actions.setLoading(false));
       dispatch(userSlice.actions.setError("Произошла ошибка при регистрации"));
+    } finally {
+      dispatch(userSlice.actions.setLoading(false));
     }
   };

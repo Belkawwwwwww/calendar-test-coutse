@@ -1,9 +1,10 @@
-import React, { ChangeEvent, FC, FormEvent, useState } from "react";
+import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import styles from "../Login/styles.module.sass";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
 import {
   errorUserSelector,
   isLoadingUserSelector,
+  userSlice,
 } from "../../../store/slices/UserSlice";
 import { isLoggedIn, register } from "../../../store/action/userAction";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,7 +18,9 @@ const Registration: FC = () => {
   const error = useAppSelector(errorUserSelector);
   const navigate = useNavigate();
   const isLoading = useAppSelector(isLoadingUserSelector);
-
+  useEffect(() => {
+    dispatch(userSlice.actions.resetError());
+  }, []); // eslint-disable-line
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (

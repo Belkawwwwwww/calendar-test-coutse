@@ -1,4 +1,5 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 import { RouteEnum } from "./RouteEnum";
 import LoginPage from "../../pages/auth/Login/LoginPage";
 import RegisterPage from "../../pages/auth/Register/RegisterPage";
@@ -21,6 +22,7 @@ export const publicRoutes: IRoute[] = [
     path: RouteEnum.HOME,
     element: <Home />,
   },
+  { path: RouteEnum.NOTFOUND, element: <Navigate to={RouteEnum.LOGIN} /> },
 ];
 
 export const privateRoutes: IRoute[] = [

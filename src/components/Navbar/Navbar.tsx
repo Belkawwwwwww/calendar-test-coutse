@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styles from "./styles.module.sass";
 import { useAppDispatch } from "../../store/hooks/redux";
 import { isLoggedIn, logout } from "../../store/action/userAction";
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../lib/route/RouteEnum";
 import Logo from "../UI/Logo/Logo";
 import SearchBar from "../UI/SearchBar/index";
@@ -10,13 +10,12 @@ import CreateBoardButton from "../BoardComponent/BoardButton/CreateBoardButton/C
 
 const Navbar: FC = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
     dispatch(logout())
       .then(() => {
-        navigate(RouteEnum.LOGIN)
-        // window.location.reload();
+        navigate(RouteEnum.LOGIN);
       })
       .catch((error) => {
         console.error("Произошла ошибка при выходе из аккаунта:", error);

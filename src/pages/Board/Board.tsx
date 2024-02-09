@@ -41,7 +41,11 @@ const Board: FC = () => {
             <div className={styles.section}>
               {loading ? (
                 <div className={styles.loader}>
-                  <img src="/img/icon_cookie.png" alt="Loader" className={styles.spinner}/>
+                  <img
+                    src="/img/icon_cookie.png"
+                    alt="Loader"
+                    className={styles.spinner}
+                  />
                 </div>
               ) : (
                 <div>
