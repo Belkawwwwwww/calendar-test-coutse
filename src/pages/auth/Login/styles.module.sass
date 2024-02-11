@@ -33,23 +33,25 @@
         width: 100%
         outline: none
         background: transparent
-        border-bottom: 1.5px solid black
         font-size: 17px
 
       ::placeholder
         color: black
         font-size: 15px
 
+      .inputLogin
+        border-bottom: 1.5px solid black
     .icon
       position: absolute
       user-select: none
       opacity: 0.5
-      padding: 10px 10px
+      padding: 22px 10px
 
       img
         height: 20px
 
-    button
+
+button
       background: #fccf3d
       border: 1.5px solid black
       font-weight: 500
@@ -64,19 +66,19 @@
       cursor: pointer
       margin-top: 10px
 
-    button:hover
-      transform: scale(1.1)
+button:hover
+  transform: scale(1.1)
 
-  .subtitle
-    text-align: center
-    margin-top: 10px
+.subtitle
+  text-align: center
+  margin-top: 10px
 
-    .link
-      font-weight: 400
-      font-size: 17px
-      line-height: 24px
-      color: #000000
-      cursor: pointer
+  .link
+    font-weight: 400
+    font-size: 17px
+    line-height: 24px
+    color: #000000
+    cursor: pointer
 
 .loader
   margin: auto
@@ -93,6 +95,33 @@
 
   100%
     transform: rotate(360deg)
+
+.passwordInputWrapper
+  display: flex
+  align-items: center
+  border-bottom: 1.5px solid black
+
+.passwordToggle
+  margin-left: 5px
+  cursor: pointer
+
+
+.passwordToggle img
+  width: 30px
+  height: 30px
+
+
+.icon
+  position: relative
+
+
+.icon img
+  position: absolute
+  top: 50%
+  left: 14px
+  transform: translateY(-50%)
+  width: 20px
+  height: 20px
 
 
 //.btnBox

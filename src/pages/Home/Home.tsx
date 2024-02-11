@@ -26,7 +26,7 @@ const Home = () => {
         <div className={styles.contentNoAuth}>
           <div className={styles.leftContent}>
             <div className={styles.hello}>hello</div>
-            <div className={styles.analog}>this is the Trello analog</div>
+            <div className={styles.analog}>it's the Trello analog</div>
             <Link to={RouteEnum.LOGIN} className={styles.button}>
               Sign In
             </Link>

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
+import React, { FC, FormEvent, useEffect } from "react";
 import styles from "./styles.module.sass";
 import { isLoggedIn, login } from "../../../store/action/userAction";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
@@ -9,10 +9,16 @@ import {
 } from "../../../store/slices/UserSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../../lib/route/RouteEnum";
+import { useLoginForm } from "../../../store/hooks/custom-hooks/useLoginForm";
 
 const LoginPage: FC = () => {
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const {
+    username,
+    password,
+    showPassword,
+    handleToggleShowPassword,
+    onHandlerUser,
+  } = useLoginForm();
   const dispatch = useAppDispatch();
   const error = useAppSelector(errorUserSelector);
   const isLoading = useAppSelector(isLoadingUserSelector);
@@ -27,14 +33,6 @@ const LoginPage: FC = () => {
       if (isLoggedIn()) {
         navigate(RouteEnum.BOARD);
       }
-    }
-  };
-
-  const onHandlerUser = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.name === "username") {
-      setUsername(e.target.value);
-    } else {
-      setPassword(e.target.value);
     }
   };
 
@@ -66,6 +64,7 @@ const LoginPage: FC = () => {
               <img src="/img/icon-user.svg" alt="user" />
             </label>
             <input
+              className={styles.inputLogin}
               autoFocus
               value={username}
               onChange={onHandlerUser}
@@ -81,16 +80,29 @@ const LoginPage: FC = () => {
             <label htmlFor="password" className={styles.icon}>
               <img src="/img/icon-password.svg" alt="password" />
             </label>
-            <input
-              value={password}
-              id="password"
-              onChange={onHandlerUser}
-              type="password"
-              name="password"
-              placeholder="Password"
-              autoComplete="current-password"
-              required
-            />
+            <div className={styles.passwordInputWrapper}>
+              <input
+                value={password}
+                id="password"
+                onChange={onHandlerUser}
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Password"
+                autoComplete="current-password"
+                required
+              />
+              <div
+                className={styles.passwordToggle}
+                onClick={handleToggleShowPassword}
+              >
+                <img
+                  src={
+                    showPassword ? "/img/icon_eyeOpen.svg" : "/img/icon_eye.svg"
+                  }
+                  alt={showPassword ? "Hide" : "Show"}
+                />
+              </div>
+            </div>
           </div>
           <div>
             <button type="submit" disabled={isLoading}>

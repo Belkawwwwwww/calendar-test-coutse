@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
+import React, { FC, FormEvent, useEffect } from "react";
 import styles from "../Login/styles.module.sass";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
 import {
@@ -9,18 +9,25 @@ import {
 import { isLoggedIn, register } from "../../../store/action/userAction";
 import { Link, useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../../lib/route/RouteEnum";
+import { useRegisterForm } from "../../../store/hooks/custom-hooks/useRegisterForm";
 
 const Registration: FC = () => {
+  const {
+    username,
+    password,
+    passwordConfirm,
+    showPassword,
+    handleToggleShowPassword,
+    onHandlerUser,
+  } = useRegisterForm();
   const dispatch = useAppDispatch();
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [passwordConfirm, setPasswordConfirm] = useState<string>("");
   const error = useAppSelector(errorUserSelector);
   const navigate = useNavigate();
   const isLoading = useAppSelector(isLoadingUserSelector);
   useEffect(() => {
     dispatch(userSlice.actions.resetError());
   }, []); // eslint-disable-line
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
@@ -32,18 +39,6 @@ const Registration: FC = () => {
       if (isLoggedIn()) {
         navigate(RouteEnum.BOARD);
       }
-    }
-  };
-
-  const onHandlerUser = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.name === "username") {
-      setUsername(e.target.value);
-    }
-    if (e.target.name === "password") {
-      setPassword(e.target.value);
-    }
-    if (e.target.name === "passwordConfirm") {
-      setPasswordConfirm(e.target.value);
     }
   };
 
@@ -72,6 +67,7 @@ const Registration: FC = () => {
               <img src="/img/icon-user.svg" alt="user" />
             </label>
             <input
+              className={styles.inputLogin}
               value={username}
               onChange={onHandlerUser}
               type="text"
@@ -85,24 +81,38 @@ const Registration: FC = () => {
             <label htmlFor="password" className={styles.icon}>
               <img src="/img/icon-password.svg" alt="password" />
             </label>
-            <input
-              value={password}
-              onChange={onHandlerUser}
-              type="password"
-              name="password"
-              id="psw-1"
-              placeholder="Password"
-              required
-            />
+            <div className={styles.passwordInputWrapper}>
+              <input
+                value={password}
+                onChange={onHandlerUser}
+                type={showPassword ? "text" : "password"}
+                name="password"
+                id="psw-1"
+                placeholder="Password"
+                required
+              />
+              <div
+                className={styles.passwordToggle}
+                onClick={handleToggleShowPassword}
+              >
+                <img
+                  src={
+                    showPassword ? "/img/icon_eyeOpen.svg" : "/img/icon_eye.svg"
+                  }
+                  alt={showPassword ? "Hide" : "Show"}
+                />
+              </div>
+            </div>
           </div>
           <div className={styles.inputBox}>
             <label htmlFor="password" className={styles.icon}>
               <img src="/img/icon-password.svg" alt="password" />
             </label>
             <input
+              className={styles.inputLogin}
               value={passwordConfirm}
               onChange={onHandlerUser}
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="passwordConfirm"
               id="psw-2"
               placeholder="Confirm Password"
