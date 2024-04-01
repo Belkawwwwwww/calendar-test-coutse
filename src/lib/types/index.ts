@@ -9,6 +9,7 @@ export type IRoute = {
   element: React.ReactNode;
   action?: any;
 };
+
 export interface IBoard {
   id: number;
   user_id: number;

@@ -26,25 +26,25 @@ const CardList: FC<CardListProps> = ({ boardId }) => {
               return (
                 <div className={styles.cardContainer} key={card.id}>
                   <div className={styles.btnGetFile} key={card.id}>
-                      <div className={styles.contentCard}>
-                        <div className={styles.contentHeaderCard}>
-                          {card.card_name}
-                        </div>
-                        <div>
-                          <BurgerCard
-                            boardId={card.board_id}
-                            cardId={card.id}
-                            nameCard={card.card_name}
-                          />
-                        </div>
+                    <div className={styles.contentCard}>
+                      <div className={styles.contentHeaderCard}>
+                        {card.card_name}
                       </div>
-                      <ListsList
-                        cardLists={cardLists}
-                        cardId={card.id}
-                        boardId={boardId}
-                      />
-                      <CreateListButton boardId={boardId} cardId={card.id} />
+                      <div>
+                        <BurgerCard
+                          boardId={card.board_id}
+                          cardId={card.id}
+                          nameCard={card.card_name}
+                        />
+                      </div>
                     </div>
+                    <ListsList
+                      cardLists={cardLists}
+                      cardId={card.id}
+                      boardId={boardId}
+                    />
+                    <CreateListButton boardId={boardId} cardId={card.id} />
+                  </div>
                 </div>
               );
             }

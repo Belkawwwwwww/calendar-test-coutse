@@ -73,12 +73,10 @@ export const getContentList =
       };
       obj_action[response.data.statusCode]?.();
       return response.data?.data || [];
-
     } catch (e) {
       console.log("Произошла ошибка при получении контента: ", e);
       throw e;
     }
-
   };
 
 export const deleteList = (listId: number) => async (dispatch: AppDispatch) => {

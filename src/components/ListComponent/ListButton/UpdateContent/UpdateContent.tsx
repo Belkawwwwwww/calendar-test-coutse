@@ -70,11 +70,7 @@ const UpdateContent: FC<updateContentProps> = ({
           ]}
           customPosition={{ top: "35%", left: "78%" }}
         >
-          <textarea
-            value={listContent}
-            onChange={onHandlerModal}
-            required
-          />
+          <textarea value={listContent} onChange={onHandlerModal} required />
         </Modal>
       ) : null}
     </>

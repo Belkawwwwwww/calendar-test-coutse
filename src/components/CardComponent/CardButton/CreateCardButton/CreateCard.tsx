@@ -6,6 +6,7 @@ import { isBoardsSelector } from "../../../../store/slices/BoardSlice";
 interface CreateCardProps {
   boardId: number;
 }
+
 const CreateCard: FC<CreateCardProps> = ({ boardId }) => {
   const boards = useAppSelector(isBoardsSelector);
 

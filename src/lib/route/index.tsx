@@ -40,4 +40,3 @@ export const privateRoutes: IRoute[] = [
   },
   { path: RouteEnum.NOTFOUND, element: <NotFound /> },
 ];
-
