@@ -48,7 +48,6 @@ const LoginPage: FC = () => {
         <form
           method="post"
           action="#"
-          className={styles.btnBox}
           onSubmit={handleSubmit}
         >
           <h1 className={styles.title}>USER LOGIN</h1>
