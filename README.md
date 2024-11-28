@@ -22,11 +22,23 @@ The concept of the app is to create boards and cards that allow you to systemati
 
 ## Available Scripts
 
-In the project directory, you can run:
+* install dependencies
 ```js
-`npm start`
+npm install
+
+// or
+
+pnpm install
+
+// or
+
+yarn
+```
+* getting start
+```js
+npm start
 
  // or
 
- `pnpm start`
+pnpm start
  ```
